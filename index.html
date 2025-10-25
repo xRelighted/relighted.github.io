@@ -24,12 +24,69 @@
       min-height: 100vh;
       overflow-x: hidden;
       padding: 20px;
+      opacity: 0;
+      animation: fadeInBody 0.8s ease 0.5s forwards;
+    }
+    
+    @keyframes fadeInBody {
+      to { opacity: 1; }
+    }
+    
+    /* Puertas de entrada futuristas */
+    .door-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+      display: flex;
+      pointer-events: none;
+    }
+    
+    .door {
+      flex: 1;
+      background: linear-gradient(135deg, #00ffff 0%, #007bff 100%);
+      transform: scaleY(1);
+      transform-origin: top;
+      animation: doorOpen 0.8s ease 0.5s forwards;
+      box-shadow: 0 0 30px rgba(0, 123, 255, 0.5);
+    }
+    
+    .door-left {
+      transform-origin: left;
+      animation: doorOpenLeft 0.8s ease 0.5s forwards;
+    }
+    
+    .door-right {
+      transform-origin: right;
+      animation: doorOpenRight 0.8s ease 0.5s forwards;
+    }
+    
+    @keyframes doorOpenLeft {
+      0% { transform: scaleX(1); }
+      100% { transform: scaleX(0); }
+    }
+    
+    @keyframes doorOpenRight {
+      0% { transform: scaleX(1); }
+      100% { transform: scaleX(0); }
     }
     
     header {
       text-align: center;
       padding: 50px 20px 30px 20px;
       max-width: 800px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUpFade 0.8s ease 1s forwards;
+    }
+    
+    @keyframes slideUpFade {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     
     header h1 {
@@ -69,6 +126,9 @@
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUpFade 0.8s ease 1.2s forwards;
     }
     
     .description h2 {
@@ -90,6 +150,9 @@
       justify-content: center;
       margin-top: 20px;
       margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUpFade 0.8s ease 1.4s forwards;
     }
     
     .btn {
@@ -100,7 +163,7 @@
       color: #fff;
       font-weight: 500;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       box-shadow: 0 0 8px #007bff55;
       font-size: 1.1rem;
       display: flex;
@@ -119,13 +182,13 @@
       width: 100%;
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: all 0.5s ease;
+      transition: all 0.8s ease;
     }
     
     .btn:hover {
       background: #007bff;
-      box-shadow: 0 0 20px #007bffaa;
-      transform: translateY(-5px);
+      box-shadow: 0 0 30px #007bffaa;
+      transform: translateY(-8px) scale(1.05);
     }
     
     .btn:hover::before {
@@ -140,7 +203,7 @@
     
     .btn-animations:hover {
       background: #00ffff;
-      box-shadow: 0 0 20px #00ffffaa;
+      box-shadow: 0 0 30px #00ffffaa;
       color: #0a0a0a;
     }
     
@@ -152,7 +215,8 @@
     
     .btn-prices:hover {
       background: #ff69b4;
-      box-shadow: 0 0 20px #ff69b4aa;
+      box-shadow: 0 0 30px #ff69b4aa;
+      transform: translateY(-8px) scale(1.05);
     }
     
     /* Modal de precios */
@@ -167,6 +231,12 @@
       z-index: 1000;
       justify-content: center;
       align-items: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .modal.active {
+      opacity: 1;
     }
     
     .modal-content {
@@ -178,12 +248,14 @@
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.1);
       position: relative;
-      animation: modalFadeIn 0.3s ease-out;
+      transform: scale(0.8) translateY(-20px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .modal.active .modal-content {
+      transform: scale(1) translateY(0);
+      opacity: 1;
     }
     
     .close-modal {
@@ -193,11 +265,20 @@
       font-size: 1.5rem;
       color: #fff;
       cursor: pointer;
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
     }
     
     .close-modal:hover {
       color: #ff69b4;
+      transform: rotate(90deg);
+      background: rgba(255, 105, 180, 0.2);
     }
     
     .modal h2 {
@@ -218,6 +299,24 @@
       border-radius: 10px;
       padding: 20px;
       border-left: 4px solid #ff69b4;
+      transform: translateX(-20px);
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+    
+    .modal.active .price-item:nth-child(1) {
+      animation: slideInRight 0.5s ease 0.2s forwards;
+    }
+    
+    .modal.active .price-item:nth-child(2) {
+      animation: slideInRight 0.5s ease 0.4s forwards;
+    }
+    
+    @keyframes slideInRight {
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
     
     .price-item h3 {
@@ -238,6 +337,14 @@
       font-size: 0.9rem;
       color: #bbb;
       font-style: italic;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease 0.6s;
+    }
+    
+    .modal.active .modal-note {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     footer {
@@ -246,6 +353,9 @@
       color: #888;
       font-size: 0.9rem;
       padding-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUpFade 0.8s ease 1.6s forwards;
     }
     
     .discord {
@@ -257,12 +367,24 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      transition: all 0.4s ease;
+    }
+    
+    .discord:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 10px #00bfff;
     }
     
     .discord-icon {
       width: 24px;
       height: 24px;
       fill: #00bfff;
+      transition: all 0.4s ease;
+    }
+    
+    .discord:hover .discord-icon {
+      transform: rotate(10deg) scale(1.2);
+      filter: drop-shadow(0 0 5px #00bfff);
     }
     
     /* Responsive */
@@ -312,6 +434,12 @@
   </style>
 </head>
 <body>
+  <!-- Puertas de entrada futuristas -->
+  <div class="door-overlay">
+    <div class="door door-left"></div>
+    <div class="door door-right"></div>
+  </div>
+  
   <header>
     <h1>xRelighted</h1>
     <p>Animador Profesional en Roblox Studio • Especialista en Moon Animator</p>
@@ -379,26 +507,43 @@
     // Abrir modal al hacer clic en el botón Precios
     pricesBtn.addEventListener('click', () => {
       pricesModal.style.display = 'flex';
+      setTimeout(() => {
+        pricesModal.classList.add('active');
+      }, 10);
     });
     
     // Cerrar modal al hacer clic en la X
     closeModal.addEventListener('click', () => {
-      pricesModal.style.display = 'none';
+      pricesModal.classList.remove('active');
+      setTimeout(() => {
+        pricesModal.style.display = 'none';
+      }, 400);
     });
     
     // Cerrar modal al hacer clic fuera del contenido
     window.addEventListener('click', (event) => {
       if (event.target === pricesModal) {
-        pricesModal.style.display = 'none';
+        pricesModal.classList.remove('active');
+        setTimeout(() => {
+          pricesModal.style.display = 'none';
+        }, 400);
       }
     });
     
     // Cerrar modal con la tecla Escape
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
-        pricesModal.style.display = 'none';
+        pricesModal.classList.remove('active');
+        setTimeout(() => {
+          pricesModal.style.display = 'none';
+        }, 400);
       }
     });
+    
+    // Remover las puertas después de la animación
+    setTimeout(() => {
+      document.querySelector('.door-overlay').style.display = 'none';
+    }, 1500);
   </script>
 </body>
 </html>
