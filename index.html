@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Relighted - Animador de Roblox Studio</title>
+  <title>xRelighted - Animador de Roblox Studio</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
     
@@ -15,7 +15,7 @@
     
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
       color: #fff;
       display: flex;
       flex-direction: column;
@@ -25,7 +25,7 @@
       overflow-x: hidden;
       padding: 20px;
       opacity: 0;
-      animation: fadeInBody 0.8s ease 0.5s forwards;
+      animation: fadeInBody 0.8s ease 1s forwards;
     }
     
     @keyframes fadeInBody {
@@ -46,21 +46,21 @@
     
     .door {
       flex: 1;
-      background: linear-gradient(135deg, #00ffff 0%, #007bff 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #888888 100%);
       transform: scaleY(1);
       transform-origin: top;
-      animation: doorOpen 0.8s ease 0.5s forwards;
-      box-shadow: 0 0 30px rgba(0, 123, 255, 0.5);
+      animation: doorOpen 0.8s ease 1s forwards;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
     }
     
     .door-left {
       transform-origin: left;
-      animation: doorOpenLeft 0.8s ease 0.5s forwards;
+      animation: doorOpenLeft 0.8s ease 1s forwards;
     }
     
     .door-right {
       transform-origin: right;
-      animation: doorOpenRight 0.8s ease 0.5s forwards;
+      animation: doorOpenRight 0.8s ease 1s forwards;
     }
     
     @keyframes doorOpenLeft {
@@ -92,7 +92,7 @@
     header h1 {
       font-size: 3.5rem;
       margin-bottom: 15px;
-      background: linear-gradient(90deg, #00ffff, #007bff, #00ffff);
+      background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -100,8 +100,8 @@
     }
     
     @keyframes glow {
-      from { text-shadow: 0 0 10px #00ffff44; }
-      to { text-shadow: 0 0 30px #007bffaa; }
+      from { text-shadow: 0 0 10px #ffffff44; }
+      to { text-shadow: 0 0 30px #ffffffaa; }
     }
     
     @keyframes gradient {
@@ -134,7 +134,7 @@
     .description h2 {
       font-size: 1.8rem;
       margin-bottom: 15px;
-      color: #00bfff;
+      color: #ffffff;
     }
     
     .description p {
@@ -157,14 +157,14 @@
     
     .btn {
       padding: 14px 32px;
-      background: rgba(0, 123, 255, 0.1);
-      border: 2px solid #007bff;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #ffffff;
       border-radius: 50px;
       color: #fff;
       font-weight: 500;
       text-decoration: none;
       transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 0 8px #007bff55;
+      box-shadow: 0 0 8px #ffffff55;
       font-size: 1.1rem;
       display: flex;
       align-items: center;
@@ -186,9 +186,10 @@
     }
     
     .btn:hover {
-      background: #007bff;
-      box-shadow: 0 0 30px #007bffaa;
+      background: #ffffff;
+      box-shadow: 0 0 30px #ffffffaa;
       transform: translateY(-8px) scale(1.05);
+      color: #000000;
     }
     
     .btn:hover::before {
@@ -196,27 +197,28 @@
     }
     
     .btn-animations {
-      background: rgba(0, 255, 255, 0.1);
-      border-color: #00ffff;
-      box-shadow: 0 0 8px #00ffff55;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #ffffff;
+      box-shadow: 0 0 8px #ffffff55;
     }
     
     .btn-animations:hover {
-      background: #00ffff;
-      box-shadow: 0 0 30px #00ffffaa;
-      color: #0a0a0a;
+      background: #ffffff;
+      box-shadow: 0 0 30px #ffffffaa;
+      color: #000000;
     }
     
     .btn-prices {
-      background: rgba(255, 105, 180, 0.1);
-      border-color: #ff69b4;
-      box-shadow: 0 0 8px #ff69b455;
+      background: rgba(128, 128, 128, 0.1);
+      border-color: #888888;
+      box-shadow: 0 0 8px #88888855;
     }
     
     .btn-prices:hover {
-      background: #ff69b4;
-      box-shadow: 0 0 30px #ff69b4aa;
+      background: #888888;
+      box-shadow: 0 0 30px #888888aa;
       transform: translateY(-8px) scale(1.05);
+      color: #000000;
     }
     
     /* Modal de precios */
@@ -240,7 +242,7 @@
     }
     
     .modal-content {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
       border-radius: 15px;
       padding: 30px;
       max-width: 500px;
@@ -276,15 +278,15 @@
     }
     
     .close-modal:hover {
-      color: #ff69b4;
+      color: #ffffff;
       transform: rotate(90deg);
-      background: rgba(255, 105, 180, 0.2);
+      background: rgba(255, 255, 255, 0.2);
     }
     
     .modal h2 {
       text-align: center;
       margin-bottom: 25px;
-      color: #00bfff;
+      color: #ffffff;
       font-size: 1.8rem;
     }
     
@@ -298,7 +300,7 @@
       background: rgba(255, 255, 255, 0.05);
       border-radius: 10px;
       padding: 20px;
-      border-left: 4px solid #ff69b4;
+      border-left: 4px solid #888888;
       transform: translateX(-20px);
       opacity: 0;
       transition: all 0.4s ease;
@@ -327,7 +329,7 @@
     
     .price-item p {
       font-size: 1.1rem;
-      color: #00ffff;
+      color: #ffffff;
       font-weight: 500;
     }
     
@@ -360,7 +362,7 @@
     
     .discord {
       margin-top: 10px;
-      color: #00bfff;
+      color: #ffffff;
       font-weight: 600;
       font-size: 1.1rem;
       display: flex;
@@ -372,19 +374,19 @@
     
     .discord:hover {
       transform: scale(1.05);
-      text-shadow: 0 0 10px #00bfff;
+      text-shadow: 0 0 10px #ffffff;
     }
     
     .discord-icon {
       width: 24px;
       height: 24px;
-      fill: #00bfff;
+      fill: #ffffff;
       transition: all 0.4s ease;
     }
     
     .discord:hover .discord-icon {
       transform: rotate(10deg) scale(1.2);
-      filter: drop-shadow(0 0 5px #00bfff);
+      filter: drop-shadow(0 0 5px #ffffff);
     }
     
     /* Responsive */
@@ -441,7 +443,7 @@
   </div>
   
   <header>
-    <h1>Relighted</h1>
+    <h1>xRelighted</h1>
     <p>Animador Profesional en Roblox Studio • Especialista en Moon Animator</p>
   </header>
   
@@ -543,7 +545,7 @@
     // Remover las puertas después de la animación
     setTimeout(() => {
       document.querySelector('.door-overlay').style.display = 'none';
-    }, 1500);
+    }, 2000);
   </script>
 </body>
 </html>
