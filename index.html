@@ -108,6 +108,7 @@
       gap: 8px;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
     }
     
     .btn::before {
@@ -143,15 +144,100 @@
       color: #0a0a0a;
     }
     
-    .btn-portfolio {
+    .btn-prices {
       background: rgba(255, 105, 180, 0.1);
       border-color: #ff69b4;
       box-shadow: 0 0 8px #ff69b455;
     }
     
-    .btn-portfolio:hover {
+    .btn-prices:hover {
       background: #ff69b4;
       box-shadow: 0 0 20px #ff69b4aa;
+    }
+    
+    /* Modal de precios */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      animation: modalFadeIn 0.3s ease-out;
+    }
+    
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: #fff;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    
+    .close-modal:hover {
+      color: #ff69b4;
+    }
+    
+    .modal h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #00bfff;
+      font-size: 1.8rem;
+    }
+    
+    .price-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .price-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+      border-left: 4px solid #ff69b4;
+    }
+    
+    .price-item h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    
+    .price-item p {
+      font-size: 1.1rem;
+      color: #00ffff;
+      font-weight: 500;
+    }
+    
+    .modal-note {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #bbb;
+      font-style: italic;
     }
     
     footer {
@@ -201,6 +287,10 @@
         padding: 12px 24px;
         font-size: 1rem;
       }
+      
+      .modal-content {
+        padding: 20px;
+      }
     }
     
     @media (max-width: 480px) {
@@ -242,14 +332,32 @@
       </svg>
       Animaciones
     </a>
-    <a href="#" class="btn btn-portfolio">
+    <button id="pricesBtn" class="btn btn-prices">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-        <line x1="8" y1="21" x2="16" y2="21"></line>
-        <line x1="12" y1="17" x2="12" y2="21"></line>
+        <line x1="12" y1="1" x2="12" y2="23"></line>
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
       </svg>
-      Portafolio
-    </a>
+      Precios
+    </button>
+  </div>
+  
+  <!-- Modal de precios -->
+  <div id="pricesModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Precios de Animaciones</h2>
+      <div class="price-list">
+        <div class="price-item">
+          <h3>Animación de Rig</h3>
+          <p>1000 Robux</p>
+        </div>
+        <div class="price-item">
+          <h3>Animación de 2 Rigs o Cinemática</h3>
+          <p>5000 Robux</p>
+        </div>
+      </div>
+      <p class="modal-note">* Los precios pueden variar según la complejidad del proyecto</p>
+    </div>
   </div>
   
   <footer>
@@ -261,5 +369,36 @@
       xrelighted
     </div>
   </footer>
+
+  <script>
+    // Funcionalidad del modal de precios
+    const pricesBtn = document.getElementById('pricesBtn');
+    const pricesModal = document.getElementById('pricesModal');
+    const closeModal = document.querySelector('.close-modal');
+    
+    // Abrir modal al hacer clic en el botón Precios
+    pricesBtn.addEventListener('click', () => {
+      pricesModal.style.display = 'flex';
+    });
+    
+    // Cerrar modal al hacer clic en la X
+    closeModal.addEventListener('click', () => {
+      pricesModal.style.display = 'none';
+    });
+    
+    // Cerrar modal al hacer clic fuera del contenido
+    window.addEventListener('click', (event) => {
+      if (event.target === pricesModal) {
+        pricesModal.style.display = 'none';
+      }
+    });
+    
+    // Cerrar modal con la tecla Escape
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        pricesModal.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
