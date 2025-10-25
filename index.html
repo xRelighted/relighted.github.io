@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>relighted — Animator | Roblox Studio</title>
+  <meta name="description" content="Portfolio de relighted — Animador en Roblox Studio" />
+
+  <!-- Estilos: tema oscuro, accento morado/neón -->
+  <style>
+    :root{
+      --bg:#000000;
+      --card:#0b0b0b;
+      --muted:#9aa3b2;
+      --accent:#8b5cf6; /* morado */
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --mono: 'Segoe UI Mono', 'Roboto Mono', monospace;
+      --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:#e6eef8;font-family:var(--sans)}
+    a{color:inherit;text-decoration:none}
+
+    .container{max-width:1000px;margin:40px auto;padding:28px}
+
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .logo img{width:100%;height:100%;object-fit:cover}
+    nav a{margin-left:18px;color:var(--muted);font-weight:600}
+    nav a:hover{color:var(--accent)}
+
+    .hero{display:flex;gap:28px;align-items:center;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:var(--radius);box-shadow:0 6px 30px rgba(0,0,0,0.6)}
+    .hero-left{flex:1}
+    .hero-right{width:220px}
+
+    h1{font-size:38px;margin:0}
+    .role{color:var(--muted);margin-top:6px}
+    .cta{margin-top:18px;display:flex;gap:10px}
+    .btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);cursor:pointer;font-weight:700}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#5eead4);color:#000}
+
+    .profile-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;text-align:center}
+    .profile-pic{width:170px;height:170px;border-radius:18px;overflow:hidden;margin:0 auto;box-shadow:0 8px 30px rgba(139,92,246,0.12)}
+    .profile-pic img{width:100%;height:100%;object-fit:cover}
+
+    section{margin-top:28px}
+    h2{margin:0 0 12px 0}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .card h3{margin:8px 0 6px 0}
+    .card p{color:var(--muted);font-size:14px;margin:0}
+
+    footer{margin-top:36px;color:var(--muted);font-size:14px;text-align:center}
+
+    /* efecto sutil al poner el mouse */
+    .card:hover{transform:translateY(-6px);transition:transform 200ms}
+
+    /* responsive */
+    @media (max-width:720px){
+      .hero{flex-direction:column}
+      .hero-right{width:100%}
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+    }
+
+    /* pequeños badges */
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px;background:rgba(139,92,246,0.12);color:var(--accent)}
+
+    /* small monospace code style */
+    .muted-code{font-family:var(--mono);font-size:13px;color:var(--muted);background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">R</div>
+        <div>
+          <div style="font-weight:800">relighted</div>
+          <div style="color:var(--muted);font-size:13px">Animador — Roblox Studio</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#portfolio">Trabajos</a>
+        <a href="#about">Sobre mí</a>
+        <a href="#contact">Contacto</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <div class="hero-left">
+        <div class="badge">Animador · Roblox Studio</div>
+        <h1>Hola, soy <span style="color:var(--accent)">relighted</span></h1>
+        <div class="role">Creo animaciones en Roblox Studio: personajes, movimientos y rigs con estilo dinámico.</div>
+
+        <div class="cta">
+          <a class="btn primary" href="#portfolio">Ver trabajos</a>
+          <a class="btn" href="#contact">Contrátame</a>
+        </div>
+
+        <div style="margin-top:18px;color:var(--muted);font-size:14px">Tecnologías: <span class="muted-code">Roblox Studio · Blender · Rigging · Animation Editor</span></div>
+      </div>
+
+      <div class="hero-right">
+        <div class="profile-card">
+          <div class="profile-pic">
+            <!-- Reemplaza assets/profile.jpg con tu foto -->
+            <img src="assets/profile.jpg" alt="relighted" />
+          </div>
+          <div style="margin-top:12px;font-weight:800">relighted</div>
+          <div style="color:var(--muted);font-size:13px">Animador en Roblox Studio</div>
+          <div style="margin-top:10px">
+            <a class="btn" href="#contact">Enviar mensaje</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="portfolio">
+      <h2>Trabajos destacados</h2>
+      <div class="grid">
+        <!-- Card 1: ejemplo de animación -->
+        <article class="card">
+          <div style="height:140px;background:linear-gradient(180deg, rgba(139,92,246,0.12), rgba(0,0,0,0.25));border-radius:10px;display:flex;align-items:center;justify-content:center">Mini preview</div>
+          <h3>Animación: Sprint & Slash</h3>
+          <p>Animación de combate rápido para personaje humanoide — 1.5s loop.</p>
+          <div style="margin-top:10px;color:var(--muted);font-size:13px">Ver demo: <a href="#">YouTube / Enlace</a></div>
+        </article>
+
+        <article class="card">
+          <div style="height:140px;background:linear-gradient(180deg, rgba(139,92,246,0.06), rgba(0,0,0,0.25));border-radius:10px;display:flex;align-items:center;justify-content:center">Mini preview</div>
+          <h3>Rig: Smooth Rig</h3>
+          <p>Rigging para animaciones faciales y cuerpo — compatible con Animation Editor.</p>
+          <div style="margin-top:10px;color:var(--muted);font-size:13px">Archivo: <span class="muted-code">.rbxmx</span></div>
+        </article>
+
+        <article class="card">
+          <div style="height:140px;background:linear-gradient(180deg, rgba(139,92,246,0.06), rgba(0,0,0,0.25));border-radius:10px;display:flex;align-items:center;justify-content:center">Mini preview</div>
+          <h3>Cinematics</h3>
+          <p>Pequeñas cinemáticas para juego: cámara y animación sincronizadas.</p>
+          <div style="margin-top:10px;color:var(--muted);font-size:13px">Duración: 20s</div>
+        </article>
+
+        <!-- Agrega más cards copiando el template de arriba -->
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>Sobre mí</h2>
+      <div style="display:flex;gap:18px;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <div class="card">
+            <h3>Soy relighted</h3>
+            <p>Animador especializado en Roblox Studio. Me enfoco en movimientos naturales, loops limpios y rigs fáciles de reutilizar.</p>
+            <p style="color:var(--muted);margin-top:8px">Disponible para comisiones y colaboraciones.</p>
+          </div>
+        </div>
+
+        <div style="flex:1;min-width:260px">
+          <div class="card">
+            <h3>Habilidades</h3>
+            <ul style="color:var(--muted);margin:6px 0 0 18px">
+              <li>Rigging</li>
+              <li>Animation Editor / Keyframes</li>
+              <li>Post-pro y export</li>
+            </ul>
+            <div style="margin-top:8px;color:var(--muted);font-size:13px">Herramientas: Blender · Roblox Studio · Aseprite (si necesitas pixel art)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contacto</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Correo</h3>
+          <p style="color:var(--muted)">tu-email@ejemplo.com</p>
+        </div>
+
+        <div class="card">
+          <h3>Discord</h3>
+          <p style="color:var(--muted)">relighted#1234</p>
+        </div>
+
+        <div class="card">
+          <h3>GitHub</h3>
+          <p style="color:var(--muted)"><a href="https://github.com/relighted">github.com/relighted</a></p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>Hecho por <strong>relighted</strong> — Animador en Roblox Studio · Tema oscuro</div>
+    </footer>
+  </div>
+
+  <!-- Pequeño script para facilitar reemplazos dinámicos (no requiere dependencias) -->
+  <script>
+    // Cambia estos valores si quieres personalizar desde el HTML sin tocar CSS
+    const meta = {
+      name: 'relighted',
+      role: 'Animador en Roblox Studio',
+      github: 'https://github.com/relighted'
+    }
+    // Reemplaza los enlaces automáticos
+    document.querySelectorAll('a[href="#"]').forEach(a=>a.href='javascript:void(0)')
+  </script>
+</body>
+</html>
