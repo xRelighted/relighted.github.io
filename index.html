@@ -367,8 +367,9 @@
 
     .nagi-container {
       text-align: center;
-      max-width: 800px;
+      max-width: 1000px;
       width: 100%;
+      padding: 0 20px;
     }
 
     .nagi-title {
@@ -376,7 +377,7 @@
       background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 40px;
+      margin-bottom: 60px;
       opacity: 0;
       transform: translateY(50px);
       transition: all 1s ease;
@@ -387,102 +388,40 @@
       transform: translateY(0);
     }
 
-    .animation-container {
+    .video-container {
       position: relative;
-      width: 300px;
-      height: 300px;
+      width: 100%;
+      max-width: 800px;
       margin: 0 auto;
       opacity: 0;
-      transform: scale(0.8);
+      transform: translateY(50px);
       transition: all 1s ease 0.3s;
     }
 
-    .animation-container.visible {
+    .video-container.visible {
       opacity: 1;
-      transform: scale(1);
+      transform: translateY(0);
     }
 
-    .nagi-circle {
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .video-wrapper iframe {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 200px;
-      height: 200px;
-      border: 3px solid #ffffff;
-      border-radius: 50%;
-      animation: rotate 8s linear infinite;
-    }
-
-    .nagi-inner-circle {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 120px;
-      height: 120px;
-      border: 2px solid #888888;
-      border-radius: 50%;
-      animation: rotateReverse 6s linear infinite;
-    }
-
-    .nagi-core {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(45deg, #ffffff, #888888);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite alternate;
-    }
-
-    .nagi-particle {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background: #ffffff;
-      border-radius: 50%;
-      animation: floatAround 4s linear infinite;
-    }
-
-    @keyframes rotate {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    @keyframes rotateReverse {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to { transform: translate(-50%, -50%) rotate(-360deg); }
-    }
-
-    @keyframes pulse {
-      from { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 20px #ffffff; }
-      to { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 40px #ffffff; }
-    }
-
-    @keyframes floatAround {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-        opacity: 1;
-      }
-      25% {
-        transform: translate(40px, -40px) rotate(90deg);
-        opacity: 0.7;
-      }
-      50% {
-        transform: translate(0, -80px) rotate(180deg);
-        opacity: 0.4;
-      }
-      75% {
-        transform: translate(-40px, -40px) rotate(270deg);
-        opacity: 0.7;
-      }
-      100% {
-        transform: translate(0, 0) rotate(360deg);
-        opacity: 1;
-      }
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     /* Scroll animations */
@@ -691,16 +630,7 @@
 
       .nagi-title {
         font-size: 3rem;
-      }
-
-      .animation-container {
-        width: 250px;
-        height: 250px;
-      }
-
-      .nagi-circle {
-        width: 180px;
-        height: 180px;
+        margin-bottom: 40px;
       }
       
       .modal-content {
@@ -726,16 +656,7 @@
 
       .nagi-title {
         font-size: 2.5rem;
-      }
-
-      .animation-container {
-        width: 200px;
-        height: 200px;
-      }
-
-      .nagi-circle {
-        width: 150px;
-        height: 150px;
+        margin-bottom: 30px;
       }
     }
   </style>
@@ -792,11 +713,15 @@
     <section id="nagi" class="nagi-section">
       <div class="nagi-container">
         <h2 class="nagi-title">Nagi Angle Goal</h2>
-        <div class="animation-container">
-          <div class="nagi-circle"></div>
-          <div class="nagi-inner-circle"></div>
-          <div class="nagi-core"></div>
-          <!-- Particles will be added by JavaScript -->
+        <div class="video-container">
+          <div class="video-wrapper">
+            <iframe 
+              src="https://www.youtube.com/embed/EoCBvYKFdhg" 
+              title="Nagi Angle Goal Animation"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </div>
     </section>
@@ -853,40 +778,17 @@
       }
     }
 
-    // Crear partículas para la animación Nagi
-    function createNagiParticles() {
-      const animationContainer = document.querySelector('.animation-container');
-      const particleCount = 12;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'nagi-particle';
-        
-        // Distribuir partículas en círculo
-        const angle = (i / particleCount) * 2 * Math.PI;
-        const radius = 80;
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
-        
-        particle.style.left = `calc(50% + ${x}px)`;
-        particle.style.top = `calc(50% + ${y}px)`;
-        particle.style.animationDelay = `${i * 0.3}s`;
-        
-        animationContainer.appendChild(particle);
-      }
-    }
-
     // Scroll animations
     function checkScroll() {
       const nagiTitle = document.querySelector('.nagi-title');
-      const animationContainer = document.querySelector('.animation-container');
+      const videoContainer = document.querySelector('.video-container');
       
       const elementTop = nagiTitle.getBoundingClientRect().top;
       const elementVisible = 150;
       
       if (elementTop < window.innerHeight - elementVisible) {
         nagiTitle.classList.add('visible');
-        animationContainer.classList.add('visible');
+        videoContainer.classList.add('visible');
       }
     }
 
@@ -935,7 +837,6 @@
     // Inicializar cuando cargue la página
     document.addEventListener('DOMContentLoaded', () => {
       createParticles();
-      createNagiParticles();
       checkScroll();
     });
 
