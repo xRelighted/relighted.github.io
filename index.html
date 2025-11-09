@@ -315,18 +315,6 @@
       color: #000000;
     }
 
-    .btn-works {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: #ffffff;
-      box-shadow: 0 0 8px #ffffff55;
-    }
-
-    .btn-works:hover {
-      background: #ffffff;
-      box-shadow: 0 0 30px #ffffffaa;
-      color: #000000;
-    }
-
     /* Scroll Down Indicator */
     .scroll-indicator {
       position: absolute;
@@ -365,130 +353,136 @@
       }
     }
     
-    /* My Works Section */
-    .works-section {
+    /* Nagi Angle Goal Section */
+    .nagi-section {
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(20px);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
-    .works-container {
-      max-width: 1200px;
+    .nagi-container {
+      text-align: center;
+      max-width: 800px;
       width: 100%;
     }
 
-    .works-header {
-      text-align: center;
-      margin-bottom: 60px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
-    }
-
-    .works-header.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .works-header h2 {
-      font-size: 3rem;
+    .nagi-title {
+      font-size: 4rem;
       background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 15px;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease;
     }
 
-    .works-header p {
-      font-size: 1.2rem;
-      color: #bbb;
-      max-width: 600px;
+    .nagi-title.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .animation-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
       margin: 0 auto;
-    }
-
-    .works-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 30px;
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
+      transform: scale(0.8);
+      transition: all 1s ease 0.3s;
     }
 
-    .works-grid.visible {
+    .animation-container.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: scale(1);
     }
 
-    .work-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      padding: 30px;
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .work-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .work-card::before {
-      content: '';
+    .nagi-circle {
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: all 0.8s ease;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      animation: rotate 8s linear infinite;
     }
 
-    .work-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .work-card:hover::before {
-      left: 100%;
-    }
-
-    .work-card h3 {
-      font-size: 1.5rem;
-      color: #ffffff;
-      margin-bottom: 15px;
-      border-left: 4px solid #888888;
-      padding-left: 15px;
-    }
-
-    .work-card p {
-      color: #ddd;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .work-features {
-      list-style: none;
-      margin-top: 20px;
-    }
-
-    .work-features li {
-      color: #bbb;
-      margin-bottom: 8px;
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .work-features li::before {
-      content: '▸';
+    .nagi-inner-circle {
       position: absolute;
-      left: 0;
-      color: #888888;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      border: 2px solid #888888;
+      border-radius: 50%;
+      animation: rotateReverse 6s linear infinite;
+    }
+
+    .nagi-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(45deg, #ffffff, #888888);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite alternate;
+    }
+
+    .nagi-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ffffff;
+      border-radius: 50%;
+      animation: floatAround 4s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes rotateReverse {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(-360deg); }
+    }
+
+    @keyframes pulse {
+      from { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 20px #ffffff; }
+      to { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 40px #ffffff; }
+    }
+
+    @keyframes floatAround {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1;
+      }
+      25% {
+        transform: translate(40px, -40px) rotate(90deg);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translate(0, -80px) rotate(180deg);
+        opacity: 0.4;
+      }
+      75% {
+        transform: translate(-40px, -40px) rotate(270deg);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translate(0, 0) rotate(360deg);
+        opacity: 1;
+      }
     }
 
     /* Scroll animations */
@@ -695,12 +689,18 @@
         font-size: 1rem;
       }
 
-      .works-header h2 {
-        font-size: 2.5rem;
+      .nagi-title {
+        font-size: 3rem;
       }
 
-      .works-grid {
-        grid-template-columns: 1fr;
+      .animation-container {
+        width: 250px;
+        height: 250px;
+      }
+
+      .nagi-circle {
+        width: 180px;
+        height: 180px;
       }
       
       .modal-content {
@@ -724,8 +724,18 @@
         justify-content: center;
       }
 
-      .works-header h2 {
-        font-size: 2rem;
+      .nagi-title {
+        font-size: 2.5rem;
+      }
+
+      .animation-container {
+        width: 200px;
+        height: 200px;
+      }
+
+      .nagi-circle {
+        width: 150px;
+        height: 150px;
       }
     }
   </style>
@@ -771,61 +781,22 @@
           </svg>
           Prices
         </button>
-        <a href="#works" class="btn btn-works">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-          </svg>
-          My Works
-        </a>
       </div>
 
-      <a href="#works" class="scroll-indicator">
+      <a href="#nagi" class="scroll-indicator">
         <div class="scroll-arrow"></div>
       </a>
     </section>
 
-    <!-- My Works Section -->
-    <section id="works" class="works-section">
-      <div class="works-container">
-        <div class="works-header fade-in">
-          <h2>My Works</h2>
-          <p>A showcase of my best work in Roblox development, from complete games to custom systems.</p>
-        </div>
-
-        <div class="works-grid fade-in">
-          <div class="work-card fade-in">
-            <h3>Movement System V1</h3>
-            <p>Advanced movement system with smooth animations and responsive controls for enhanced gameplay experience.</p>
-            <ul class="work-features">
-              <li>Advanced animations</li>
-              <li>UserInputService integration</li>
-              <li>Smooth transitions</li>
-              <li>Custom physics</li>
-            </ul>
-          </div>
-
-          <div class="work-card fade-in">
-            <h3>Combat System</h3>
-            <p>Dynamic combat system featuring fluid attack animations, hit detection, and special abilities.</p>
-            <ul class="work-features">
-              <li>Multiple attack animations</li>
-              <li>Hit registration</li>
-              <li>Combo system</li>
-              <li>Special effects</li>
-            </ul>
-          </div>
-
-          <div class="work-card fade-in">
-            <h3>UI System</h3>
-            <p>Custom user interface system with animated elements and smooth transitions for better user experience.</p>
-            <ul class="work-features">
-              <li>Animated interfaces</li>
-              <li>Smooth transitions</li>
-              <li>Custom widgets</li>
-              <li>Responsive design</li>
-            </ul>
-          </div>
+    <!-- Nagi Angle Goal Section -->
+    <section id="nagi" class="nagi-section">
+      <div class="nagi-container">
+        <h2 class="nagi-title">Nagi Angle Goal</h2>
+        <div class="animation-container">
+          <div class="nagi-circle"></div>
+          <div class="nagi-inner-circle"></div>
+          <div class="nagi-core"></div>
+          <!-- Particles will be added by JavaScript -->
         </div>
       </div>
     </section>
@@ -870,37 +841,53 @@
         const particle = document.createElement('div');
         particle.className = 'particle';
         
-        // Tamaño aleatorio
         const size = Math.random() * 100 + 50;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
-        
-        // Posición aleatoria
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 100}%`;
-        
-        // Opacidad aleatoria
         particle.style.opacity = Math.random() * 0.1 + 0.05;
-        
-        // Animación con delay aleatorio
         particle.style.animationDelay = `${Math.random() * 20}s`;
         
         particlesContainer.appendChild(particle);
       }
     }
 
+    // Crear partículas para la animación Nagi
+    function createNagiParticles() {
+      const animationContainer = document.querySelector('.animation-container');
+      const particleCount = 12;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'nagi-particle';
+        
+        // Distribuir partículas en círculo
+        const angle = (i / particleCount) * 2 * Math.PI;
+        const radius = 80;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        
+        particle.style.left = `calc(50% + ${x}px)`;
+        particle.style.top = `calc(50% + ${y}px)`;
+        particle.style.animationDelay = `${i * 0.3}s`;
+        
+        animationContainer.appendChild(particle);
+      }
+    }
+
     // Scroll animations
     function checkScroll() {
-      const fadeElements = document.querySelectorAll('.fade-in');
+      const nagiTitle = document.querySelector('.nagi-title');
+      const animationContainer = document.querySelector('.animation-container');
       
-      fadeElements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < window.innerHeight - elementVisible) {
-          element.classList.add('visible');
-        }
-      });
+      const elementTop = nagiTitle.getBoundingClientRect().top;
+      const elementVisible = 150;
+      
+      if (elementTop < window.innerHeight - elementVisible) {
+        nagiTitle.classList.add('visible');
+        animationContainer.classList.add('visible');
+      }
     }
 
     // Funcionalidad del modal de precios
@@ -908,7 +895,6 @@
     const pricesModal = document.getElementById('pricesModal');
     const closeModal = document.querySelector('.close-modal');
     
-    // Abrir modal al hacer clic en el botón Precios
     pricesBtn.addEventListener('click', () => {
       pricesModal.style.display = 'flex';
       setTimeout(() => {
@@ -916,7 +902,6 @@
       }, 10);
     });
     
-    // Cerrar modal al hacer clic en la X
     closeModal.addEventListener('click', () => {
       pricesModal.classList.remove('active');
       setTimeout(() => {
@@ -924,7 +909,6 @@
       }, 400);
     });
     
-    // Cerrar modal al hacer clic fuera del contenido
     window.addEventListener('click', (event) => {
       if (event.target === pricesModal) {
         pricesModal.classList.remove('active');
@@ -934,7 +918,6 @@
       }
     });
     
-    // Cerrar modal con la tecla Escape
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         pricesModal.classList.remove('active');
@@ -949,14 +932,14 @@
       document.querySelector('.door-overlay').style.display = 'none';
     }, 2000);
 
-    // Inicializar partículas cuando cargue la página
+    // Inicializar cuando cargue la página
     document.addEventListener('DOMContentLoaded', () => {
       createParticles();
-      // Check scroll position on load
+      createNagiParticles();
       checkScroll();
     });
 
-    // Check scroll position on scroll
+    // Check scroll position
     window.addEventListener('scroll', checkScroll);
   </script>
 </body>
