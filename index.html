@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,10 +11,6 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     /* Fondo PS3 animado */
@@ -97,19 +93,15 @@
       font-family: 'Poppins', sans-serif;
       background: transparent;
       color: #fff;
-      overflow-x: hidden;
-      opacity: 0;
-      animation: fadeInBody 0.8s ease 1s forwards;
-      position: relative;
-    }
-
-    section {
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      padding: 80px 20px;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 20px;
+      opacity: 0;
+      animation: fadeInBody 0.8s ease 1s forwards;
       position: relative;
     }
 
@@ -117,6 +109,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
+      max-width: 1200px;
     }
     
     @keyframes fadeInBody {
@@ -164,8 +157,7 @@
       100% { transform: scaleX(0); }
     }
     
-    /* Hero Section */
-    .hero {
+    header {
       text-align: center;
       padding: 50px 20px 30px 20px;
       max-width: 800px;
@@ -182,7 +174,7 @@
       }
     }
     
-    .hero h1 {
+    header h1 {
       font-size: 3.5rem;
       margin-bottom: 15px;
       background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
@@ -203,7 +195,7 @@
       100% { background-position: 0% 50%; }
     }
     
-    .hero p {
+    header p {
       font-size: 1.3rem;
       color: #bbb;
       margin-bottom: 20px;
@@ -313,127 +305,6 @@
       box-shadow: 0 0 30px #888888aa;
       transform: translateY(-8px) scale(1.05);
       color: #000000;
-    }
-
-    /* Scroll Down Indicator */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #fff;
-      text-decoration: none;
-      opacity: 0;
-      animation: fadeInUp 1s ease 2s forwards;
-    }
-
-    .scroll-arrow {
-      width: 30px;
-      height: 30px;
-      border-right: 2px solid #fff;
-      border-bottom: 2px solid #fff;
-      transform: rotate(45deg);
-      margin: 0 auto;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% {
-        transform: rotate(45deg) translateY(0);
-      }
-      50% {
-        transform: rotate(45deg) translateY(-10px);
-      }
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
-    }
-    
-    /* Nagi Angle Goal Section */
-    .nagi-section {
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .nagi-container {
-      text-align: center;
-      max-width: 1000px;
-      width: 100%;
-      padding: 0 20px;
-    }
-
-    .nagi-title {
-      font-size: 4rem;
-      background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 60px;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 1s ease;
-    }
-
-    .nagi-title.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .video-container {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 1s ease 0.3s;
-    }
-
-    .video-container.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .video-wrapper {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
-      height: 0;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-    }
-
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Scroll animations */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
     
     /* Modal de precios */
@@ -607,11 +478,11 @@
     
     /* Responsive */
     @media (max-width: 768px) {
-      .hero h1 {
+      header h1 {
         font-size: 2.5rem;
       }
       
-      .hero p {
+      header p {
         font-size: 1.1rem;
       }
       
@@ -627,11 +498,6 @@
         padding: 12px 24px;
         font-size: 1rem;
       }
-
-      .nagi-title {
-        font-size: 3rem;
-        margin-bottom: 40px;
-      }
       
       .modal-content {
         padding: 20px;
@@ -639,7 +505,7 @@
     }
     
     @media (max-width: 480px) {
-      .hero h1 {
+      header h1 {
         font-size: 2rem;
       }
       
@@ -652,11 +518,6 @@
       .btn {
         width: 100%;
         justify-content: center;
-      }
-
-      .nagi-title {
-        font-size: 2.5rem;
-        margin-bottom: 30px;
       }
     }
   </style>
@@ -673,58 +534,34 @@
   </div>
   
   <div class="content-overlay">
-    <!-- Hero Section -->
-    <section id="home">
-      <div class="hero">
-        <h1>Relighted</h1>
-        <p>trying to make the world better</p>
-      </div>
-      
-      <div class="description">
-        <h2>Roblox Studio Animator</h2>
-        <p>I'm an animator specialized in Roblox Studio with experience in Moon Animator. I create R6 animations — I don't work with R15 or custom rigs</p>
-      </div>
+    <header>
+      <h1>Relighted</h1>
+      <p>trying to make the world better</p>
+    </header>
+    
+    <section class="description">
+      <h2>Roblox Studio Animator</h2>
+      <p>I’m an animator specialized in Roblox Studio with experience in Moon Animator. I create R6 animations — I don’t work with R15 or custom rigs</p>
+    </section>
 
-      <div class="buttons">
-        <a href="https://discord.gg/RsmmWhKDNp" target="_blank" class="btn btn-animations">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <circle cx="11.5" cy="14.5" r="2.5"></circle>
-            <path d="M13.25 16.25 15 18"></path>
-          </svg>
-          Animations
-        </a>
-        <button id="pricesBtn" class="btn btn-prices">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"></line>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-          </svg>
-          Prices
-        </button>
-      </div>
-
-      <a href="#nagi" class="scroll-indicator">
-        <div class="scroll-arrow"></div>
+    <div class="buttons">
+      <a href="https://discord.gg/RsmmWhKDNp" target="_blank" class="btn btn-animations">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <circle cx="11.5" cy="14.5" r="2.5"></circle>
+          <path d="M13.25 16.25 15 18"></path>
+        </svg>
+        Animations
       </a>
-    </section>
-
-    <!-- Nagi Angle Goal Section -->
-    <section id="nagi" class="nagi-section">
-      <div class="nagi-container">
-        <h2 class="nagi-title">Nagi Angle Goal</h2>
-        <div class="video-container">
-          <div class="video-wrapper">
-            <iframe 
-              src="https://www.youtube.com/embed/EoCBvYKFdhg" 
-              title="Nagi Angle Goal Animation"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-            </iframe>
-          </div>
-        </div>
-      </div>
-    </section>
+      <button id="pricesBtn" class="btn btn-prices">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23"></line>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+        Prices
+      </button>
+    </div>
     
     <footer>
       <p>Contact me on discord:</p>
@@ -766,29 +603,22 @@
         const particle = document.createElement('div');
         particle.className = 'particle';
         
+        // Tamaño aleatorio
         const size = Math.random() * 100 + 50;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
+        
+        // Posición aleatoria
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 100}%`;
+        
+        // Opacidad aleatoria
         particle.style.opacity = Math.random() * 0.1 + 0.05;
+        
+        // Animación con delay aleatorio
         particle.style.animationDelay = `${Math.random() * 20}s`;
         
         particlesContainer.appendChild(particle);
-      }
-    }
-
-    // Scroll animations
-    function checkScroll() {
-      const nagiTitle = document.querySelector('.nagi-title');
-      const videoContainer = document.querySelector('.video-container');
-      
-      const elementTop = nagiTitle.getBoundingClientRect().top;
-      const elementVisible = 150;
-      
-      if (elementTop < window.innerHeight - elementVisible) {
-        nagiTitle.classList.add('visible');
-        videoContainer.classList.add('visible');
       }
     }
 
@@ -797,6 +627,7 @@
     const pricesModal = document.getElementById('pricesModal');
     const closeModal = document.querySelector('.close-modal');
     
+    // Abrir modal al hacer clic en el botón Precios
     pricesBtn.addEventListener('click', () => {
       pricesModal.style.display = 'flex';
       setTimeout(() => {
@@ -804,6 +635,7 @@
       }, 10);
     });
     
+    // Cerrar modal al hacer clic en la X
     closeModal.addEventListener('click', () => {
       pricesModal.classList.remove('active');
       setTimeout(() => {
@@ -811,6 +643,7 @@
       }, 400);
     });
     
+    // Cerrar modal al hacer clic fuera del contenido
     window.addEventListener('click', (event) => {
       if (event.target === pricesModal) {
         pricesModal.classList.remove('active');
@@ -820,6 +653,7 @@
       }
     });
     
+    // Cerrar modal con la tecla Escape
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         pricesModal.classList.remove('active');
@@ -834,14 +668,8 @@
       document.querySelector('.door-overlay').style.display = 'none';
     }, 2000);
 
-    // Inicializar cuando cargue la página
-    document.addEventListener('DOMContentLoaded', () => {
-      createParticles();
-      checkScroll();
-    });
-
-    // Check scroll position
-    window.addEventListener('scroll', checkScroll);
+    // Inicializar partículas cuando cargue la página
+    document.addEventListener('DOMContentLoaded', createParticles);
   </script>
 </body>
 </html>
