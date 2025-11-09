@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +11,10 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     /* Fondo PS3 animado */
@@ -93,15 +97,19 @@
       font-family: 'Poppins', sans-serif;
       background: transparent;
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
       overflow-x: hidden;
-      padding: 20px;
       opacity: 0;
       animation: fadeInBody 0.8s ease 1s forwards;
+      position: relative;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 20px;
       position: relative;
     }
 
@@ -109,7 +117,6 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 1200px;
     }
     
     @keyframes fadeInBody {
@@ -157,7 +164,8 @@
       100% { transform: scaleX(0); }
     }
     
-    header {
+    /* Hero Section */
+    .hero {
       text-align: center;
       padding: 50px 20px 30px 20px;
       max-width: 800px;
@@ -174,7 +182,7 @@
       }
     }
     
-    header h1 {
+    .hero h1 {
       font-size: 3.5rem;
       margin-bottom: 15px;
       background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
@@ -195,7 +203,7 @@
       100% { background-position: 0% 50%; }
     }
     
-    header p {
+    .hero p {
       font-size: 1.3rem;
       color: #bbb;
       margin-bottom: 20px;
@@ -305,6 +313,194 @@
       box-shadow: 0 0 30px #888888aa;
       transform: translateY(-8px) scale(1.05);
       color: #000000;
+    }
+
+    .btn-works {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #ffffff;
+      box-shadow: 0 0 8px #ffffff55;
+    }
+
+    .btn-works:hover {
+      background: #ffffff;
+      box-shadow: 0 0 30px #ffffffaa;
+      color: #000000;
+    }
+
+    /* Scroll Down Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeInUp 1s ease 2s forwards;
+    }
+
+    .scroll-arrow {
+      width: 30px;
+      height: 30px;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(45deg);
+      margin: 0 auto;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: rotate(45deg) translateY(0);
+      }
+      50% {
+        transform: rotate(45deg) translateY(-10px);
+      }
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+    
+    /* My Works Section */
+    .works-section {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .works-container {
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .works-header {
+      text-align: center;
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .works-header.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .works-header h2 {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    .works-header p {
+      font-size: 1.2rem;
+      color: #bbb;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .works-grid.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .work-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 30px;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .work-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .work-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: all 0.8s ease;
+    }
+
+    .work-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .work-card:hover::before {
+      left: 100%;
+    }
+
+    .work-card h3 {
+      font-size: 1.5rem;
+      color: #ffffff;
+      margin-bottom: 15px;
+      border-left: 4px solid #888888;
+      padding-left: 15px;
+    }
+
+    .work-card p {
+      color: #ddd;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .work-features {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .work-features li {
+      color: #bbb;
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .work-features li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #888888;
+    }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     /* Modal de precios */
@@ -478,11 +674,11 @@
     
     /* Responsive */
     @media (max-width: 768px) {
-      header h1 {
+      .hero h1 {
         font-size: 2.5rem;
       }
       
-      header p {
+      .hero p {
         font-size: 1.1rem;
       }
       
@@ -498,6 +694,14 @@
         padding: 12px 24px;
         font-size: 1rem;
       }
+
+      .works-header h2 {
+        font-size: 2.5rem;
+      }
+
+      .works-grid {
+        grid-template-columns: 1fr;
+      }
       
       .modal-content {
         padding: 20px;
@@ -505,7 +709,7 @@
     }
     
     @media (max-width: 480px) {
-      header h1 {
+      .hero h1 {
         font-size: 2rem;
       }
       
@@ -518,6 +722,10 @@
       .btn {
         width: 100%;
         justify-content: center;
+      }
+
+      .works-header h2 {
+        font-size: 2rem;
       }
     }
   </style>
@@ -534,34 +742,93 @@
   </div>
   
   <div class="content-overlay">
-    <header>
-      <h1>Relighted</h1>
-      <p>trying to make the world better</p>
-    </header>
-    
-    <section class="description">
-      <h2>Roblox Studio Animator</h2>
-      <p>I’m an animator specialized in Roblox Studio with experience in Moon Animator. I create R6 animations — I don’t work with R15 or custom rigs</p>
+    <!-- Hero Section -->
+    <section id="home">
+      <div class="hero">
+        <h1>Relighted</h1>
+        <p>trying to make the world better</p>
+      </div>
+      
+      <div class="description">
+        <h2>Roblox Studio Animator</h2>
+        <p>I'm an animator specialized in Roblox Studio with experience in Moon Animator. I create R6 animations — I don't work with R15 or custom rigs</p>
+      </div>
+
+      <div class="buttons">
+        <a href="https://discord.gg/RsmmWhKDNp" target="_blank" class="btn btn-animations">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <circle cx="11.5" cy="14.5" r="2.5"></circle>
+            <path d="M13.25 16.25 15 18"></path>
+          </svg>
+          Animations
+        </a>
+        <button id="pricesBtn" class="btn btn-prices">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          Prices
+        </button>
+        <a href="#works" class="btn btn-works">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          My Works
+        </a>
+      </div>
+
+      <a href="#works" class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+      </a>
     </section>
 
-    <div class="buttons">
-      <a href="https://discord.gg/RsmmWhKDNp" target="_blank" class="btn btn-animations">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <circle cx="11.5" cy="14.5" r="2.5"></circle>
-          <path d="M13.25 16.25 15 18"></path>
-        </svg>
-        Animations
-      </a>
-      <button id="pricesBtn" class="btn btn-prices">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="1" x2="12" y2="23"></line>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
-        Prices
-      </button>
-    </div>
+    <!-- My Works Section -->
+    <section id="works" class="works-section">
+      <div class="works-container">
+        <div class="works-header fade-in">
+          <h2>My Works</h2>
+          <p>A showcase of my best work in Roblox development, from complete games to custom systems.</p>
+        </div>
+
+        <div class="works-grid fade-in">
+          <div class="work-card fade-in">
+            <h3>Movement System V1</h3>
+            <p>Advanced movement system with smooth animations and responsive controls for enhanced gameplay experience.</p>
+            <ul class="work-features">
+              <li>Advanced animations</li>
+              <li>UserInputService integration</li>
+              <li>Smooth transitions</li>
+              <li>Custom physics</li>
+            </ul>
+          </div>
+
+          <div class="work-card fade-in">
+            <h3>Combat System</h3>
+            <p>Dynamic combat system featuring fluid attack animations, hit detection, and special abilities.</p>
+            <ul class="work-features">
+              <li>Multiple attack animations</li>
+              <li>Hit registration</li>
+              <li>Combo system</li>
+              <li>Special effects</li>
+            </ul>
+          </div>
+
+          <div class="work-card fade-in">
+            <h3>UI System</h3>
+            <p>Custom user interface system with animated elements and smooth transitions for better user experience.</p>
+            <ul class="work-features">
+              <li>Animated interfaces</li>
+              <li>Smooth transitions</li>
+              <li>Custom widgets</li>
+              <li>Responsive design</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
     
     <footer>
       <p>Contact me on discord:</p>
@@ -622,6 +889,20 @@
       }
     }
 
+    // Scroll animations
+    function checkScroll() {
+      const fadeElements = document.querySelectorAll('.fade-in');
+      
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('visible');
+        }
+      });
+    }
+
     // Funcionalidad del modal de precios
     const pricesBtn = document.getElementById('pricesBtn');
     const pricesModal = document.getElementById('pricesModal');
@@ -669,7 +950,14 @@
     }, 2000);
 
     // Inicializar partículas cuando cargue la página
-    document.addEventListener('DOMContentLoaded', createParticles);
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      // Check scroll position on load
+      checkScroll();
+    });
+
+    // Check scroll position on scroll
+    window.addEventListener('scroll', checkScroll);
   </script>
 </body>
 </html>
