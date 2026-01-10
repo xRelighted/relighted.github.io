@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Relighted - Roblox Studio Animator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Moonar - Roblox Studio Animator</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
     
@@ -11,112 +11,128 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* Fondo PS3 animado */
-    .ps3-background {
+    html, body {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      touch-action: none;
+    }
+
+    /* FONDO ANIMADO GOJO - VIDEO MP4 */
+    .video-background {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: -2;
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(120, 120, 120, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(200, 200, 200, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(150, 150, 150, 0.25) 0%, transparent 50%),
-        linear-gradient(45deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-      animation: backgroundMove 20s ease-in-out infinite;
-      filter: blur(8px);
+      object-fit: cover;
+      filter: brightness(0.9) contrast(1.1);
     }
 
-    .ps3-particles {
+    /* VENTANA FLOTANTE - CRISTAL OSCURO ULTRA-TRANSLÚCIDO */
+    .draggable-window {
       position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      width: 100%;
+      max-width: 900px;
+      background: rgba(10, 10, 15, 0.7); /* Cristal oscuro ultra-translúcido */
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      border-radius: 20px;
+      padding: 40px 35px;
+      border: 1px solid rgba(0, 163, 255, 0.3);
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 0 15px rgba(0, 163, 255, 0.4); /* Resplandor azul neón */
+      cursor: grab;
+      transition: transform 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+                  box-shadow 0.2s ease;
+      will-change: transform, left, top;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    /* Efecto al agarrar */
+    .draggable-window:active {
+      cursor: grabbing;
+      transform: translate(-50%, -50%) scale(1.01);
+      box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(0, 163, 255, 0.6); /* Resplandor más intenso al agarrar */
+    }
+
+    /* Contorno luminoso AZUL GOJO */
+    .draggable-window::before {
+      content: '';
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.6;
+      right: 0;
+      bottom: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 163, 255, 0.3),
+        rgba(0, 100, 255, 0.1),
+        rgba(0, 163, 255, 0.15)
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
     }
 
-    .particle {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      animation: float 15s infinite linear;
+    /* Áreas no arrastrables */
+    .no-drag, .no-drag * {
+      cursor: default !important;
+      user-select: text !important;
+      -webkit-user-select: text !important;
     }
 
-    @keyframes backgroundMove {
-      0%, 100% {
-        background-position: 0% 0%;
-        transform: scale(1);
-      }
-      25% {
-        background-position: 100% 0%;
-        transform: scale(1.02);
-      }
-      50% {
-        background-position: 100% 100%;
-        transform: scale(1);
-      }
-      75% {
-        background-position: 0% 100%;
-        transform: scale(1.02);
-      }
+    .btn, button, a {
+      cursor: pointer !important;
     }
 
-    @keyframes float {
-      0% {
-        transform: translateY(0px) translateX(0px) rotate(0deg);
-        opacity: 0.1;
-      }
-      25% {
-        transform: translateY(-20px) translateX(10px) rotate(90deg);
-        opacity: 0.3;
-      }
-      50% {
-        transform: translateY(0px) translateX(20px) rotate(180deg);
-        opacity: 0.1;
-      }
-      75% {
-        transform: translateY(20px) translateX(10px) rotate(270deg);
-        opacity: 0.3;
-      }
-      100% {
-        transform: translateY(0px) translateX(0px) rotate(360deg);
-        opacity: 0.1;
-      }
+    /* Contenido dentro de la ventana */
+    .window-content {
+      pointer-events: auto;
+      position: relative;
+      z-index: 2;
     }
-    
+
     body {
       font-family: 'Poppins', sans-serif;
       background: transparent;
-      color: #fff;
+      color: #FFFFFF;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      overflow-x: hidden;
+      overflow: hidden;
       padding: 20px;
       opacity: 0;
       animation: fadeInBody 0.8s ease 1s forwards;
       position: relative;
-    }
-
-    .content-overlay {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 1200px;
+      touch-action: none;
     }
     
     @keyframes fadeInBody {
       to { opacity: 1; }
     }
     
-    /* Puertas de entrada futuristas */
+    /* PUERTAS DE ENTRADA - AZUL MUY OSCURO CASI NEGRO */
     .door-overlay {
       position: fixed;
       top: 0;
@@ -130,11 +146,11 @@
     
     .door {
       flex: 1;
-      background: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+      background: rgba(5, 10, 30, 0.85); /* Azul muy oscuro casi negro */
+      backdrop-filter: blur(5px);
       transform: scaleY(1);
       transform-origin: top;
       animation: doorOpen 0.8s ease 1s forwards;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
     }
     
     .door-left {
@@ -159,7 +175,7 @@
     
     header {
       text-align: center;
-      padding: 50px 20px 30px 20px;
+      padding: 20px 0 30px;
       max-width: 800px;
       opacity: 0;
       transform: translateY(20px);
@@ -174,19 +190,18 @@
       }
     }
     
+    /* TÍTULO - GRADIENTE BLANCO A AZUL ELÉCTRICO */
     header h1 {
       font-size: 3.5rem;
-      margin-bottom: 15px;
-      background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #FFFFFF, #00A3FF, #FFFFFF); /* Blanco a Azul Eléctrico */
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: glow 4s ease-in-out infinite alternate, gradient 3s ease infinite;
-    }
-    
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ffffff44; }
-      to { text-shadow: 0 0 30px #ffffffaa; }
+      animation: gradient 4s ease infinite;
+      text-shadow: 0 2px 15px rgba(0, 163, 255, 0.3);
+      letter-spacing: 1px;
+      font-weight: 700;
     }
     
     @keyframes gradient {
@@ -197,20 +212,24 @@
     
     header p {
       font-size: 1.3rem;
-      color: #bbb;
+      color: rgba(255, 255, 255, 0.9);
       margin-bottom: 20px;
+      font-weight: 300;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
     }
     
     .description {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
+      background: rgba(20, 25, 40, 0.5);
+      backdrop-filter: blur(15px);
+      border-radius: 16px;
       padding: 25px;
       margin: 20px auto 40px;
       max-width: 800px;
       text-align: center;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(0, 163, 255, 0.2);
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
       opacity: 0;
       transform: translateY(20px);
       animation: slideUpFade 0.8s ease 1.2s forwards;
@@ -219,13 +238,15 @@
     .description h2 {
       font-size: 1.8rem;
       margin-bottom: 15px;
-      color: #ffffff;
+      color: #FFFFFF;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+      font-weight: 500;
     }
     
     .description p {
       font-size: 1.1rem;
       line-height: 1.6;
-      color: #ddd;
+      color: rgba(255, 255, 255, 0.85);
     }
     
     .buttons {
@@ -242,22 +263,24 @@
     
     .btn {
       padding: 14px 32px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid #ffffff;
-      border-radius: 50px;
-      color: #fff;
+      background: rgba(30, 35, 50, 0.6); /* Gris oscuro */
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 163, 255, 0.3); /* Borde azul cian */
+      border-radius: 12px;
+      color: #FFFFFF;
       font-weight: 500;
       text-decoration: none;
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 0 8px #ffffff55;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
       font-size: 1.1rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      backdrop-filter: blur(10px);
     }
     
     .btn::before {
@@ -267,15 +290,17 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      background: linear-gradient(90deg, transparent, rgba(0, 163, 255, 0.2), transparent);
       transition: all 0.8s ease;
     }
     
     .btn:hover {
-      background: #ffffff;
-      box-shadow: 0 0 30px #ffffffaa;
-      transform: translateY(-8px) scale(1.05);
-      color: #000000;
+      background: rgba(0, 163, 255, 0.25); /* Azul cian en hover */
+      border-color: rgba(0, 200, 255, 0.5);
+      box-shadow: 
+        0 12px 25px rgba(0, 163, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
     }
     
     .btn:hover::before {
@@ -283,28 +308,23 @@
     }
     
     .btn-animations {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: #ffffff;
-      box-shadow: 0 0 8px #ffffff55;
+      background: rgba(25, 30, 50, 0.6);
+      border-color: rgba(0, 163, 255, 0.4);
     }
     
     .btn-animations:hover {
-      background: #ffffff;
-      box-shadow: 0 0 30px #ffffffaa;
-      color: #000000;
+      background: rgba(0, 163, 255, 0.3);
+      border-color: rgba(0, 200, 255, 0.6);
     }
     
     .btn-prices {
-      background: rgba(128, 128, 128, 0.1);
-      border-color: #888888;
-      box-shadow: 0 0 8px #88888855;
+      background: rgba(20, 25, 45, 0.6);
+      border-color: rgba(0, 140, 255, 0.4);
     }
     
     .btn-prices:hover {
-      background: #888888;
-      box-shadow: 0 0 30px #888888aa;
-      transform: translateY(-8px) scale(1.05);
-      color: #000000;
+      background: rgba(0, 163, 255, 0.3);
+      border-color: rgba(0, 180, 255, 0.6);
     }
     
     /* Modal de precios */
@@ -315,31 +335,37 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
+      background: rgba(5, 10, 20, 0.85);
+      backdrop-filter: blur(15px);
+      z-index: 2000;
       justify-content: center;
       align-items: center;
       opacity: 0;
       transition: opacity 0.4s ease;
+      pointer-events: none;
     }
     
     .modal.active {
       opacity: 1;
+      pointer-events: all;
     }
     
     .modal-content {
-      background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(42, 42, 42, 0.9) 100%);
-      border-radius: 15px;
+      background: rgba(15, 20, 35, 0.8);
+      backdrop-filter: blur(30px) saturate(180%);
+      border-radius: 18px;
       padding: 30px;
       max-width: 500px;
       width: 90%;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(0, 163, 255, 0.3);
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 0 20px rgba(0, 163, 255, 0.3);
       position: relative;
-      transform: scale(0.8) translateY(-20px);
+      transform: scale(0.9) translateY(-20px);
       opacity: 0;
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     .modal.active .modal-content {
@@ -352,29 +378,31 @@
       top: 15px;
       right: 20px;
       font-size: 1.5rem;
-      color: #fff;
+      color: rgba(0, 163, 255, 0.8); /* Azul Gojo */
       cursor: pointer;
       transition: all 0.3s ease;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 163, 255, 0.1);
     }
     
     .close-modal:hover {
-      color: #ffffff;
+      color: #00A3FF;
       transform: rotate(90deg);
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(0, 163, 255, 0.2);
     }
     
     .modal h2 {
       text-align: center;
       margin-bottom: 25px;
-      color: #ffffff;
+      color: #FFFFFF;
       font-size: 1.8rem;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+      font-weight: 500;
     }
     
     .price-list {
@@ -384,13 +412,15 @@
     }
     
     .price-item {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(30, 35, 50, 0.5);
+      backdrop-filter: blur(10px);
       border-radius: 10px;
       padding: 20px;
-      border-left: 4px solid #888888;
+      border-left: 3px solid #00A3FF; /* Azul brillante (Six Eyes) */
       transform: translateX(-20px);
       opacity: 0;
       transition: all 0.4s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
     
     .modal.active .price-item:nth-child(1) {
@@ -411,20 +441,21 @@
     .price-item h3 {
       font-size: 1.3rem;
       margin-bottom: 10px;
-      color: #fff;
+      color: #FFFFFF;
+      font-weight: 500;
     }
     
     .price-item p {
       font-size: 1.1rem;
-      color: #ffffff;
-      font-weight: 500;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 400;
     }
     
     .modal-note {
       margin-top: 20px;
       text-align: center;
       font-size: 0.9rem;
-      color: #bbb;
+      color: rgba(0, 163, 255, 0.7); /* Azul Gojo */
       font-style: italic;
       opacity: 0;
       transform: translateY(10px);
@@ -439,9 +470,9 @@
     footer {
       margin-top: 40px;
       text-align: center;
-      color: #888;
+      color: rgba(0, 163, 255, 0.8); /* Azul Gojo */
       font-size: 0.9rem;
-      padding-bottom: 40px;
+      padding-bottom: 20px;
       opacity: 0;
       transform: translateY(20px);
       animation: slideUpFade 0.8s ease 1.6s forwards;
@@ -449,37 +480,46 @@
     
     .discord {
       margin-top: 10px;
-      color: #ffffff;
+      color: #FFFFFF;
       font-weight: 600;
       font-size: 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       transition: all 0.4s ease;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
     }
     
     .discord:hover {
       transform: scale(1.05);
-      text-shadow: 0 0 10px #ffffff;
+      color: #00A3FF; /* Azul Gojo al hover */
     }
     
     .discord-icon {
-      width: 24px;
-      height: 24px;
-      fill: #ffffff;
+      width: 26px;
+      height: 26px;
+      fill: #FFFFFF;
       transition: all 0.4s ease;
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
     }
     
     .discord:hover .discord-icon {
       transform: rotate(10deg) scale(1.2);
-      filter: drop-shadow(0 0 5px #ffffff);
+      fill: #00A3FF; /* Azul Gojo al hover */
+    }
+    
+    .publisher-note {
+      margin-top: 10px;
+      color: rgba(0, 163, 255, 0.6); /* Azul Gojo */
+      font-size: 0.9rem;
+      font-style: italic;
     }
     
     /* Responsive */
     @media (max-width: 768px) {
       header h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
       }
       
       header p {
@@ -487,7 +527,7 @@
       }
       
       .description h2 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
       }
       
       .description p {
@@ -500,13 +540,19 @@
       }
       
       .modal-content {
-        padding: 20px;
+        padding: 25px;
+      }
+      
+      .draggable-window {
+        padding: 35px 25px;
+        border-radius: 18px;
+        max-width: 95%;
       }
     }
     
     @media (max-width: 480px) {
       header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
       
       .buttons {
@@ -519,59 +565,70 @@
         width: 100%;
         justify-content: center;
       }
+      
+      .draggable-window {
+        padding: 30px 20px;
+        border-radius: 16px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Fondo PS3 animado -->
-  <div class="ps3-background"></div>
-  <div class="ps3-particles" id="particles"></div>
+  <!-- VIDEO DE FONDO GOJO - SIX EYES -->
+  <video autoplay muted loop playsinline class="video-background">
+    <source src="https://motionbgs.com/media/1864/gojo-six-eyes-jujutsu-kaisen.1920x1080.mp4" type="video/mp4">
+    Tu navegador no soporta videos HTML5.
+  </video>
   
-  <!-- Puertas de entrada futuristas -->
+  <!-- Puertas de entrada - Azul muy oscuro -->
   <div class="door-overlay">
     <div class="door door-left"></div>
     <div class="door door-right"></div>
   </div>
   
-  <div class="content-overlay">
-    <header>
-      <h1>Relighted</h1>
-      <p>only R6 animator</p>
-    </header>
-    
-    <section class="description">
-      <h2>Roblox Studio Animator</h2>
-      <p>I’m an animator in Roblox Studio, Actually using Blender. I create R6 animations — I don’t work with R15 or custom rigs</p>
-    </section>
+  <!-- VENTANA ARRASTRABLE -->
+  <div class="draggable-window" id="draggableWindow">
+    <div class="window-content">
+      <header>
+        <h1>Moonar</h1>
+        <p>@just_moonar</p>
+      </header>
+      
+      <section class="description">
+        <h2>Roblox Studio Animator</h2>
+        <p>I'm Moonar, a Roblox Studio animator. I use Blender and Moon Animator. DM me for more info.</p>
+      </section>
 
-    <div class="buttons">
-      <a href="https://discord.gg/m8qTQhsFnK" target="_blank" class="btn btn-animations">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <circle cx="11.5" cy="14.5" r="2.5"></circle>
-          <path d="M13.25 16.25 15 18"></path>
-        </svg>
-        Animations
-      </a>
-      <button id="pricesBtn" class="btn btn-prices">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="1" x2="12" y2="23"></line>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
-        Prices
-      </button>
-    </div>
-    
-    <footer>
-      <p>Contact me on discord:</p>
-      <div class="discord">
-        <svg class="discord-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36">
-          <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
-        </svg>
-        xrelighted
+      <div class="buttons">
+        <a href="https://discord.gg/KEApvz9Cew" target="_blank" class="btn btn-animations no-drag">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <circle cx="11.5" cy="14.5" r="2.5"></circle>
+            <path d="M13.25 16.25 15 18"></path>
+          </svg>
+          Animations
+        </a>
+        <button id="pricesBtn" class="btn btn-prices no-drag">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          Prices
+        </button>
       </div>
-    </footer>
+      
+      <footer class="no-drag">
+        <p>discord:</p>
+        <div class="discord">
+          <svg class="discord-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36">
+            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+          </svg>
+          just_moonar
+        </div>
+        <p class="publisher-note"> </p>
+      </footer>
+    </div>
   </div>
   
   <!-- Modal de precios -->
@@ -582,11 +639,11 @@
       <div class="price-list">
         <div class="price-item">
           <h3>Rig Animation</h3>
-          <p>1000 Robux</p>
+          <p>Negotiable via DM</p>
         </div>
         <div class="price-item">
           <h3>Animation with 2 rigs or cinematic animation</h3>
-          <p>2000 Robux</p>
+          <p>Negotiable via DM</p>
         </div>
       </div>
       <p class="modal-note">* Prices may vary depending on the complexity of the project.</p>
@@ -594,82 +651,200 @@
   </div>
 
   <script>
-    // Crear partículas para el fondo PS3
-    function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = 15;
+    // ========== SISTEMA DE ARRASTRE CON INERCIA ==========
+    class DraggableWindow {
+      constructor(element) {
+        this.window = element;
+        this.isDragging = false;
+        this.currentX = 0;
+        this.currentY = 0;
+        this.initialX = 0;
+        this.initialY = 0;
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.lastX = 0;
+        this.lastY = 0;
+        this.timestamp = 0;
+        this.animationId = null;
+        
+        this.window.style.left = '50%';
+        this.window.style.top = '50%';
+        
+        this.bindEvents();
+      }
       
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
+      bindEvents() {
+        this.window.addEventListener('mousedown', this.startDrag.bind(this));
+        this.window.addEventListener('touchstart', this.startDrag.bind(this), { passive: false });
         
-        // Tamaño aleatorio
-        const size = Math.random() * 100 + 50;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
+        document.addEventListener('mousemove', this.drag.bind(this));
+        document.addEventListener('touchmove', this.drag.bind(this), { passive: false });
         
-        // Posición aleatoria
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
+        document.addEventListener('mouseup', this.stopDrag.bind(this));
+        document.addEventListener('touchend', this.stopDrag.bind(this));
         
-        // Opacidad aleatoria
-        particle.style.opacity = Math.random() * 0.1 + 0.05;
+        document.querySelectorAll('.no-drag, .btn, button, a').forEach(el => {
+          el.addEventListener('mousedown', e => e.stopPropagation());
+          el.addEventListener('touchstart', e => e.stopPropagation());
+        });
+      }
+      
+      startDrag(e) {
+        if (e.target.closest('.no-drag') || e.target.closest('.btn') || 
+            e.target.closest('button') || e.target.closest('a') || 
+            e.target.closest('.close-modal')) {
+          return;
+        }
         
-        // Animación con delay aleatorio
-        particle.style.animationDelay = `${Math.random() * 20}s`;
+        this.isDragging = true;
+        this.window.style.cursor = 'grabbing';
         
-        particlesContainer.appendChild(particle);
+        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+        
+        const rect = this.window.getBoundingClientRect();
+        this.initialX = clientX - rect.left;
+        this.initialY = clientY - rect.top;
+        
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.lastX = clientX;
+        this.lastY = clientY;
+        this.timestamp = Date.now();
+        
+        e.preventDefault();
+      }
+      
+      drag(e) {
+        if (!this.isDragging) return;
+        
+        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+        
+        const newX = clientX - this.initialX;
+        const newY = clientY - this.initialY;
+        
+        const now = Date.now();
+        const deltaTime = now - this.timestamp;
+        
+        if (deltaTime > 0) {
+          this.velocityX = (clientX - this.lastX) / deltaTime * 16;
+          this.velocityY = (clientY - this.lastY) / deltaTime * 16;
+        }
+        
+        this.lastX = clientX;
+        this.lastY = clientY;
+        this.timestamp = now;
+        
+        this.window.style.left = newX + 'px';
+        this.window.style.top = newY + 'px';
+        this.window.style.transform = 'translate(0, 0) scale(1.01)';
+        
+        e.preventDefault();
+      }
+      
+      stopDrag() {
+        if (!this.isDragging) return;
+        
+        this.isDragging = false;
+        this.window.style.cursor = 'grab';
+        this.window.style.transform = 'translate(0, 0) scale(1)';
+        
+        this.applyInertia();
+      }
+      
+      applyInertia() {
+        const inertiaStrength = 0.92;
+        const minVelocity = 0.1;
+        
+        const applyInertiaFrame = () => {
+          if (Math.abs(this.velocityX) < minVelocity && Math.abs(this.velocityY) < minVelocity) {
+            this.velocityX = 0;
+            this.velocityY = 0;
+            return;
+          }
+          
+          const rect = this.window.getBoundingClientRect();
+          const newX = rect.left + this.velocityX;
+          const newY = rect.top + this.velocityY;
+          
+          const boundedX = Math.max(0, Math.min(window.innerWidth - rect.width, newX));
+          const boundedY = Math.max(0, Math.min(window.innerHeight - rect.height, newY));
+          
+          this.window.style.left = boundedX + 'px';
+          this.window.style.top = boundedY + 'px';
+          
+          this.velocityX *= inertiaStrength;
+          this.velocityY *= inertiaStrength;
+          
+          this.animationId = requestAnimationFrame(applyInertiaFrame);
+        };
+        
+        this.animationId = requestAnimationFrame(applyInertiaFrame);
       }
     }
 
-    // Funcionalidad del modal de precios
-    const pricesBtn = document.getElementById('pricesBtn');
-    const pricesModal = document.getElementById('pricesModal');
-    const closeModal = document.querySelector('.close-modal');
-    
-    // Abrir modal al hacer clic en el botón Precios
-    pricesBtn.addEventListener('click', () => {
-      pricesModal.style.display = 'flex';
-      setTimeout(() => {
-        pricesModal.classList.add('active');
-      }, 10);
-    });
-    
-    // Cerrar modal al hacer clic en la X
-    closeModal.addEventListener('click', () => {
-      pricesModal.classList.remove('active');
-      setTimeout(() => {
-        pricesModal.style.display = 'none';
-      }, 400);
-    });
-    
-    // Cerrar modal al hacer clic fuera del contenido
-    window.addEventListener('click', (event) => {
-      if (event.target === pricesModal) {
+    // ========== INICIALIZAR TODO ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      const draggableWindow = new DraggableWindow(document.getElementById('draggableWindow'));
+      
+      const pricesBtn = document.getElementById('pricesBtn');
+      const pricesModal = document.getElementById('pricesModal');
+      const closeModal = document.querySelector('.close-modal');
+      
+      pricesBtn.addEventListener('click', () => {
+        pricesModal.style.display = 'flex';
+        setTimeout(() => {
+          pricesModal.classList.add('active');
+        }, 10);
+      });
+      
+      closeModal.addEventListener('click', () => {
         pricesModal.classList.remove('active');
         setTimeout(() => {
           pricesModal.style.display = 'none';
         }, 400);
-      }
+      });
+      
+      window.addEventListener('click', (event) => {
+        if (event.target === pricesModal) {
+          pricesModal.classList.remove('active');
+          setTimeout(() => {
+            pricesModal.style.display = 'none';
+          }, 400);
+        }
+      });
+      
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          pricesModal.classList.remove('active');
+          setTimeout(() => {
+            pricesModal.style.display = 'none';
+          }, 400);
+        }
+      });
+      
+      setTimeout(() => {
+        document.querySelector('.door-overlay').style.display = 'none';
+      }, 2000);
+      
+      document.addEventListener('wheel', (e) => {
+        if (e.ctrlKey) {
+          e.preventDefault();
+          return false;
+        }
+      }, { passive: false });
+      
+      document.addEventListener('touchmove', (e) => {
+        if (e.scale !== 1) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+      
+      document.addEventListener('gesturestart', (e) => {
+        e.preventDefault();
+      });
     });
-    
-    // Cerrar modal con la tecla Escape
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        pricesModal.classList.remove('active');
-        setTimeout(() => {
-          pricesModal.style.display = 'none';
-        }, 400);
-      }
-    });
-    
-    // Remover las puertas después de la animación
-    setTimeout(() => {
-      document.querySelector('.door-overlay').style.display = 'none';
-    }, 2000);
-
-    // Inicializar partículas cuando cargue la página
-    document.addEventListener('DOMContentLoaded', createParticles);
   </script>
 </body>
 </html>
