@@ -1,850 +1,571 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Relighted - Roblox Studio Animator</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-      -webkit-tap-highlight-color: transparent;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANIMADOR | Portafolio Digital</title>
+    <style>
+        /* CONFIGURACIÓN PERSONAL - LÍNEAS CLAVE PARA MODIFICAR */
+        
+        /* 1. COLORES PRINCIPALES - Cambia estos códigos de color */
+        :root {
+            --color-primario: #6c5ce7;        /* Color principal (púrpura) */
+            --color-secundario: #a463f5;       /* Color secundario (lavanda) */
+            --color-acento: #00d4ff;            /* Color de acentos (celeste neón) */
+            --color-fondo: #0a0a0a;              /* Fondo principal (negro) */
+            --color-texto: #ffffff;               /* Color de texto (blanco) */
+        }
+        
+        /* 2. TEXTO PERSONALIZADO - Cambia por tu nombre y título */
+        .nombre-artista {
+            content: "NOMBRE ARTISTA";           /* Reemplaza con tu nombre */
+        }
+        
+        .titulo-artista {
+            content: "ANIMADOR 3D · MOTION DESIGNER"; /* Cambia tu especialidad */
+        }
 
-    html, body {
-      overflow: hidden;
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      touch-action: none;
-    }
+        /* 3. LINKS DE YOUTUBE - ZONAS ESPECÍFICAS PARA MODIFICAR */
+        /* ZONA 1: Video destacado (reemplaza VIDEO_ID_1) */
+        .zona-youtube-1 {
+            background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+        }
+        
+        /* ZONA 2: Segundo video (reemplaza VIDEO_ID_2) */
+        .zona-youtube-2 {
+            background: linear-gradient(135deg, var(--color-secundario), var(--color-acento));
+        }
+        
+        /* ZONA 3: Tercer video (reemplaza VIDEO_ID_3) */
+        .zona-youtube-3 {
+            background: linear-gradient(135deg, var(--color-acento), var(--color-primario));
+        }
 
-    /* FONDO ANIMADO GOJO - VIDEO MP4 */
-    .video-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      object-fit: cover;
-      filter: brightness(0.9) contrast(1.1);
-    }
+        /* ESTILOS GENERALES - No modifiques si no sabes CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* VENTANA FLOTANTE - CRISTAL OSCURO ULTRA-TRANSLÚCIDO */
-    .draggable-window {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(1);
-      width: 100%;
-      max-width: 900px;
-      background: rgba(10, 10, 15, 0.7); /* Cristal oscuro ultra-translúcido */
-      backdrop-filter: blur(25px) saturate(180%);
-      -webkit-backdrop-filter: blur(25px) saturate(180%);
-      border-radius: 20px;
-      padding: 40px 35px;
-      border: 1px solid rgba(0, 163, 255, 0.3);
-      box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 0 15px rgba(0, 163, 255, 0.4); /* Resplandor azul neón */
-      cursor: grab;
-      transition: transform 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28),
-                  box-shadow 0.2s ease;
-      will-change: transform, left, top;
-      z-index: 100;
-      overflow: hidden;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--color-fondo);
+            color: var(--color-texto);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
 
-    /* Efecto al agarrar */
-    .draggable-window:active {
-      cursor: grabbing;
-      transform: translate(-50%, -50%) scale(1.01);
-      box-shadow: 
-        0 25px 60px rgba(0, 0, 0, 0.7),
-        0 0 30px rgba(0, 163, 255, 0.6); /* Resplandor más intenso al agarrar */
-    }
+        /* Efecto de fondo animado */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(108, 92, 231, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(164, 99, 245, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
 
-    /* Contorno luminoso AZUL GOJO */
-    .draggable-window::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 20px;
-      padding: 1px;
-      background: linear-gradient(
-        135deg,
-        rgba(0, 163, 255, 0.3),
-        rgba(0, 100, 255, 0.1),
-        rgba(0, 163, 255, 0.15)
-      );
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-    }
+        /* Partículas flotantes */
+        .particulas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
 
-    /* Áreas no arrastrables */
-    .no-drag, .no-drag * {
-      cursor: default !important;
-      user-select: text !important;
-      -webkit-user-select: text !important;
-    }
+        .particula {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: flotar 10s infinite linear;
+        }
 
-    .btn, button, a {
-      cursor: pointer !important;
-    }
+        @keyframes flotar {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
 
-    /* Contenido dentro de la ventana */
-    .window-content {
-      pointer-events: auto;
-      position: relative;
-      z-index: 2;
-    }
+        /* Contenedor principal */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: transparent;
-      color: #FFFFFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
-      padding: 20px;
-      opacity: 0;
-      animation: fadeInBody 0.8s ease 1s forwards;
-      position: relative;
-      touch-action: none;
-    }
-    
-    @keyframes fadeInBody {
-      to { opacity: 1; }
-    }
-    
-    /* PUERTAS DE ENTRADA - AZUL MUY OSCURO CASI NEGRO */
-    .door-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1000;
-      display: flex;
-      pointer-events: none;
-    }
-    
-    .door {
-      flex: 1;
-      background: rgba(5, 10, 30, 0.85); /* Azul muy oscuro casi negro */
-      backdrop-filter: blur(5px);
-      transform: scaleY(1);
-      transform-origin: top;
-      animation: doorOpen 0.8s ease 1s forwards;
-    }
-    
-    .door-left {
-      transform-origin: left;
-      animation: doorOpenLeft 0.8s ease 1s forwards;
-    }
-    
-    .door-right {
-      transform-origin: right;
-      animation: doorOpenRight 0.8s ease 1s forwards;
-    }
-    
-    @keyframes doorOpenLeft {
-      0% { transform: scaleX(1); }
-      100% { transform: scaleX(0); }
-    }
-    
-    @keyframes doorOpenRight {
-      0% { transform: scaleX(1); }
-      100% { transform: scaleX(0); }
-    }
-    
-    header {
-      text-align: center;
-      padding: 20px 0 30px;
-      max-width: 800px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUpFade 0.8s ease 1s forwards;
-      margin: 0 auto;
-    }
-    
-    @keyframes slideUpFade {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    /* TÍTULO - GRADIENTE BLANCO A AZUL ELÉCTRICO */
-    header h1 {
-      font-size: 3.5rem;
-      margin-bottom: 10px;
-      background: linear-gradient(90deg, #FFFFFF, #00A3FF, #FFFFFF); /* Blanco a Azul Eléctrico */
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradient 4s ease infinite;
-      text-shadow: 0 2px 15px rgba(0, 163, 255, 0.3);
-      letter-spacing: 1px;
-      font-weight: 700;
-    }
-    
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    
-    header p {
-      font-size: 1.3rem;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 20px;
-      font-weight: 300;
-      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-    }
-    
-    .description {
-      background: rgba(20, 25, 40, 0.5);
-      backdrop-filter: blur(15px);
-      border-radius: 16px;
-      padding: 25px;
-      margin: 20px auto 40px;
-      max-width: 800px;
-      text-align: center;
-      border: 1px solid rgba(0, 163, 255, 0.2);
-      box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUpFade 0.8s ease 1.2s forwards;
-    }
-    
-    .description h2 {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      color: #FFFFFF;
-      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-      font-weight: 500;
-    }
-    
-    .description p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.85);
-    }
-    
-    .buttons {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 20px;
-      margin-bottom: 40px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUpFade 0.8s ease 1.4s forwards;
-    }
-    
-    .btn {
-      padding: 14px 32px;
-      background: rgba(30, 35, 50, 0.6); /* Gris oscuro */
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(0, 163, 255, 0.3); /* Borde azul cian */
-      border-radius: 12px;
-      color: #FFFFFF;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 
-        0 8px 20px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 163, 255, 0.2), transparent);
-      transition: all 0.8s ease;
-    }
-    
-    .btn:hover {
-      background: rgba(0, 163, 255, 0.25); /* Azul cian en hover */
-      border-color: rgba(0, 200, 255, 0.5);
-      box-shadow: 
-        0 12px 25px rgba(0, 163, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-    }
-    
-    .btn:hover::before {
-      left: 100%;
-    }
-    
-    .btn-animations {
-      background: rgba(25, 30, 50, 0.6);
-      border-color: rgba(0, 163, 255, 0.4);
-    }
-    
-    .btn-animations:hover {
-      background: rgba(0, 163, 255, 0.3);
-      border-color: rgba(0, 200, 255, 0.6);
-    }
-    
-    .btn-prices {
-      background: rgba(20, 25, 45, 0.6);
-      border-color: rgba(0, 140, 255, 0.4);
-    }
-    
-    .btn-prices:hover {
-      background: rgba(0, 163, 255, 0.3);
-      border-color: rgba(0, 180, 255, 0.6);
-    }
-    
-    /* Modal de precios */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(5, 10, 20, 0.85);
-      backdrop-filter: blur(15px);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-    
-    .modal.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
-    .modal-content {
-      background: rgba(15, 20, 35, 0.8);
-      backdrop-filter: blur(30px) saturate(180%);
-      border-radius: 18px;
-      padding: 30px;
-      max-width: 500px;
-      width: 90%;
-      border: 1px solid rgba(0, 163, 255, 0.3);
-      box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 0 20px rgba(0, 163, 255, 0.3);
-      position: relative;
-      transform: scale(0.9) translateY(-20px);
-      opacity: 0;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    
-    .modal.active .modal-content {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-    
-    .close-modal {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 1.5rem;
-      color: rgba(0, 163, 255, 0.8); /* Azul Gojo */
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: rgba(0, 163, 255, 0.1);
-    }
-    
-    .close-modal:hover {
-      color: #00A3FF;
-      transform: rotate(90deg);
-      background: rgba(0, 163, 255, 0.2);
-    }
-    
-    .modal h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      color: #FFFFFF;
-      font-size: 1.8rem;
-      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-      font-weight: 500;
-    }
-    
-    .price-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    .price-item {
-      background: rgba(30, 35, 50, 0.5);
-      backdrop-filter: blur(10px);
-      border-radius: 10px;
-      padding: 20px;
-      border-left: 3px solid #00A3FF; /* Azul brillante (Six Eyes) */
-      transform: translateX(-20px);
-      opacity: 0;
-      transition: all 0.4s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    
-    .modal.active .price-item:nth-child(1) {
-      animation: slideInRight 0.5s ease 0.2s forwards;
-    }
-    
-    .modal.active .price-item:nth-child(2) {
-      animation: slideInRight 0.5s ease 0.4s forwards;
-    }
-    
-    @keyframes slideInRight {
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-    
-    .price-item h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-      color: #FFFFFF;
-      font-weight: 500;
-    }
-    
-    .price-item p {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.8);
-      font-weight: 400;
-    }
-    
-    .modal-note {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: rgba(0, 163, 255, 0.7); /* Azul Gojo */
-      font-style: italic;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.4s ease 0.6s;
-    }
-    
-    .modal.active .modal-note {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      color: rgba(0, 163, 255, 0.8); /* Azul Gojo */
-      font-size: 0.9rem;
-      padding-bottom: 20px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUpFade 0.8s ease 1.6s forwards;
-    }
-    
-    .discord {
-      margin-top: 10px;
-      color: #FFFFFF;
-      font-weight: 600;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: all 0.4s ease;
-      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-    }
-    
-    .discord:hover {
-      transform: scale(1.05);
-      color: #00A3FF; /* Azul Gojo al hover */
-    }
-    
-    .discord-icon {
-      width: 26px;
-      height: 26px;
-      fill: #FFFFFF;
-      transition: all 0.4s ease;
-      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
-    }
-    
-    .discord:hover .discord-icon {
-      transform: rotate(10deg) scale(1.2);
-      fill: #00A3FF; /* Azul Gojo al hover */
-    }
-    
-    .publisher-note {
-      margin-top: 10px;
-      color: rgba(0, 163, 255, 0.6); /* Azul Gojo */
-      font-size: 0.9rem;
-      font-style: italic;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.8rem;
-      }
-      
-      header p {
-        font-size: 1.1rem;
-      }
-      
-      .description h2 {
-        font-size: 1.6rem;
-      }
-      
-      .description p {
-        font-size: 1rem;
-      }
-      
-      .btn {
-        padding: 12px 24px;
-        font-size: 1rem;
-      }
-      
-      .modal-content {
-        padding: 25px;
-      }
-      
-      .draggable-window {
-        padding: 35px 25px;
-        border-radius: 18px;
-        max-width: 95%;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-      
-      .buttons {
-        flex-direction: column;
-        width: 100%;
-        max-width: 300px;
-      }
-      
-      .btn {
-        width: 100%;
-        justify-content: center;
-      }
-      
-      .draggable-window {
-        padding: 30px 20px;
-        border-radius: 16px;
-      }
-    }
-  </style>
+        /* Header con efecto glassmorphism */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: aparecer 1s ease-out;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Título con efecto glitch */
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+            color: var(--color-texto);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        h1::before,
+        h1::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        h1::before {
+            color: var(--color-acento);
+            z-index: -1;
+            animation: glitch 0.3s infinite;
+        }
+
+        h1::after {
+            color: var(--color-primario);
+            z-index: -2;
+            animation: glitch 0.3s infinite reverse;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .subtitulo {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        .descripcion {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Grid de videos */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        /* Tarjeta de video */
+        .video-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: subir 0.6s ease-out forwards;
+            opacity: 0;
+            position: relative;
+        }
+
+        .video-card:nth-child(1) { animation-delay: 0.2s; }
+        .video-card:nth-child(2) { animation-delay: 0.4s; }
+        .video-card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes subir {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 2px var(--color-acento);
+            border-color: transparent;
+        }
+
+        /* Contenedor del video */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none; /* Los iframes no son clickeables por defecto */
+        }
+
+        /* Overlay para hacer clickeable el enlace */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Información del video */
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-titulo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-texto);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .video-titulo i {
+            color: var(--color-acento);
+            font-size: 1.4rem;
+        }
+
+        .video-descripcion {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.4;
+        }
+
+        /* Zonas de YouTube personalizadas */
+        .zona-etiqueta {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--color-primario);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            z-index: 20;
+            box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+        }
+
+        /* Botón flotante de YouTube */
+        .youtube-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #ff0000;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+            text-decoration: none;
+            animation: pulso 2s infinite;
+        }
+
+        @keyframes pulso {
+            0% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 0, 0, 0.5); }
+            50% { transform: scale(1.1); box-shadow: 0 0 50px rgba(255, 0, 0, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 0, 0, 0.5); }
+        }
+
+        .youtube-float:hover {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        /* Estadísticas */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-numero {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--color-acento);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .videos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- VIDEO DE FONDO --->
-  <video autoplay muted loop playsinline class="video-background">
-    <source src="https://motionbgs.com/media/4418/sung-jin-woo-darkness.3840x2160.mp4" type="video/mp4">
-    Tu navegador no soporta videos HTML5.
-  </video>
-  
-  <!-- Puertas de entrada - Azul muy oscuro -->
-  <div class="door-overlay">
-    <div class="door door-left"></div>
-    <div class="door door-right"></div>
-  </div>
-  
-  <!-- VENTANA ARRASTRABLE -->
-  <div class="draggable-window" id="draggableWindow">
-    <div class="window-content">
-      <header>
-        <h1>Relighted</h1>
-        <p>@xrelighted</p>
-      </header>
-      
-      <section class="description">
-        <h2>Roblox Studio Animator</h2>
-        <p>I'm Relighted, a Roblox Studio animator. Actually using Blender. DM me for more info.</p>
-      </section>
+    <!-- Partículas flotantes -->
+    <div class="particulas" id="particulas"></div>
 
-      <div class="buttons">
-        <a href="https://discord.gg/C8YQVAerH3" target="_blank" class="btn btn-animations no-drag">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <circle cx="11.5" cy="14.5" r="2.5"></circle>
-            <path d="M13.25 16.25 15 18"></path>
-          </svg>
-          Animations
-        </a>
-        <button id="pricesBtn" class="btn btn-prices no-drag">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"></line>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-          </svg>
-          Prices
-        </button>
-      </div>
-      
-      <footer class="no-drag">
-        <p>discord:</p>
-        <div class="discord">
-          <svg class="discord-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36">
-            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
-          </svg>
-          xrelighted
-        </div>
-        <p class="publisher-note"> </p>
-      </footer>
-    </div>
-  </div>
-  
-  <!-- Modal de precios -->
-  <div id="pricesModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal">&times;</span>
-      <h2>Animations Prices</h2>
-      <div class="price-list">
-        <div class="price-item">
-          <h3>Rig Animation</h3>
-          <p>1000 Robux</p>
-        </div>
-        <div class="price-item">
-          <h3>Animation with 2 rigs or cinematic animation</h3>
-          <p>2000 Robux</p>
-        </div>
-      </div>
-      <p class="modal-note">* Prices may vary depending on the complexity of the project.</p>
-    </div>
-  </div>
+    <!-- Contenido principal -->
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <!-- INSTRUCCIÓN 1: Cambia "ANIMADOR PRO" por tu nombre -->
+            <h1 data-text="ANIMADOR PRO">ANIMADOR PRO</h1>
+            
+            <!-- INSTRUCCIÓN 2: Cambia tu título profesional -->
+            <div class="subtitulo">✨ 3D ANIMATOR & MOTION DESIGNER ✨</div>
+            
+            <!-- INSTRUCCIÓN 3: Cambia tu descripción personal -->
+            <p class="descripcion">
+                Creando mundos animados y dando vida a personajes con más de 8 años de experiencia en animación 3D, motion graphics y efectos visuales.
+            </p>
+        </header>
 
-  <script>
-    // ========== SISTEMA DE ARRASTRE CON INERCIA ==========
-    class DraggableWindow {
-      constructor(element) {
-        this.window = element;
-        this.isDragging = false;
-        this.currentX = 0;
-        this.currentY = 0;
-        this.initialX = 0;
-        this.initialY = 0;
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.lastX = 0;
-        this.lastY = 0;
-        this.timestamp = 0;
-        this.animationId = null;
+        <!-- Grid de videos - ZONAS DE YOUTUBE (3 espacios) -->
+        <div class="videos-grid">
+            
+            <!-- ZONA 1: Primer video de YouTube -->
+            <div class="video-card">
+                <div class="zona-youtube-1"></div>
+                <div class="video-wrapper">
+                    <!-- INSTRUCCIÓN 4: Reemplaza VIDEO_ID_1 con el ID de tu video de YouTube -->
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_1?controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1" 
+                            allowfullscreen></iframe>
+                    
+                    <!-- Link clickeable overlay -->
+                    <!-- INSTRUCCIÓN 5: Reemplaza el enlace completo de YouTube -->
+                    <a href="https://youtu.be/VIDEO_ID_1" target="_blank" class="video-overlay"></a>
+                    
+                    <!-- Etiqueta de zona -->
+                    <div class="zona-etiqueta">ZONA 01 · DESTACADO</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">
+                        <i>▶</i> 
+                        <!-- INSTRUCCIÓN 6: Cambia el título del video -->
+                        REEL 2024 - TRABAJOS DESTACADOS
+                    </h3>
+                    <p class="video-descripcion">
+                        <!-- INSTRUCCIÓN 7: Cambia la descripción -->
+                        Una colección de mis mejores trabajos de animación 3D del último año, incluyendo proyectos para clientes internacionales.
+                    </p>
+                </div>
+            </div>
+
+            <!-- ZONA 2: Segundo video de YouTube -->
+            <div class="video-card">
+                <div class="zona-youtube-2"></div>
+                <div class="video-wrapper">
+                    <!-- INSTRUCCIÓN 8: Reemplaza VIDEO_ID_2 con el ID de tu video -->
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_2?controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1" 
+                            allowfullscreen></iframe>
+                    
+                    <!-- INSTRUCCIÓN 9: Reemplaza el enlace completo -->
+                    <a href="https://youtu.be/VIDEO_ID_2" target="_blank" class="video-overlay"></a>
+                    
+                    <div class="zona-etiqueta">ZONA 02 · PROCESO</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">
+                        <i>▶</i>
+                        <!-- INSTRUCCIÓN 10: Cambia el título -->
+                        MAKING OF - DETRÁS DE CÁMARAS
+                    </h3>
+                    <p class="video-descripcion">
+                        <!-- INSTRUCCIÓN 11: Cambia la descripción -->
+                        Un vistazo exclusivo a mi proceso creativo y las técnicas que utilizo para crear animaciones profesionales.
+                    </p>
+                </div>
+            </div>
+
+            <!-- ZONA 3: Tercer video de YouTube -->
+            <div class="video-card">
+                <div class="zona-youtube-3"></div>
+                <div class="video-wrapper">
+                    <!-- INSTRUCCIÓN 12: Reemplaza VIDEO_ID_3 con el ID de tu video -->
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_3?controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1" 
+                            allowfullscreen></iframe>
+                    
+                    <!-- INSTRUCCIÓN 13: Reemplaza el enlace completo -->
+                    <a href="https://youtu.be/VIDEO_ID_3" target="_blank" class="video-overlay"></a>
+                    
+                    <div class="zona-etiqueta">ZONA 03 · TUTORIAL</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">
+                        <i>▶</i>
+                        <!-- INSTRUCCIÓN 14: Cambia el título -->
+                        TUTORIAL: ANIMACIÓN PRINCIPIANTES
+                    </h3>
+                    <p class="video-descripcion">
+                        <!-- INSTRUCCIÓN 15: Cambia la descripción -->
+                        Aprende las bases de la animación 3D con este tutorial paso a paso diseñado para principiantes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="stats">
+            <div class="stat-item">
+                <!-- INSTRUCCIÓN 16: Cambia los números de estadísticas -->
+                <div class="stat-numero">8+</div>
+                <div class="stat-label">AÑOS DE EXPERIENCIA</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-numero">150+</div>
+                <div class="stat-label">PROYECTOS REALIZADOS</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-numero">50K+</div>
+                <div class="stat-label">SUSCRIPTORES</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón flotante de YouTube -->
+    <!-- INSTRUCCIÓN 17: Reemplaza con el enlace a tu canal -->
+    <a href="https://youtube.com/@TU-CANAL" target="_blank" class="youtube-float">
+        ▶
+    </a>
+
+    <script>
+        // CONFIGURACIÓN PERSONAL - JavaScript para efectos
         
-        this.window.style.left = '50%';
-        this.window.style.top = '50%';
-        
-        this.bindEvents();
-      }
-      
-      bindEvents() {
-        this.window.addEventListener('mousedown', this.startDrag.bind(this));
-        this.window.addEventListener('touchstart', this.startDrag.bind(this), { passive: false });
-        
-        document.addEventListener('mousemove', this.drag.bind(this));
-        document.addEventListener('touchmove', this.drag.bind(this), { passive: false });
-        
-        document.addEventListener('mouseup', this.stopDrag.bind(this));
-        document.addEventListener('touchend', this.stopDrag.bind(this));
-        
-        document.querySelectorAll('.no-drag, .btn, button, a').forEach(el => {
-          el.addEventListener('mousedown', e => e.stopPropagation());
-          el.addEventListener('touchstart', e => e.stopPropagation());
+        // 1. Generar partículas flotantes
+        const particulasContainer = document.getElementById('particulas');
+        const numParticulas = 50;
+
+        for (let i = 0; i < numParticulas; i++) {
+            const particula = document.createElement('div');
+            particula.className = 'particula';
+            
+            // Posición aleatoria
+            particula.style.left = Math.random() * 100 + '%';
+            particula.style.top = Math.random() * 100 + '%';
+            
+            // Tamaño aleatorio
+            const size = Math.random() * 3 + 1;
+            particula.style.width = size + 'px';
+            particula.style.height = size + 'px';
+            
+            // Retraso de animación aleatorio
+            particula.style.animationDelay = Math.random() * 10 + 's';
+            
+            // Duración aleatoria
+            particula.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            
+            particulasContainer.appendChild(particula);
+        }
+
+        // 2. Efecto de scroll para las tarjetas
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.video-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                if (rect.top < windowHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
         });
-      }
-      
-      startDrag(e) {
-        if (e.target.closest('.no-drag') || e.target.closest('.btn') || 
-            e.target.closest('button') || e.target.closest('a') || 
-            e.target.closest('.close-modal')) {
-          return;
-        }
-        
-        this.isDragging = true;
-        this.window.style.cursor = 'grabbing';
-        
-        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-        
-        const rect = this.window.getBoundingClientRect();
-        this.initialX = clientX - rect.left;
-        this.initialY = clientY - rect.top;
-        
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.lastX = clientX;
-        this.lastY = clientY;
-        this.timestamp = Date.now();
-        
-        e.preventDefault();
-      }
-      
-      drag(e) {
-        if (!this.isDragging) return;
-        
-        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-        
-        const newX = clientX - this.initialX;
-        const newY = clientY - this.initialY;
-        
-        const now = Date.now();
-        const deltaTime = now - this.timestamp;
-        
-        if (deltaTime > 0) {
-          this.velocityX = (clientX - this.lastX) / deltaTime * 16;
-          this.velocityY = (clientY - this.lastY) / deltaTime * 16;
-        }
-        
-        this.lastX = clientX;
-        this.lastY = clientY;
-        this.timestamp = now;
-        
-        this.window.style.left = newX + 'px';
-        this.window.style.top = newY + 'px';
-        this.window.style.transform = 'translate(0, 0) scale(1.01)';
-        
-        e.preventDefault();
-      }
-      
-      stopDrag() {
-        if (!this.isDragging) return;
-        
-        this.isDragging = false;
-        this.window.style.cursor = 'grab';
-        this.window.style.transform = 'translate(0, 0) scale(1)';
-        
-        this.applyInertia();
-      }
-      
-      applyInertia() {
-        const inertiaStrength = 0.92;
-        const minVelocity = 0.1;
-        
-        const applyInertiaFrame = () => {
-          if (Math.abs(this.velocityX) < minVelocity && Math.abs(this.velocityY) < minVelocity) {
-            this.velocityX = 0;
-            this.velocityY = 0;
-            return;
-          }
-          
-          const rect = this.window.getBoundingClientRect();
-          const newX = rect.left + this.velocityX;
-          const newY = rect.top + this.velocityY;
-          
-          const boundedX = Math.max(0, Math.min(window.innerWidth - rect.width, newX));
-          const boundedY = Math.max(0, Math.min(window.innerHeight - rect.height, newY));
-          
-          this.window.style.left = boundedX + 'px';
-          this.window.style.top = boundedY + 'px';
-          
-          this.velocityX *= inertiaStrength;
-          this.velocityY *= inertiaStrength;
-          
-          this.animationId = requestAnimationFrame(applyInertiaFrame);
-        };
-        
-        this.animationId = requestAnimationFrame(applyInertiaFrame);
-      }
-    }
 
-    // ========== INICIALIZAR TODO ==========
-    document.addEventListener('DOMContentLoaded', () => {
-      const draggableWindow = new DraggableWindow(document.getElementById('draggableWindow'));
-      
-      const pricesBtn = document.getElementById('pricesBtn');
-      const pricesModal = document.getElementById('pricesModal');
-      const closeModal = document.querySelector('.close-modal');
-      
-      pricesBtn.addEventListener('click', () => {
-        pricesModal.style.display = 'flex';
-        setTimeout(() => {
-          pricesModal.classList.add('active');
-        }, 10);
-      });
-      
-      closeModal.addEventListener('click', () => {
-        pricesModal.classList.remove('active');
-        setTimeout(() => {
-          pricesModal.style.display = 'none';
-        }, 400);
-      });
-      
-      window.addEventListener('click', (event) => {
-        if (event.target === pricesModal) {
-          pricesModal.classList.remove('active');
-          setTimeout(() => {
-            pricesModal.style.display = 'none';
-          }, 400);
-        }
-      });
-      
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-          pricesModal.classList.remove('active');
-          setTimeout(() => {
-            pricesModal.style.display = 'none';
-          }, 400);
-        }
-      });
-      
-      setTimeout(() => {
-        document.querySelector('.door-overlay').style.display = 'none';
-      }, 2000);
-      
-      document.addEventListener('wheel', (e) => {
-        if (e.ctrlKey) {
-          e.preventDefault();
-          return false;
-        }
-      }, { passive: false });
-      
-      document.addEventListener('touchmove', (e) => {
-        if (e.scale !== 1) {
-          e.preventDefault();
-        }
-      }, { passive: false });
-      
-      document.addEventListener('gesturestart', (e) => {
-        e.preventDefault();
-      });
-    });
-  </script>
+        // 3. Título dinámico (opcional)
+        const titulo = document.querySelector('h1');
+        const textos = ['ANIMADOR PRO', 'CREATIVO 3D', 'MOTION ARTIST'];
+        let index = 0;
+
+        setInterval(() => {
+            index = (index + 1) % textos.length;
+            titulo.setAttribute('data-text', textos[index]);
+            titulo.textContent = textos[index];
+        }, 3000);
+    </script>
 </body>
 </html>
