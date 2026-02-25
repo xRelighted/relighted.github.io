@@ -16,6 +16,7 @@
             --color-acento: #2dd4bf;            /* Verde menta tecnológico */
             --color-gris: #1a1a1a;              /* Gris oscuro para tarjetas */
             --color-borde: #2a2a2a;              /* Bordes sutiles */
+            --transition-smooth: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transición super smooth */
         }
 
         /* 2. FUENTES MODERNAS */
@@ -28,6 +29,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth; /* Smooth scroll nativo */
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--color-fondo);
@@ -36,6 +41,13 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            opacity: 0;
+            animation: bodyFadeIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes bodyFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         /* FONDO ANIMADO - MUY SUTIL */
@@ -58,7 +70,7 @@
             background: radial-gradient(circle, rgba(74, 158, 255, 0.1) 0%, transparent 70%);
             border-radius: 50%;
             filter: blur(60px);
-            animation: floatSphere 30s infinite ease-in-out;
+            animation: floatSphere 30s infinite cubic-bezier(0.23, 1, 0.32, 1);
             z-index: -1;
         }
 
@@ -71,11 +83,11 @@
             background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
             border-radius: 50%;
             filter: blur(60px);
-            animation: floatSphere 25s infinite ease-in-out reverse;
+            animation: floatSphere 25s infinite cubic-bezier(0.23, 1, 0.32, 1) reverse;
             z-index: -1;
         }
 
-        /* NUEVAS PARTÍCULAS FLOTANTES - MÁS DINÁMICAS */
+        /* PARTÍCULAS FLOTANTES - MÁS SUAVES */
         .particle {
             position: fixed;
             width: 2px;
@@ -84,30 +96,36 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: -1;
-            animation: particleFloat 15s infinite linear;
+            animation: particleFloat 20s infinite cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes particleFloat {
             0% {
-                transform: translateY(0) translateX(0);
+                transform: translateY(0) translateX(0) scale(1);
                 opacity: 0;
             }
             10% {
                 opacity: 0.5;
+                transform: translateY(-10vh) translateX(5px) scale(1.2);
+            }
+            50% {
+                opacity: 0.3;
+                transform: translateY(-50vh) translateX(10px) scale(0.8);
             }
             90% {
                 opacity: 0.5;
+                transform: translateY(-90vh) translateX(5px) scale(1.1);
             }
             100% {
-                transform: translateY(-100vh) translateX(20px);
+                transform: translateY(-100vh) translateX(0) scale(1);
                 opacity: 0;
             }
         }
 
         @keyframes floatSphere {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(5%, 5%) scale(1.1); }
-            66% { transform: translate(-5%, -5%) scale(0.9); }
+            33% { transform: translate(4%, 4%) scale(1.08); }
+            66% { transform: translate(-4%, -4%) scale(0.92); }
         }
 
         /* CONTENEDOR PRINCIPAL */
@@ -119,16 +137,16 @@
             z-index: 2;
         }
 
-        /* HEADER - MINIMALISTA */
+        /* HEADER - MINIMALISTA CON ANIMACIÓN SUPER SMOOTH */
         header {
             text-align: center;
             margin-bottom: 6rem;
             opacity: 0;
-            animation: fadeUp 1s ease forwards;
+            animation: fadeUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.2s forwards;
             position: relative;
         }
 
-        /* NUEVO: Línea decorativa animada */
+        /* Línea decorativa animada - más smooth */
         header::after {
             content: '';
             position: absolute;
@@ -138,17 +156,17 @@
             width: 100px;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--color-primario), var(--color-secundario), transparent);
-            animation: lineWidth 3s infinite;
+            animation: lineWidth 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes lineWidth {
-            0%, 100% { width: 100px; opacity: 0.5; }
-            50% { width: 200px; opacity: 1; }
+            0%, 100% { width: 100px; opacity: 0.4; }
+            50% { width: 250px; opacity: 1; }
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
@@ -160,12 +178,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1.1;
-            animation: titleGlow 3s infinite;
+            animation: titleGlow 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes titleGlow {
             0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
+            50% { filter: brightness(1.15); }
         }
 
         .subtitle {
@@ -175,12 +193,12 @@
             max-width: 600px;
             margin: 0 auto 2rem;
             letter-spacing: 0.3px;
-            animation: subtitlePulse 3s infinite;
+            animation: subtitlePulse 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes subtitlePulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
         }
 
         /* BADGE DE ESPECIALIDAD */
@@ -196,7 +214,7 @@
             font-weight: 400;
             color: rgba(255, 255, 255, 0.8);
             margin-bottom: 2rem;
-            transition: all 0.3s;
+            transition: var(--transition-smooth);
         }
 
         .specialty-badge:hover {
@@ -214,12 +232,12 @@
         .specialty-badge i {
             color: var(--color-acento);
             font-style: normal;
-            animation: dotPulse 2s infinite;
+            animation: dotPulse 2.5s infinite cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes dotPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.5); }
         }
 
         /* DISCORD CARD - ELEGANTE */
@@ -234,13 +252,13 @@
             backdrop-filter: blur(10px);
             color: white;
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: var(--transition-smooth);
             margin: 2rem 0;
             position: relative;
             overflow: hidden;
         }
 
-        /* NUEVO: Efecto de brillo en Discord card */
+        /* Efecto de brillo en Discord card - más smooth */
         .discord-card::before {
             content: '';
             position: absolute;
@@ -248,26 +266,26 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
             opacity: 0;
-            transition: opacity 0.4s;
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1);
             pointer-events: none;
         }
 
         .discord-card:hover::before {
             opacity: 1;
-            animation: shine 1.5s infinite;
+            animation: shine 2.5s infinite cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes shine {
             0% { transform: translate(-30%, -30%) rotate(0deg); }
-            100% { transform: translate(30%, 30%) rotate(20deg); }
+            100% { transform: translate(30%, 30%) rotate(25deg); }
         }
 
         .discord-card:hover {
             border-color: var(--color-primario);
             transform: scale(1.05);
-            background: linear-gradient(135deg, rgba(74, 158, 255, 0.15), rgba(168, 85, 247, 0.15));
+            background: linear-gradient(135deg, rgba(74, 158, 255, 0.2), rgba(168, 85, 247, 0.2));
         }
 
         .discord-icon {
@@ -289,14 +307,14 @@
             border: 1px solid var(--color-borde);
             border-radius: 24px;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: var(--transition-smooth);
             opacity: 0;
-            animation: cardAppear 0.8s ease forwards;
+            animation: cardAppear 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
             animation-fill-mode: forwards;
             position: relative;
         }
 
-        /* NUEVO: Borde animado en hover */
+        /* Borde animado en hover - más smooth */
         .video-card::after {
             content: '';
             position: absolute;
@@ -308,7 +326,7 @@
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             opacity: 0;
-            transition: opacity 0.4s;
+            transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             pointer-events: none;
         }
 
@@ -316,19 +334,19 @@
             opacity: 1;
         }
 
-        .video-card:nth-child(1) { animation-delay: 0.2s; }
-        .video-card:nth-child(2) { animation-delay: 0.4s; }
-        .video-card:nth-child(3) { animation-delay: 0.6s; }
+        .video-card:nth-child(1) { animation-delay: 0.3s; }
+        .video-card:nth-child(2) { animation-delay: 0.5s; }
+        .video-card:nth-child(3) { animation-delay: 0.7s; }
 
         @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         .video-card:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-10px) scale(1.02);
             border-color: transparent;
-            box-shadow: 0 30px 40px -20px rgba(74, 158, 255, 0.3);
+            box-shadow: 0 40px 50px -20px rgba(74, 158, 255, 0.4);
         }
 
         .video-wrapper {
@@ -347,12 +365,12 @@
             height: 100%;
             border: none;
             opacity: 0.8;
-            transition: opacity 0.4s, transform 0.6s;
+            transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .video-card:hover iframe {
             opacity: 1;
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
 
         .video-overlay {
@@ -371,7 +389,7 @@
             overflow: hidden;
         }
 
-        /* NUEVO: Efecto de gradiente en información */
+        /* Efecto de gradiente en información - más smooth */
         .video-info::before {
             content: '';
             position: absolute;
@@ -379,8 +397,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            transition: left 0.6s;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            transition: left 0.9s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .video-card:hover .video-info::before {
@@ -414,7 +432,7 @@
             overflow: hidden;
         }
 
-        /* NUEVO: Efecto de ondas en sección de precios */
+        /* Efecto de ondas en sección de precios - más smooth */
         .precios::before {
             content: '';
             position: absolute;
@@ -423,7 +441,7 @@
             right: 0;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--color-primario), var(--color-secundario), transparent);
-            animation: wave 3s infinite;
+            animation: wave 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes wave {
@@ -440,12 +458,12 @@
             background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: priceTitle 3s infinite;
+            animation: priceTitle 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes priceTitle {
-            0%, 100% { letter-spacing: -0.02em; }
-            50% { letter-spacing: 0.02em; }
+            0%, 100% { letter-spacing: -0.02em; filter: brightness(1); }
+            50% { letter-spacing: 0.03em; filter: brightness(1.2); }
         }
 
         .precios-sub {
@@ -468,15 +486,15 @@
             background: rgba(255, 255, 255, 0.02);
             border-radius: 30px;
             border: 1px solid var(--color-borde);
-            transition: all 0.4s;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
         }
 
         .precio-categoria:hover {
             border-color: var(--color-acento);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px -10px rgba(45, 212, 191, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 40px -15px rgba(45, 212, 191, 0.25);
         }
 
         .precio-categoria h3 {
@@ -484,7 +502,7 @@
             font-weight: 300;
             margin-bottom: 2rem;
             color: var(--color-primario);
-            transition: color 0.3s;
+            transition: color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .precio-categoria:hover h3 {
@@ -497,12 +515,12 @@
             align-items: baseline;
             padding: 1.2rem 0;
             border-bottom: 1px solid var(--color-borde);
-            transition: all 0.3s;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
         }
 
-        /* NUEVO: Efecto en items de precio */
+        /* Efecto en items de precio - más smooth */
         .precio-item::before {
             content: '';
             position: absolute;
@@ -510,8 +528,8 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.1), transparent);
-            transition: left 0.4s;
+            background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.15), transparent);
+            transition: left 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .precio-item:hover::before {
@@ -531,11 +549,11 @@
             font-size: 1.4rem;
             font-weight: 300;
             color: var(--color-acento);
-            transition: all 0.3s;
+            transition: var(--transition-smooth);
         }
 
         .precio-item:hover .precio-valor {
-            transform: scale(1.1);
+            transform: scale(1.15);
             color: var(--color-primario);
         }
 
@@ -553,12 +571,13 @@
             font-weight: 300;
             padding: 1rem;
             border-top: 1px solid var(--color-borde);
-            transition: all 0.3s;
+            transition: var(--transition-smooth);
         }
 
         .precio-nota:hover {
             color: var(--color-acento);
             border-top-color: var(--color-acento);
+            transform: scale(1.02);
         }
 
         /* ESTADÍSTICAS */
@@ -576,9 +595,9 @@
             backdrop-filter: blur(10px);
             border: 1px solid var(--color-borde);
             border-radius: 30px;
-            transition: all 0.4s;
-            animation: statFloat 3s infinite;
-            animation-delay: calc(var(--i) * 0.2s);
+            transition: var(--transition-smooth);
+            animation: statFloat 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation-delay: calc(var(--i) * 0.3s);
         }
 
         .stat-item:nth-child(1) { --i: 0; }
@@ -587,13 +606,13 @@
 
         @keyframes statFloat {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-8px); }
         }
 
         .stat-item:hover {
             border-color: var(--color-primario);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 30px -10px rgba(74, 158, 255, 0.2);
+            transform: translateY(-8px) scale(1.06);
+            box-shadow: 0 30px 40px -15px rgba(74, 158, 255, 0.25);
         }
 
         .stat-numero {
@@ -602,13 +621,13 @@
             color: var(--color-primario);
             margin-bottom: 0.5rem;
             line-height: 1;
-            animation: statEmoji 2s infinite;
+            animation: statEmoji 3s infinite cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes statEmoji {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(8deg) scale(1.1); }
+            75% { transform: rotate(-8deg) scale(1.1); }
         }
 
         .stat-label {
@@ -619,7 +638,7 @@
             letter-spacing: 2px;
         }
 
-        /* BOTÓN FLOTANTE - SUTIL */
+        /* BOTÓN FLOTANTE - SÚPER SMOOTH */
         .float-discord {
             position: fixed;
             bottom: 2rem;
@@ -636,24 +655,25 @@
             color: white;
             text-decoration: none;
             font-size: 1.6rem;
-            transition: all 0.4s;
+            transition: var(--transition-smooth);
             z-index: 100;
             opacity: 0;
-            animation: fadeIn 1s ease 1.5s forwards, floatButton 3s infinite;
+            animation: fadeIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) 2s forwards, floatButton 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         @keyframes floatButton {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.12); }
         }
 
         @keyframes fadeIn {
-            to { opacity: 1; }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         .float-discord:hover {
             border-color: var(--color-primario);
-            transform: scale(1.1) rotate(360deg);
+            transform: scale(1.15) rotate(360deg);
             background: var(--color-primario);
             animation: none;
         }
@@ -819,19 +839,40 @@
         💬
     </a>
 
-    <!-- Script para efectos sutiles -->
+    <!-- Script para efectos súper smooth -->
     <script>
-        // Smooth scroll behavior
+        // FORZAR SCROLL AL INICIO DE LA PÁGINA
+        window.onload = function() {
+            // Scroll instantáneo al top
+            window.scrollTo(0, 0);
+            
+            // También prevenir que el navegador recuerde la posición anterior
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+        };
+
+        // Smooth scroll behavior mejorado
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                }
             });
         });
 
-        // Intersection Observer para animaciones al hacer scroll
+        // Intersection Observer para animaciones al hacer scroll - más smooth
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -839,18 +880,18 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
         document.querySelectorAll('.precio-categoria, .stat-item').forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
             observer.observe(el);
         });
 
-        // Generar partículas flotantes
+        // Generar partículas flotantes - más variadas
         const particlesContainer = document.getElementById('particles-container');
-        const numParticles = 30;
+        const numParticles = 40;
 
         for (let i = 0; i < numParticles; i++) {
             const particle = document.createElement('div');
@@ -860,21 +901,21 @@
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
             
-            // Tamaño aleatorio
-            const size = Math.random() * 3 + 1;
+            // Tamaño más variado
+            const size = Math.random() * 4 + 1;
             particle.style.width = size + 'px';
             particle.style.height = size + 'px';
             
-            // Retraso de animación aleatorio
-            particle.style.animationDelay = Math.random() * 10 + 's';
+            // Retraso de animación más variado
+            particle.style.animationDelay = Math.random() * 15 + 's';
             
-            // Duración aleatoria
-            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            // Duración más variada
+            particle.style.animationDuration = (Math.random() * 15 + 12) + 's';
             
             // Color aleatorio entre los colores de la paleta
-            const colors = ['rgba(74, 158, 255', 'rgba(168, 85, 247', 'rgba(45, 212, 191'];
+            const colors = ['rgba(74, 158, 255', 'rgba(168, 85, 247', 'rgba(45, 212, 191', 'rgba(255, 255, 255'];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            particle.style.background = randomColor + ', 0.3)';
+            particle.style.background = randomColor + ', ' + (Math.random() * 0.3 + 0.2) + ')';
             
             particlesContainer.appendChild(particle);
         }
