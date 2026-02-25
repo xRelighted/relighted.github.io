@@ -1,1 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RELIGHTED | Animador R6 Roblox</title>
+    <style>
+        /* CONFIGURACIÓN PERSONAL - RELIGHTED */
+        
+        /* 1. COLORES PERSONALIZADOS - Tema Roblox/neón */
+        :root {
+            --color-primario: #ff4400;        /* Naranja Roblox */
+            --color-secundario: #00a2ff;       /* Azul Roblox */
+            --color-acento: #a0ff00;            /* Verde neón */
+            --color-fondo: #0a0a0a;              /* Fondo negro */
+            --color-texto: #ffffff;               /* Texto blanco */
+            --color-roblox: #ff4400;              /* Color Roblox */
+        }
+        
+        /* 2. ESTILOS GENERALES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', 'Poppins', sans-serif;
+            background: var(--color-fondo);
+            color: var(--color-texto);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 30% 40%, rgba(255, 68, 0, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(0, 162, 255, 0.1) 0%, transparent 40%);
+        }
+
+        /* Efecto de cuadrícula Roblox */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(255, 68, 0, 0.03) 0px, rgba(255, 68, 0, 0.03) 2px, transparent 2px, transparent 10px),
+                repeating-linear-gradient(90deg, rgba(0, 162, 255, 0.03) 0px, rgba(0, 162, 255, 0.03) 2px, transparent 2px, transparent 10px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Partículas flotantes estilo bloque Roblox */
+        .particulas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particula {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 68, 0, 0.3);
+            transform: rotate(45deg);
+            animation: flotarBloque 15s infinite linear;
+        }
+
+        @keyframes flotarBloque {
+            0% { transform: translateY(0) translateX(0) rotate(45deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) translateX(100px) rotate(45deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header con efecto R6 */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(255, 68, 0, 0.1), rgba(0, 162, 255, 0.1));
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(255, 68, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: 'R6';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(255, 68, 0, 0.1);
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        /* Título principal */
+        h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--color-primario);
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            animation: neonPulse 2s infinite;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { text-shadow: 0 0 10px var(--color-primario), 0 0 20px var(--color-primario); }
+            50% { text-shadow: 0 0 20px var(--color-secundario), 0 0 40px var(--color-secundario); }
+        }
+
+        h1 span {
+            color: var(--color-texto);
+            -webkit-text-stroke: 0;
+        }
+
+        .badge-r6 {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            margin: 1rem 0;
+            box-shadow: 0 0 20px rgba(255, 68, 0, 0.5);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .herramientas {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .herramientas span {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            border: 1px solid var(--color-secundario);
+        }
+
+        /* Enlace de Discord */
+        .discord-card {
+            background: linear-gradient(135deg, #5865F2, #404EED);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px #5865F2; }
+            50% { box-shadow: 0 0 40px #404EED; }
+        }
+
+        .discord-card:hover {
+            transform: scale(1.05);
+            border-color: white;
+        }
+
+        .discord-icon {
+            font-size: 2.5rem;
+        }
+
+        /* Grid de videos (portafolio) */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .video-card {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 68, 0, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-acento);
+            box-shadow: 0 20px 40px rgba(160, 255, 0, 0.3);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-titulo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-acento);
+        }
+
+        /* Sección de precios */
+        .precios {
+            margin: 4rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255, 68, 0, 0.1), rgba(0, 162, 255, 0.1));
+            border-radius: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .precios h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .precios-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .precio-categoria {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 30px;
+            padding: 2rem;
+            border: 1px solid var(--color-primario);
+            backdrop-filter: blur(10px);
+        }
+
+        .precio-categoria h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-secundario);
+            text-align: center;
+        }
+
+        .precio-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid var(--color-primario);
+            transition: all 0.3s;
+        }
+
+        .precio-item:hover {
+            transform: translateX(10px);
+            border-left-color: var(--color-acento);
+            background: rgba(255, 68, 0, 0.2);
+        }
+
+        .precio-desc {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .precio-valor {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-acento);
+            text-shadow: 0 0 10px rgba(160, 255, 0, 0.5);
+        }
+
+        .precio-roblox {
+            display: inline-block;
+            background: var(--color-primario);
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: rgba(255, 68, 0, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--color-secundario);
+        }
+
+        .stat-numero {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--color-acento);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Botón flotante de Discord */
+        .discord-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #5865F2;
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 0 30px #5865F2;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+            text-decoration: none;
+            animation: floatDiscord 3s infinite;
+        }
+
+        @keyframes floatDiscord {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(10deg); }
+            75% { transform: scale(1.1) rotate(-10deg); }
+        }
+
+        .discord-float:hover {
+            transform: scale(1.2) rotate(360deg);
+            background: #404EED;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            h1 { font-size: 3rem; }
+            .videos-grid { grid-template-columns: repeat(2, 1fr); }
+            .precios-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .videos-grid { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr; }
+            h1 { font-size: 2.5rem; }
+            .herramientas { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas flotantes -->
+    <div class="particulas" id="particulas"></div>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <!-- Header con identidad RELIGHTED -->
+        <header>
+            <h1>RELIGHTED</h1>
+            <div class="badge-r6">⚡ ANIMADOR R6 ROBLOX STUDIO ⚡</div>
+            
+            <div class="herramientas">
+                <span>🎮 ROBLOX STUDIO</span>
+                <span>🦴 R6 RIGS</span>
+                <span>🔥 BLENDER</span>
+            </div>
+            
+            <p style="font-size: 1.3rem; max-width: 700px; margin: 0 auto; color: rgba(255,255,255,0.9);">
+                Especialista en animación de rigs R6 para Roblox. Dando vida a personajes 
+                con estilo único y fluidez profesional.
+            </p>
+
+            <!-- Discord Card principal -->
+            <a href="https://discord.gg/b79Gt3x4y2" target="_blank" class="discord-card">
+                <span class="discord-icon">🎮</span>
+                ¡ÚNETE A MI COMUNIDAD DE DISCORD!
+                <span class="discord-icon">💬</span>
+            </a>
+        </header>
+
+        <!-- Portafolio de videos (3 zonas YouTube) -->
+        <h2 style="font-size: 2.5rem; margin: 3rem 0 1rem; text-align: center; color: var(--color-secundario);">
+            🎬 PORTAFOLIO R6 ANIMATIONS
+        </h2>
+        
+        <div class="videos-grid">
+            <!-- VIDEO 1 - Rig Animation Demo -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <!-- INSTRUCCIÓN: Reemplaza VIDEO_ID_1 con tu video de YouTube -->
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" allowfullscreen></iframe>
+                    <a href="https://youtu.be/VIDEO_ID_1" target="_blank" class="video-overlay"></a>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">🎯 RIG ANIMATION - R6 STYLE</h3>
+                    <p>Demo de animación para rig R6 mostrando movimientos fluidos y expresivos</p>
+                </div>
+            </div>
+
+            <!-- VIDEO 2 - Cutscene Demo -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <!-- INSTRUCCIÓN: Reemplaza VIDEO_ID_2 con tu video de YouTube -->
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" allowfullscreen></iframe>
+                    <a href="https://youtu.be/VIDEO_ID_2" target="_blank" class="video-overlay"></a>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">🎥 CUTSCENE CINEMÁTICA</h3>
+                    <p>Escena cinemática con 2 rigs R6 - Trabajo narrativo</p>
+                </div>
+            </div>
+
+            <!-- VIDEO 3 - 2 Rigs Animation -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <!-- INSTRUCCIÓN: Reemplaza VIDEO_ID_3 con tu video de YouTube -->
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" allowfullscreen></iframe>
+                    <a href="https://youtu.be/VIDEO_ID_3" target="_blank" class="video-overlay"></a>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-titulo">🤼 ANIMACIÓN 2 RIGS R6</h3>
+                    <p>Interacción entre dos personajes R6 - Animación compleja</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE PRECIOS - PERSONALIZADA -->
+        <div class="precios">
+            <h2>💰 PRECIOS ROBLOX R6</h2>
+            
+            <div class="precios-grid">
+                <!-- Categoría Rig Animation -->
+                <div class="precio-categoria">
+                    <h3>🎬 RIG ANIMATION</h3>
+                    
+                    <div class="precio-item">
+                        <span class="precio-desc">Animation for 1 R6 rig</span>
+                        <span class="precio-valor">500 <span class="precio-roblox">R$</span></span>
+                    </div>
+                    
+                    <div class="precio-item">
+                        <span class="precio-desc">Animation for 2 R6 rigs</span>
+                        <span class="precio-valor">625 <span class="precio-roblox">R$</span></span>
+                    </div>
+                    
+                    <p style="margin-top: 1.5rem; color: var(--color-acento); font-size: 0.9rem;">
+                        ⚡ Incluye: Rigging, animación fluida, ajustes
+                    </p>
+                </div>
+
+                <!-- Categoría Cutscene -->
+                <div class="precio-categoria">
+                    <h3>🎥 CUTSCENE</h3>
+                    
+                    <div class="precio-item">
+                        <span class="precio-desc">Cutscene with 1 R6 rig</span>
+                        <span class="precio-valor">1000 <span class="precio-roblox">R$</span></span>
+                    </div>
+                    
+                    <div class="precio-item">
+                        <span class="precio-desc">Cutscene with 2 R6 rigs</span>
+                        <span class="precio-valor">1250 <span class="precio-roblox">R$</span></span>
+                    </div>
+                    
+                    <p style="margin-top: 1.5rem; color: var(--color-acento); font-size: 0.9rem;">
+                        🎬 Incluye: Cinemática, cámara, efectos visuales
+                    </p>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 2rem; font-size: 1.2rem; background: rgba(255,68,0,0.2); padding: 1rem; border-radius: 50px;">
+                💎 Pago en Robux - Contactar por Discord para comisiones personalizadas
+            </p>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-numero">50+</div>
+                <div class="stat-label">ANIMACIONES R6</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-numero">100%</div>
+                <div class="stat-label">R6 SPECIALIST</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-numero">⭐ 5.0</div>
+                <div class="stat-label">VALORACIONES</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón flotante de Discord (siempre visible) -->
+    <a href="https://discord.gg/b79Gt3x4y2" target="_blank" class="discord-float" title="¡Únete a Discord!">
+        💬
+    </a>
+
+    <script>
+        // Generar partículas estilo bloque R6
+        const particulasContainer = document.getElementById('particulas');
+        
+        for (let i = 0; i < 40; i++) {
+            const particula = document.createElement('div');
+            particula.className = 'particula';
+            
+            particula.style.left = Math.random() * 100 + '%';
+            particula.style.top = Math.random() * 100 + '%';
+            
+            const size = Math.random() * 6 + 2;
+            particula.style.width = size + 'px';
+            particula.style.height = size + 'px';
+            
+            particula.style.animationDelay = Math.random() * 10 + 's';
+            particula.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            
+            // Colores alternados (Roblox naranja o azul)
+            particula.style.background = Math.random() > 0.5 ? '#ff4400' : '#00a2ff';
+            particula.style.opacity = '0.2';
+            
+            particulasContainer.appendChild(particula);
+        }
+
+        // Animación de aparición para precios
+        const precioItems = document.querySelectorAll('.precio-item');
+        precioItems.forEach((item, index) => {
+            item.style.animation = `slideIn 0.5s ease ${index * 0.1}s forwards`;
+            item.style.opacity = '0';
+        });
+
+        // Estilo para slideIn
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateX(-20px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
