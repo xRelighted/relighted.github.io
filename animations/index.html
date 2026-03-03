@@ -1,242 +1,244 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Relighted — Animations</title>
-  <link rel="icon" href="/favicon.jpg">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Relighted — Animations</title>
+<link rel="icon" href="/favicon.jpg">
 
-  <!-- ==========================
-       ANIMATIONS PAGE (single file)
-       - Designed to match the "Relighted" aesthetic from your index
-       - Responsive grid, JS-driven entries (easy to add)
-       - IMPORTANT: see the JS array named `animations` below to add more
-       ========================== -->
+<style>
+:root{
+--color-fondo:#0A0C0F;
+--color-texto:#F0F4FA;
+--color-primario:#9AA5B1;
+--color-secundario:#2D3748;
+--color-borde:#2A3439;
+--color-texto-secundario:#A0AEC0;
+--transition-smooth:all .6s cubic-bezier(.23,1,.32,1);
+}
 
-  <style>
-    :root{
-      --color-fondo: #0A0C0F;
-      --color-texto: #F0F4FA;
-      --color-primario: #9AA5B1;
-      --color-secundario: #2D3748;
-      --color-borde: #2A3439;
-      --color-texto-secundario: #A0AEC0;
-      --transition-smooth: all 0.45s cubic-bezier(0.23,1,0.32,1);
-    }
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:'Inter',system-ui;
+background:radial-gradient(circle at 20% 10%,rgba(154,165,177,.08),transparent 40%),var(--color-fondo);
+color:var(--color-texto);
+overflow-x:hidden;
+}
 
-    /* base reset */
-    *{box-sizing:border-box}
-    html,body{height:100%;}
-    body{
-      margin:0;
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background:var(--color-fondo);
-      color:var(--color-texto);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-    }
+.page{max-width:1200px;margin:3rem auto;padding:0 1.5rem 4rem}
 
-    /* page wrapper */
-    .page{
-      max-width:1200px;
-      margin:3.2rem auto;
-      padding:0 1.5rem 4rem;
-    }
+/* HEADER */
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:3rem}
+.brand h1{
+margin:0;
+font-weight:300;
+font-size:1.7rem;
+letter-spacing:-.02em;
+background:linear-gradient(135deg,var(--color-primario),#A0AEC0);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:fadeDown .8s ease forwards;
+}
+.brand p{margin:.2rem 0 0;color:var(--color-texto-secundario);opacity:0;animation:fadeDown .8s .15s ease forwards}
 
-    /* header */
-    .topbar{display:flex;gap:1rem;align-items:center;justify-content:space-between;margin-bottom:2rem}
-    .brand{display:flex;flex-direction:column;gap:.15rem}
-    .brand h1{font-weight:300;margin:0;font-size:1.6rem;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--color-primario),#A0AEC0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .brand p{margin:0;color:var(--color-texto-secundario);font-size:0.85rem}
+.controls{display:flex;gap:.8rem}
+.btn-ghost{
+padding:.6rem 1.2rem;
+border-radius:999px;
+border:1px solid rgba(255,255,255,.06);
+background:linear-gradient(135deg,rgba(154,165,177,.06),rgba(45,55,72,.03));
+color:var(--color-texto);
+text-decoration:none;
+transition:var(--transition-smooth);
+font-size:.9rem;
+}
+.btn-ghost:hover{
+transform:translateY(-6px);
+border-color:var(--color-primario);
+box-shadow:0 25px 35px -20px rgba(154,165,177,.4);
+}
 
-    .controls{display:flex;gap:.75rem;align-items:center}
-    .btn-ghost{
-      display:inline-flex;align-items:center;gap:.6rem;padding:.6rem 1rem;border-radius:999px;border:1px solid rgba(255,255,255,0.06);background:linear-gradient(135deg, rgba(154,165,177,0.06), rgba(45,55,72,0.03));color:var(--color-texto);text-decoration:none;font-weight:500;transition:var(--transition-smooth)
-    }
-    .btn-ghost:hover{transform:translateY(-4px);border-color:var(--color-primario);background:linear-gradient(135deg, rgba(154,165,177,0.12), rgba(45,55,72,0.06))}
+/* TITLE */
+.featured{text-align:center;margin-bottom:2rem}
+.featured h2{
+font-weight:300;
+font-size:2.2rem;
+margin:0;
+background:linear-gradient(135deg,var(--color-primario),#A0AEC0);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:fadeUp 1s ease forwards;
+}
+.featured p{color:var(--color-texto-secundario);margin-top:.5rem;opacity:0;animation:fadeUp 1s .2s ease forwards}
 
-    /* featured title */
-    .featured{ text-align:center; margin:2.25rem 0; }
-    .featured h2{font-weight:300;font-size:2.05rem;margin:0 0 .5rem;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--color-primario),#A0AEC0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .featured p{margin:0;color:var(--color-texto-secundario)}
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:1.8rem;
+margin-top:2.5rem;
+}
 
-    /* grid */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:1.6rem;
-      margin-top:2.2rem;
-    }
+.card{
+background:rgba(17,20,23,.6);
+border:1px solid var(--color-borde);
+border-radius:20px;
+overflow:hidden;
+backdrop-filter:blur(10px);
+transition:var(--transition-smooth);
+opacity:0;
+transform:translateY(40px);
+animation:cardReveal .8s ease forwards;
+}
+.card:nth-child(n){animation-delay:calc(.1s * var(--i));}
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+border-color:transparent;
+box-shadow:0 30px 60px -25px rgba(154,165,177,.35);
+}
 
-    .card{
-      background: rgba(17,20,23,0.6);
-      border:1px solid var(--color-borde);
-      border-radius:18px;
-      overflow:hidden;
-      transition:var(--transition-smooth);
-      display:flex;flex-direction:column;height:100%;
-    }
-    .card:hover{transform:translateY(-8px);box-shadow:0 30px 40px -20px rgba(154,165,177,0.25);border-color:transparent}
+.thumb{position:relative;padding-bottom:56.25%;overflow:hidden}
+.thumb img{position:absolute;width:100%;height:100%;object-fit:cover;transition:1.2s ease}
+.card:hover .thumb img{transform:scale(1.08)}
 
-    .thumb{position:relative;padding-bottom:56.25%;background:#000}
-    .thumb img, .thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.card-body{padding:1.2rem}
+.card-title{font-size:1.05rem;font-weight:500;margin-bottom:.4rem}
+.card-desc{font-size:.9rem;color:var(--color-texto-secundario)}
 
-    .card-body{padding:1.2rem;display:flex;flex-direction:column;gap:.6rem;flex:1}
-    .card-title{font-size:1.05rem;font-weight:500;color:var(--color-texto)}
-    .card-desc{font-size:0.9rem;color:var(--color-texto-secundario);font-weight:300}
+.card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:1rem}
+.tag{font-size:.75rem;color:var(--color-texto-secundario);border:1px solid rgba(255,255,255,.05);padding:.25rem .5rem;border-radius:8px}
 
-    .card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:.6rem}
-    .tag{font-size:0.8rem;color:var(--color-texto-secundario);padding:.25rem .5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03)}
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cardReveal{to{opacity:1;transform:translateY(0)}}
 
-    /* responsive */
-    @media (max-width: 1000px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width: 640px){.grid{grid-template-columns:1fr}.topbar{flex-direction:column;align-items:flex-start}.controls{width:100%;justify-content:flex-start}}
+@media(max-width:640px){.topbar{flex-direction:column;gap:1rem;align-items:flex-start}}
 
-    /* small helper */
-    .muted{color:var(--color-texto-secundario);font-size:0.9rem}
-
-  </style>
+</style>
 </head>
 <body>
 
-  <main class="page">
-    <div class="topbar">
-      <div class="brand">
-        <h1>Relighted</h1>
-        <p>Animations</p>
-      </div>
+<main class="page">
 
-      <div class="controls">
-        <!-- Discord button kept as small ghost, matches index style -->
-        <a class="btn-ghost" href="https://discord.gg/x33ykcPqSY" target="_blank">Discord →</a>
-        <!-- Anims page is current, but keep a Home button -->
-        <a class="btn-ghost" href="/">Home →</a>
-      </div>
-    </div>
+<div class="topbar">
+<div class="brand">
+<h1>Relighted</h1>
+<p>Animation Archive</p>
+</div>
+<div class="controls">
+<a class="btn-ghost" href="https://discord.gg/x33ykcPqSY" target="_blank">Discord →</a>
+<a class="btn-ghost" href="/">Home →</a>
+</div>
+</div>
 
-    <section class="featured">
-      <h2>Animations</h2>
-      <p>My animations.</p>
-    </section>
+<section class="featured">
+<h2>Animations</h2>
+<p>Fluid combat. Cinematic timing. Stylized motion.</p>
+</section>
 
-    <!-- GRID: cards are generated by JS from the `animations` array -->
-    <section id="grid" class="grid" aria-live="polite">
-      <!-- Cards injected here -->
-    </section>
+<section id="grid" class="grid"></section>
 
-    <p style="text-align:center;margin-top:2rem;color:var(--color-texto-secundario)">Tip: edit <code>animations</code> in the JS section of this file to add more entries.</p>
+</main>
 
-  </main>
+<script>
 
-  <script>
-    /* ================================================================
-       Add new animations here: each object needs these properties:
-       - id: (string) YouTube video id OR full url (we handle both)
-       - title: (string) title shown on the card
-       - desc: (string) short description
-       - preview: (optional) path to a local preview image (e.g. /assets/images/preview1.jpg)
-       - external (optional): (boolean) if true, clicking opens the external link instead of embedded viewer
+/* =========================================================
+   🔥 HOW TO ADD A NEW ANIMATION (SUPER ORGANIZED PRESET)
 
-       EXAMPLE:
-       { id: 'kR0Cv6524mM', title: 'Nagi Goal vs U20', desc: 'Instantly kill it..', preview: '/assets/images/nagi.jpg' }
+   1. COPY the block below
+   2. Paste it inside the animations array
+   3. Replace the values
+   4. Save → Commit → Push
+   5. DONE (Grid adapts automatically)
 
-       After adding an object to the array, save, commit and push. The grid adapts automatically.
-       ================================================================ */
+   ---------- COPY THIS PRESET ----------
 
-    const animations = [
-      // ---------- SAMPLE ITEMS (keep at least these two as examples) ----------
-      { id: 'kR0Cv6524mM', title: 'Nagi Goal vs U20', desc: 'Instantly kill it..' },
-      { id: 'TB9BlAUvUa8', title: 'Two Gun Volley', desc: 'A new invention here and now...' },
+   {
+     id: 'YOUTUBE_VIDEO_ID',
+     title: 'Animation Title Here',
+     desc: 'Short cinematic description here',
+     preview: '/assets/images/your-image.jpg'
+   },
 
-      // Add new objects below this line. Copy the pattern above and change values.
-      // { id: 'YOUTUBE_ID', title: 'Title here', desc: 'Short description', preview: '/assets/images/your-preview.jpg' },
+   ---------------------------------------
 
-    ];
+   id = YouTube ID only (example: kR0Cv6524mM)
+   preview = OPTIONAL (if not set, auto YouTube thumbnail is used)
+   ========================================================= */
 
-    // ---------- Helper functions ----------
-    function getYouTubeThumbnail(idOrUrl){
-      // if full url given, extract id
-      let id = idOrUrl;
-      try {
-        const url = new URL(idOrUrl);
-        if (url.hostname.includes('youtube') || url.hostname.includes('youtu.be')){
-          // youtu.be/ID
-          if (url.hostname.includes('youtu.be')) return 'https://i.ytimg.com/vi/' + url.pathname.slice(1) + '/hqdefault.jpg';
-          // youtube.com/watch?v=ID
-          const v = url.searchParams.get('v');
-          if (v) return 'https://i.ytimg.com/vi/' + v + '/hqdefault.jpg';
-        }
-      } catch(e){ /* not a full URL, probably just an id */ }
-      // default: treat as id
-      return 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
-    }
+const animations = [
 
-    function buildCard(item){
-      const card = document.createElement('article');
-      card.className = 'card';
+{ id:'kR0Cv6524mM', title:'Nagi Goal vs U20', desc:'Instant impact finish.', preview:null },
+{ id:'TB9BlAUvUa8', title:'Two Gun Volley', desc:'Precision & rhythm in motion.', preview:null },
 
-      // thumb wrapper: uses preview if provided, else YouTube thumbnail
-      const thumb = document.createElement('div');
-      thumb.className = 'thumb';
+];
 
-      const thumbImg = document.createElement('img');
-      thumbImg.alt = item.title + ' — preview';
-      thumbImg.src = item.preview ? item.preview : getYouTubeThumbnail(item.id);
-      thumb.appendChild(thumbImg);
+function getThumbnail(id){
+return 'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';
+}
 
-      // body
-      const body = document.createElement('div');
-      body.className = 'card-body';
+function buildCard(item,index){
+const card=document.createElement('article');
+card.className='card';
+card.style.setProperty('--i',index);
 
-      const h3 = document.createElement('div');
-      h3.className = 'card-title';
-      h3.textContent = item.title;
+const thumb=document.createElement('div');
+thumb.className='thumb';
 
-      const p = document.createElement('div');
-      p.className = 'card-desc';
-      p.textContent = item.desc || '';
+const img=document.createElement('img');
+img.src=item.preview?item.preview:getThumbnail(item.id);
+img.alt=item.title;
+thumb.appendChild(img);
 
-      // footer
-      const foot = document.createElement('div');
-      foot.className = 'card-foot';
+const body=document.createElement('div');
+body.className='card-body';
 
-      const tag = document.createElement('div');
-      tag.className = 'tag';
-      tag.textContent = 'YouTube';
+const title=document.createElement('div');
+title.className='card-title';
+title.textContent=item.title;
 
-      const open = document.createElement('a');
-      open.className = 'btn-ghost';
-      open.style.padding = '.45rem .8rem';
-      // clicking opens the video in a new tab if external=true or uses YouTube link
-      const href = (item.id.startsWith('http') || item.external) ? item.id : 'https://youtu.be/' + item.id;
-      open.href = href;
-      open.target = '_blank';
-      open.rel = 'noopener noreferrer';
-      open.textContent = 'Open →';
+const desc=document.createElement('div');
+desc.className='card-desc';
+desc.textContent=item.desc;
 
-      foot.appendChild(tag);
-      foot.appendChild(open);
+const foot=document.createElement('div');
+foot.className='card-foot';
 
-      body.appendChild(h3);
-      body.appendChild(p);
-      body.appendChild(foot);
+const tag=document.createElement('div');
+tag.className='tag';
+tag.textContent='YouTube';
 
-      card.appendChild(thumb);
-      card.appendChild(body);
+const open=document.createElement('a');
+open.className='btn-ghost';
+open.style.padding='.4rem .9rem';
+open.href='https://youtu.be/'+item.id;
+open.target='_blank';
+open.textContent='Open →';
 
-      return card;
-    }
+foot.appendChild(tag);
+foot.appendChild(open);
+body.appendChild(title);
+body.appendChild(desc);
+body.appendChild(foot);
 
-    // render
-    const grid = document.getElementById('grid');
-    animations.forEach(item => grid.appendChild(buildCard(item)));
+card.appendChild(thumb);
+card.appendChild(body);
 
-    // Accessibility: if grid empty show friendly message
-    if (animations.length === 0){
-      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--color-texto-secundario)">No animations yet — add items to the <code>animations</code> array in this file.</div>';
-    }
+return card;
+}
 
-  </script>
+const grid=document.getElementById('grid');
+animations.forEach((item,i)=>{
+grid.appendChild(buildCard(item,i));
+});
+
+if(animations.length===0){
+grid.innerHTML='<p style="color:var(--color-texto-secundario)">No animations yet.</p>';
+}
+
+</script>
+
 </body>
 </html>
