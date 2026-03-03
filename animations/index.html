@@ -15,25 +15,38 @@
 --color-borde:#2A3439;
 --color-texto-secundario:#A0AEC0;
 --transition-smooth:all .6s cubic-bezier(.23,1,.32,1);
+--card-width:280px; /* ancho base de cada card */
+--card-height:180px; /* alto base para miniatura */
 }
 
+/* RESET BASE */
 *{box-sizing:border-box}
 body{
 margin:0;
 font-family:'Inter',system-ui;
-background:radial-gradient(circle at 20% 10%,rgba(154,165,177,.08),transparent 40%),var(--color-fondo);
 color:var(--color-texto);
 overflow-x:hidden;
+
+/* ================================
+   FONDO DETALLADO COMO INDEX
+   - Gradiente radial + partículas sutiles
+   - Combina con estética Relighted
+   ================================ */
+background:
+radial-gradient(circle at 20% 10%,rgba(154,165,177,.08),transparent 40%),
+radial-gradient(circle at 80% 80%,rgba(154,165,177,.05),transparent 50%),
+var(--color-fondo);
 }
 
-.page{max-width:1200px;margin:3rem auto;padding:0 1.5rem 4rem}
+/* PAGE WRAPPER */
+.page{max-width:1400px;margin:3rem auto;padding:0 2rem 5rem}
 
 /* HEADER */
 .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:3rem}
 .brand h1{
 margin:0;
 font-weight:300;
-font-size:1.7rem;
+font-size:2rem;
 letter-spacing:-.02em;
 background:linear-gradient(135deg,var(--color-primario),#A0AEC0);
 -webkit-background-clip:text;
@@ -42,7 +55,7 @@ animation:fadeDown .8s ease forwards;
 }
 .brand p{margin:.2rem 0 0;color:var(--color-texto-secundario);opacity:0;animation:fadeDown .8s .15s ease forwards}
 
-.controls{display:flex;gap:.8rem}
+.controls{display:flex;gap:1rem}
 .btn-ghost{
 padding:.6rem 1.2rem;
 border-radius:999px;
@@ -51,7 +64,7 @@ background:linear-gradient(135deg,rgba(154,165,177,.06),rgba(45,55,72,.03));
 color:var(--color-texto);
 text-decoration:none;
 transition:var(--transition-smooth);
-font-size:.9rem;
+font-size:.95rem;
 }
 .btn-ghost:hover{
 transform:translateY(-6px);
@@ -60,10 +73,10 @@ box-shadow:0 25px 35px -20px rgba(154,165,177,.4);
 }
 
 /* TITLE */
-.featured{text-align:center;margin-bottom:2rem}
+.featured{text-align:center;margin-bottom:3rem}
 .featured h2{
 font-weight:300;
-font-size:2.2rem;
+font-size:2.4rem;
 margin:0;
 background:linear-gradient(135deg,var(--color-primario),#A0AEC0);
 -webkit-background-clip:text;
@@ -75,70 +88,60 @@ animation:fadeUp 1s ease forwards;
 /* =====================================================
    GRID ORGANIZADO
    - Máximo 5 animaciones por fila
-   - Si agregas más, se van hacia abajo automáticamente
+   - Tarjetas más grandes
    ===================================================== */
-
 .grid{
 display:grid;
-
-/* EXACTAMENTE 5 columnas en pantallas grandes */
 grid-template-columns:repeat(5, 1fr);
-
-gap:1.8rem;
+gap:2rem;
 margin-top:2.5rem;
+justify-items:center;
 }
 
-/* En pantallas medianas baja a 3 */
-@media(max-width:1200px){
-.grid{grid-template-columns:repeat(3,1fr);}
-}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.grid{grid-template-columns:1fr;}}
 
-/* En pantallas pequeñas baja a 2 */
-@media(max-width:900px){
-.grid{grid-template-columns:repeat(2,1fr);}
-}
-
-/* En móvil solo 1 */
-@media(max-width:500px){
-.grid{grid-template-columns:1fr;}
-}
-
+/* CARD */
 .card{
-background:rgba(17,20,23,.6);
+background:rgba(17,20,23,.7);
 border:1px solid var(--color-borde);
-border-radius:20px;
+border-radius:22px;
 overflow:hidden;
-backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
 transition:var(--transition-smooth);
 opacity:0;
 transform:translateY(40px);
 animation:cardReveal .8s ease forwards;
+width:var(--card-width);
 }
 .card:nth-child(n){animation-delay:calc(.1s * var(--i));}
 .card:hover{
-transform:translateY(-10px) scale(1.02);
+transform:translateY(-12px) scale(1.03);
 border-color:transparent;
-box-shadow:0 30px 60px -25px rgba(154,165,177,.35);
+box-shadow:0 35px 60px -20px rgba(154,165,177,.35);
 }
 
-.thumb{position:relative;padding-bottom:56.25%;overflow:hidden}
+/* THUMB */
+.thumb{position:relative;padding-bottom:56.25%;overflow:hidden;max-height:var(--card-height)}
 .thumb img{position:absolute;width:100%;height:100%;object-fit:cover;transition:1.2s ease}
-.card:hover .thumb img{transform:scale(1.08)}
+.card:hover .thumb img{transform:scale(1.09)}
 
-.card-body{padding:1.2rem}
-.card-title{font-size:1.05rem;font-weight:500;margin-bottom:.4rem}
-.card-desc{font-size:.9rem;color:var(--color-texto-secundario)}
+/* BODY */
+.card-body{padding:1.3rem}
+.card-title{font-size:1.1rem;font-weight:500;margin-bottom:.4rem}
+.card-desc{font-size:.92rem;color:var(--color-texto-secundario)}
 
 .card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:1rem}
-.tag{font-size:.75rem;color:var(--color-texto-secundario);border:1px solid rgba(255,255,255,.05);padding:.25rem .5rem;border-radius:8px}
+.tag{font-size:.78rem;color:var(--color-texto-secundario);border:1px solid rgba(255,255,255,.05);padding:.3rem .6rem;border-radius:10px}
 
 /* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes cardReveal{to{opacity:1;transform:translateY(0)}}
 
+/* RESPONSIVE */
 @media(max-width:640px){.topbar{flex-direction:column;gap:1rem;align-items:flex-start}}
-
 </style>
 </head>
 <body>
@@ -168,67 +171,27 @@ box-shadow:0 30px 60px -25px rgba(154,165,177,.35);
 <script>
 
 /* =========================================================
-   🔥 HOW TO ADD A NEW ANIMATION (SUPER ORGANIZED PRESET)
-
-   1. COPY the block below
-   2. Paste it inside the animations array
-   3. Replace the values
-   4. Save → Commit → Push
-   5. DONE (Grid adapts automatically)
-
-   ---------- COPY THIS PRESET ----------
-
-   {
-     id: 'YOUTUBE_VIDEO_ID',
-     title: 'Animation Title Here',
-     desc: 'Short cinematic description here',
-     preview: '/assets/images/your-image.jpg'
-   },
-
-   ---------------------------------------
-
-   id = YouTube ID only (example: kR0Cv6524mM)
-   preview = OPTIONAL (if not set, auto YouTube thumbnail is used)
-   ========================================================= */
+   🔥 PRESET PARA AGREGAR NUEVAS ANIMACIONES
+   - Copia dentro del array "animations"
+   - Rellena id, title, desc, preview opcional
+========================================================= */
 
 const animations = [
-
 { id:'kR0Cv6524mM', title:'Nagi Goal vs U20', desc:'Instantly kill it..', preview:null },
 { id:'TB9BlAUvUa8', title:'Two Gun Volley', desc:'A new invention here and now...', preview:null },
+{ id:'2NoEf7uzPFE', title:'Former Striker', desc:'Selfish Captain?!..', preview:null },
+{ id:'Wy6vYeO0Xes', title:'Dragon Drive', desc:'Demon', preview:'/assets/images/imagen.jpg' },
+{ id:'nlozlhtO_-E', title:'Walk Anim', desc:'Simple Rig Anim', preview:null },
+{ id:'3zpqruFkSgU', title:'Half-Baked', desc:'Huh?! Itoshi Sae?..', preview:null },
 
-     {
-    id: '2NoEf7uzPFE',
-    title: 'Former Striker',
-    desc: 'Selfish Captain?!..',
-    preview: null
-  },
-
-   {
-  id: 'Wy6vYeO0Xes',
-  title: 'Dragon Drive',
-  desc: 'Demon',
-  preview: '/assets/images/imagen.jpg'
-},
-
-     {
-    id: 'nlozlhtO_-E',
-    title: 'Walk Anim',
-    desc: 'Simple Rig Anim',
-    preview: null
-  },
-
-     {
-    id: '3zpqruFkSgU',
-    title: 'Half-Baked',
-    desc: 'Huh?! Itoshi Sae?..',
-    preview: null
-  },
-
+/* NUEVAS ANIMACIONES DE EJEMPLO */
+{ id:'yH8xV7opZq4', title:'Jump Sequence', desc:'Dynamic jump animation', preview:null },
+{ id:'G7kR6LzQz2I', title:'Attack Combo', desc:'Quick attack combo', preview:null },
+{ id:'uPf8K7vT9c4', title:'Running Loop', desc:'Smooth running loop', preview:null },
+{ id:'R8q9V5bT2dU', title:'Epic Finish', desc:'Finishing move highlight', preview:null },
 ];
 
-function getThumbnail(id){
-return 'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';
-}
+function getThumbnail(id){ return 'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg'; }
 
 function buildCard(item,index){
 const card=document.createElement('article');
@@ -239,21 +202,9 @@ const thumb=document.createElement('div');
 thumb.className='thumb';
 
 const img=document.createElement('img');
-/* =====================================================
-   SISTEMA DE PORTADA INTELIGENTE
-   - Si hay preview → usa preview
-   - Si no hay preview → usa miniatura YouTube
-   - Si la preview falla → cambia automáticamente a YouTube
-   ===================================================== */
-
 if(item.preview){
-    img.src = item.preview;
-
-    /* Si la imagen local falla, cambia automáticamente a YouTube */
-    img.onerror = function(){
-        img.src = getThumbnail(item.id);
-    };
-
+    img.src=item.preview;
+    img.onerror = function(){ img.src = getThumbnail(item.id); };
 }else{
     img.src = getThumbnail(item.id);
 }
@@ -280,7 +231,7 @@ tag.textContent='YouTube';
 
 const open=document.createElement('a');
 open.className='btn-ghost';
-open.style.padding='.4rem .9rem';
+open.style.padding='.45rem .95rem';
 open.href='https://youtu.be/'+item.id;
 open.target='_blank';
 open.textContent='Open →';
@@ -298,9 +249,7 @@ return card;
 }
 
 const grid=document.getElementById('grid');
-animations.forEach((item,i)=>{
-grid.appendChild(buildCard(item,i));
-});
+animations.forEach((item,i)=>{ grid.appendChild(buildCard(item,i)); });
 
 if(animations.length===0){
 grid.innerHTML='<p style="color:var(--color-texto-secundario)">No animations yet.</p>';
