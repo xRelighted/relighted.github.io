@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Relighted — Animations</title>
+  <link rel="icon" href="/favicon.jpg">
+
+  <!-- ==========================
+       ANIMATIONS PAGE (single file)
+       - Designed to match the "Relighted" aesthetic from your index
+       - Responsive grid, JS-driven entries (easy to add)
+       - IMPORTANT: see the JS array named `animations` below to add more
+       ========================== -->
+
+  <style>
+    :root{
+      --color-fondo: #0A0C0F;
+      --color-texto: #F0F4FA;
+      --color-primario: #9AA5B1;
+      --color-secundario: #2D3748;
+      --color-borde: #2A3439;
+      --color-texto-secundario: #A0AEC0;
+      --transition-smooth: all 0.45s cubic-bezier(0.23,1,0.32,1);
+    }
+
+    /* base reset */
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:var(--color-fondo);
+      color:var(--color-texto);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    /* page wrapper */
+    .page{
+      max-width:1200px;
+      margin:3.2rem auto;
+      padding:0 1.5rem 4rem;
+    }
+
+    /* header */
+    .topbar{display:flex;gap:1rem;align-items:center;justify-content:space-between;margin-bottom:2rem}
+    .brand{display:flex;flex-direction:column;gap:.15rem}
+    .brand h1{font-weight:300;margin:0;font-size:1.6rem;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--color-primario),#A0AEC0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .brand p{margin:0;color:var(--color-texto-secundario);font-size:0.85rem}
+
+    .controls{display:flex;gap:.75rem;align-items:center}
+    .btn-ghost{
+      display:inline-flex;align-items:center;gap:.6rem;padding:.6rem 1rem;border-radius:999px;border:1px solid rgba(255,255,255,0.06);background:linear-gradient(135deg, rgba(154,165,177,0.06), rgba(45,55,72,0.03));color:var(--color-texto);text-decoration:none;font-weight:500;transition:var(--transition-smooth)
+    }
+    .btn-ghost:hover{transform:translateY(-4px);border-color:var(--color-primario);background:linear-gradient(135deg, rgba(154,165,177,0.12), rgba(45,55,72,0.06))}
+
+    /* featured title */
+    .featured{ text-align:center; margin:2.25rem 0; }
+    .featured h2{font-weight:300;font-size:2.05rem;margin:0 0 .5rem;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--color-primario),#A0AEC0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .featured p{margin:0;color:var(--color-texto-secundario)}
+
+    /* grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:1.6rem;
+      margin-top:2.2rem;
+    }
+
+    .card{
+      background: rgba(17,20,23,0.6);
+      border:1px solid var(--color-borde);
+      border-radius:18px;
+      overflow:hidden;
+      transition:var(--transition-smooth);
+      display:flex;flex-direction:column;height:100%;
+    }
+    .card:hover{transform:translateY(-8px);box-shadow:0 30px 40px -20px rgba(154,165,177,0.25);border-color:transparent}
+
+    .thumb{position:relative;padding-bottom:56.25%;background:#000}
+    .thumb img, .thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+
+    .card-body{padding:1.2rem;display:flex;flex-direction:column;gap:.6rem;flex:1}
+    .card-title{font-size:1.05rem;font-weight:500;color:var(--color-texto)}
+    .card-desc{font-size:0.9rem;color:var(--color-texto-secundario);font-weight:300}
+
+    .card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:.6rem}
+    .tag{font-size:0.8rem;color:var(--color-texto-secundario);padding:.25rem .5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03)}
+
+    /* responsive */
+    @media (max-width: 1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width: 640px){.grid{grid-template-columns:1fr}.topbar{flex-direction:column;align-items:flex-start}.controls{width:100%;justify-content:flex-start}}
+
+    /* small helper */
+    .muted{color:var(--color-texto-secundario);font-size:0.9rem}
+
+  </style>
+</head>
+<body>
+
+  <main class="page">
+    <div class="topbar">
+      <div class="brand">
+        <h1>Relighted</h1>
+        <p>Animations — catalog</p>
+      </div>
+
+      <div class="controls">
+        <!-- Discord button kept as small ghost, matches index style -->
+        <a class="btn-ghost" href="https://discord.gg/x33ykcPqSY" target="_blank">Discord →</a>
+        <!-- Anims page is current, but keep a Home button -->
+        <a class="btn-ghost" href="/">Home →</a>
+      </div>
+    </div>
+
+    <section class="featured">
+      <h2>Featured Work</h2>
+      <p>Selected animations, cutscenes and motion pieces. Click to open.</p>
+    </section>
+
+    <!-- GRID: cards are generated by JS from the `animations` array -->
+    <section id="grid" class="grid" aria-live="polite">
+      <!-- Cards injected here -->
+    </section>
+
+    <p style="text-align:center;margin-top:2rem;color:var(--color-texto-secundario)">Tip: edit <code>animations</code> in the JS section of this file to add more entries.</p>
+
+  </main>
+
+  <script>
+    /* ================================================================
+       Add new animations here: each object needs these properties:
+       - id: (string) YouTube video id OR full url (we handle both)
+       - title: (string) title shown on the card
+       - desc: (string) short description
+       - preview: (optional) path to a local preview image (e.g. /assets/images/preview1.jpg)
+       - external (optional): (boolean) if true, clicking opens the external link instead of embedded viewer
+
+       EXAMPLE:
+       { id: 'kR0Cv6524mM', title: 'Nagi Goal vs U20', desc: 'Instantly kill it..', preview: '/assets/images/nagi.jpg' }
+
+       After adding an object to the array, save, commit and push. The grid adapts automatically.
+       ================================================================ */
+
+    const animations = [
+      // ---------- SAMPLE ITEMS (keep at least these two as examples) ----------
+      { id: 'kR0Cv6524mM', title: 'Nagi Goal vs U20', desc: 'Instantly kill it..' },
+      { id: 'TB9BlAUvUa8', title: 'Two Gun Volley', desc: 'A new invention here and now...' },
+
+      // Add new objects below this line. Copy the pattern above and change values.
+      // { id: 'YOUTUBE_ID', title: 'Title here', desc: 'Short description', preview: '/assets/images/your-preview.jpg' },
+
+    ];
+
+    // ---------- Helper functions ----------
+    function getYouTubeThumbnail(idOrUrl){
+      // if full url given, extract id
+      let id = idOrUrl;
+      try {
+        const url = new URL(idOrUrl);
+        if (url.hostname.includes('youtube') || url.hostname.includes('youtu.be')){
+          // youtu.be/ID
+          if (url.hostname.includes('youtu.be')) return 'https://i.ytimg.com/vi/' + url.pathname.slice(1) + '/hqdefault.jpg';
+          // youtube.com/watch?v=ID
+          const v = url.searchParams.get('v');
+          if (v) return 'https://i.ytimg.com/vi/' + v + '/hqdefault.jpg';
+        }
+      } catch(e){ /* not a full URL, probably just an id */ }
+      // default: treat as id
+      return 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+    }
+
+    function buildCard(item){
+      const card = document.createElement('article');
+      card.className = 'card';
+
+      // thumb wrapper: uses preview if provided, else YouTube thumbnail
+      const thumb = document.createElement('div');
+      thumb.className = 'thumb';
+
+      const thumbImg = document.createElement('img');
+      thumbImg.alt = item.title + ' — preview';
+      thumbImg.src = item.preview ? item.preview : getYouTubeThumbnail(item.id);
+      thumb.appendChild(thumbImg);
+
+      // body
+      const body = document.createElement('div');
+      body.className = 'card-body';
+
+      const h3 = document.createElement('div');
+      h3.className = 'card-title';
+      h3.textContent = item.title;
+
+      const p = document.createElement('div');
+      p.className = 'card-desc';
+      p.textContent = item.desc || '';
+
+      // footer
+      const foot = document.createElement('div');
+      foot.className = 'card-foot';
+
+      const tag = document.createElement('div');
+      tag.className = 'tag';
+      tag.textContent = 'YouTube';
+
+      const open = document.createElement('a');
+      open.className = 'btn-ghost';
+      open.style.padding = '.45rem .8rem';
+      // clicking opens the video in a new tab if external=true or uses YouTube link
+      const href = (item.id.startsWith('http') || item.external) ? item.id : 'https://youtu.be/' + item.id;
+      open.href = href;
+      open.target = '_blank';
+      open.rel = 'noopener noreferrer';
+      open.textContent = 'Open →';
+
+      foot.appendChild(tag);
+      foot.appendChild(open);
+
+      body.appendChild(h3);
+      body.appendChild(p);
+      body.appendChild(foot);
+
+      card.appendChild(thumb);
+      card.appendChild(body);
+
+      return card;
+    }
+
+    // render
+    const grid = document.getElementById('grid');
+    animations.forEach(item => grid.appendChild(buildCard(item)));
+
+    // Accessibility: if grid empty show friendly message
+    if (animations.length === 0){
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--color-texto-secundario)">No animations yet — add items to the <code>animations</code> array in this file.</div>';
+    }
+
+  </script>
+</body>
+</html>
