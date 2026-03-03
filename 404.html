@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Relighted</title>
+
+<style>
+:root {
+    --bg: #0A0C0F;
+    --text: #F0F4FA;
+    --accent: #9AA5B1;
+    --border: #2A3439;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    height:100vh;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    overflow:hidden;
+    opacity:0;
+    animation:fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity:1; }
+}
+
+h1 {
+    font-size:clamp(5rem,10vw,8rem);
+    font-weight:300;
+    letter-spacing:-0.03em;
+    background:linear-gradient(135deg,#F0F4FA,#A0AEC0);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% { transform:translateY(0); }
+    50% { transform:translateY(-15px); }
+}
+
+p {
+    margin-top:1rem;
+    font-weight:300;
+    color:#A0AEC0;
+    letter-spacing:1px;
+}
+
+a {
+    margin-top:2rem;
+    padding:0.8rem 2rem;
+    border:1px solid var(--border);
+    border-radius:50px;
+    text-decoration:none;
+    color:var(--text);
+    transition:0.4s ease;
+    backdrop-filter:blur(10px);
+}
+
+a:hover {
+    border-color:var(--accent);
+    background:rgba(154,165,177,0.1);
+    transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<h1>404</h1>
+<p>Lost in the void.</p>
+<a href="/">Return Home →</a>
+
+</body>
+</html>
