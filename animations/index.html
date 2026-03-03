@@ -72,12 +72,35 @@ animation:fadeUp 1s ease forwards;
 }
 .featured p{color:var(--color-texto-secundario);margin-top:.5rem;opacity:0;animation:fadeUp 1s .2s ease forwards}
 
-/* GRID */
+/* =====================================================
+   GRID ORGANIZADO
+   - Máximo 5 animaciones por fila
+   - Si agregas más, se van hacia abajo automáticamente
+   ===================================================== */
+
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+/* EXACTAMENTE 5 columnas en pantallas grandes */
+grid-template-columns:repeat(5, 1fr);
+
 gap:1.8rem;
 margin-top:2.5rem;
+}
+
+/* En pantallas medianas baja a 3 */
+@media(max-width:1200px){
+.grid{grid-template-columns:repeat(3,1fr);}
+}
+
+/* En pantallas pequeñas baja a 2 */
+@media(max-width:900px){
+.grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* En móvil solo 1 */
+@media(max-width:500px){
+.grid{grid-template-columns:1fr;}
 }
 
 .card{
@@ -195,7 +218,24 @@ const thumb=document.createElement('div');
 thumb.className='thumb';
 
 const img=document.createElement('img');
-img.src=item.preview?item.preview:getThumbnail(item.id);
+/* =====================================================
+   SISTEMA DE PORTADA INTELIGENTE
+   - Si hay preview → usa preview
+   - Si no hay preview → usa miniatura YouTube
+   - Si la preview falla → cambia automáticamente a YouTube
+   ===================================================== */
+
+if(item.preview){
+    img.src = item.preview;
+
+    /* Si la imagen local falla, cambia automáticamente a YouTube */
+    img.onerror = function(){
+        img.src = getThumbnail(item.id);
+    };
+
+}else{
+    img.src = getThumbnail(item.id);
+}
 img.alt=item.title;
 thumb.appendChild(img);
 
