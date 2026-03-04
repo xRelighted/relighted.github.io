@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relighted — Information</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0A0C0F;
+  --panel:#111417;
+  --accent:#9AA5B1;
+  --text:#F0F4FA;
+  --muted:#A0AEC0;
+  --ease:cubic-bezier(.19,1,.22,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Inter,system-ui;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* Background glow */
+.bg{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(154,165,177,.15), transparent 40%),
+    radial-gradient(circle at 20% 90%, rgba(60,70,90,.2), transparent 50%);
+  z-index:-1;
+}
+
+.wrap{
+  max-width:1100px;
+  margin:auto;
+  padding:4rem 1.5rem;
+}
+
+/* HEADER */
+.header{
+  text-align:center;
+  margin-bottom:4rem;
+}
+
+.header h1{
+  font-weight:300;
+  font-size:clamp(2rem,5vw,3.2rem);
+  background:linear-gradient(135deg,var(--text),var(--muted));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.header p{
+  color:var(--muted);
+  margin-top:1rem;
+  max-width:600px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* ABOUT */
+.about{
+  background:var(--panel);
+  border-radius:18px;
+  padding:2rem;
+  border:1px solid rgba(255,255,255,.05);
+  margin-bottom:3rem;
+  position:relative;
+  overflow:hidden;
+  transition:.5s var(--ease);
+}
+
+.about::before{
+  content:'';
+  position:absolute;
+  inset:-40%;
+  background:radial-gradient(circle,rgba(154,165,177,.15),transparent 60%);
+  animation:spin 18s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes spin{
+  from{transform:rotate(0)}
+  to{transform:rotate(360deg)}
+}
+
+.about h2{
+  margin-bottom:1rem;
+  font-weight:500;
+  color:var(--accent);
+}
+
+.about p{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* LINKS GRID */
+.links{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.5rem;
+}
+
+.link-card{
+  background:var(--panel);
+  border-radius:16px;
+  padding:1.6rem;
+  border:1px solid rgba(255,255,255,.05);
+  text-decoration:none;
+  color:var(--text);
+  transition:.4s var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+
+.link-card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.8);
+}
+
+.link-card h3{
+  margin-bottom:.6rem;
+  font-weight:600;
+}
+
+.link-card p{
+  font-size:.9rem;
+  color:var(--muted);
+}
+
+/* Glow on hover */
+.link-card::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent);
+  transform:translateX(-100%);
+}
+
+.link-card:hover::after{
+  animation:shine 1.2s forwards;
+}
+
+@keyframes shine{
+  to{transform:translateX(100%)}
+}
+
+/* Footer */
+.footer{
+  text-align:center;
+  margin-top:4rem;
+  font-size:.85rem;
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="wrap">
+
+  <div class="header">
+    <h1>Information</h1>
+    <p>Everything about Relighted — Animator, Creator, Cinematic Designer.</p>
+  </div>
+
+  <div class="about">
+    <h2>About Me</h2>
+    <p>
+      I'm Relighted, a Roblox Studio animator focused on delivering high quality cinematic animations.
+      I work mainly with Blender and specialize in dynamic action scenes, cutscenes and character motion.
+      My goal is to create immersive moments that elevate your project.
+    </p>
+  </div>
+
+  <div class="links">
+
+    <a href="https://www.youtube.com/@xRelighted" target="_blank" class="link-card">
+      <h3>🎥 YouTube</h3>
+      <p>Watch my animations and cinematic projects.</p>
+    </a>
+
+    <a href="https://www.roblox.com/users/YOURID/profile" target="_blank" class="link-card">
+      <h3>🎮 Roblox</h3>
+      <p>Visit my Roblox profile and see my creations.</p>
+    </a>
+
+    <a href="https://discord.gg/x33ykcPqSY" target="_blank" class="link-card">
+      <h3>💬 Discord</h3>
+      <p>Join my server to contact me and commission animations.</p>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    © 2026 Relighted — All Rights Reserved
+  </div>
+
+</div>
+
+</body>
+</html>
