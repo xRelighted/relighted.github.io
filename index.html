@@ -6,94 +6,74 @@
     <title>Relighted Animator</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
     <style>
-        /* PALETA DE COLORES - ESTILO "DATA" DE TAINY (TONOS GRISES) */
-        
-        /* 1. NUEVA PALETA GRIS MINIMALISTA */
+        /* PALETA GRIS MINIMALISTA (DATA TAINY) - IGUAL */
         :root {
-            --color-fondo: #0A0C0F;           /* Fondo principal gris muy oscuro con matiz azulado */
-            --color-texto: #F0F4FA;            /* Texto principal blanco azulado claro */
-            --color-primario: #9AA5B1;         /* Acento principal gris claro plateado */
-            --color-secundario: #2D3748;       /* Acento secundario gris azulado oscuro */
-            --color-acento: #9AA5B1;           /* Mismo gris claro para efectos */
-            --color-gris: #111417;              /* Fondo de tarjetas gris oscuro */
-            --color-borde: #2A3439;              /* Bordes gris oscuro */
-            --color-texto-secundario: #A0AEC0;   /* Texto secundario gris medio */
+            --color-fondo: #0A0C0F;
+            --color-texto: #F0F4FA;
+            --color-primario: #9AA5B1;
+            --color-secundario: #2D3748;
+            --color-acento: #9AA5B1;
+            --color-gris: #111417;
+            --color-borde: #2A3439;
+            --color-texto-secundario: #A0AEC0;
             --transition-smooth: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* 2. FUENTES MODERNAS (sin cambios) */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-        /* RESET Y ESTILOS BASE (sin cambios estructurales) */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--color-fondo);
             color: var(--color-texto);
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             opacity: 0;
             animation: bodyFadeIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
         }
 
-        @keyframes bodyFadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
+        @keyframes bodyFadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
 
-        /* FONDO ANIMADO - ACTUALIZADO CON NUEVOS COLORES */
+        /* FONDO ANIMADO - NUEVA ROTACIÓN LENTA */
         .background {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: -2;
             background: var(--color-fondo);
         }
 
         .gradient-sphere {
             position: fixed;
-            width: 80vw;
-            height: 80vw;
-            top: -20vw;
-            right: -20vw;
+            width: 80vw; height: 80vw;
+            top: -20vw; right: -20vw;
             background: radial-gradient(circle, rgba(154, 165, 177, 0.08) 0%, transparent 70%);
             border-radius: 50%;
             filter: blur(60px);
-            animation: floatSphere 30s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: floatSphere 30s infinite cubic-bezier(0.23, 1, 0.32, 1), slowSpin 60s linear infinite;
             z-index: -1;
         }
 
         .gradient-sphere-2 {
             position: fixed;
-            width: 80vw;
-            height: 80vw;
-            bottom: -20vw;
-            left: -20vw;
+            width: 80vw; height: 80vw;
+            bottom: -20vw; left: -20vw;
             background: radial-gradient(circle, rgba(45, 55, 72, 0.15) 0%, transparent 70%);
             border-radius: 50%;
             filter: blur(60px);
-            animation: floatSphere 25s infinite cubic-bezier(0.23, 1, 0.32, 1) reverse;
+            animation: floatSphere 25s infinite cubic-bezier(0.23, 1, 0.32, 1) reverse, slowSpinRev 70s linear infinite;
             z-index: -1;
         }
 
-        /* PARTÍCULAS CON NUEVOS COLORES */
+        @keyframes slowSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes slowSpinRev { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+
         .particle {
             position: fixed;
-            width: 2px;
-            height: 2px;
+            width: 2px; height: 2px;
             background: rgba(154, 165, 177, 0.3);
             border-radius: 50%;
             pointer-events: none;
@@ -102,26 +82,11 @@
         }
 
         @keyframes particleFloat {
-            0% {
-                transform: translateY(0) translateX(0) scale(1);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.5;
-                transform: translateY(-10vh) translateX(5px) scale(1.2);
-            }
-            50% {
-                opacity: 0.3;
-                transform: translateY(-50vh) translateX(10px) scale(0.8);
-            }
-            90% {
-                opacity: 0.5;
-                transform: translateY(-90vh) translateX(5px) scale(1.1);
-            }
-            100% {
-                transform: translateY(-100vh) translateX(0) scale(1);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+            10% { opacity: 0.5; transform: translateY(-10vh) translateX(5px) scale(1.2); }
+            50% { opacity: 0.3; transform: translateY(-50vh) translateX(10px) scale(0.8); }
+            90% { opacity: 0.5; transform: translateY(-90vh) translateX(5px) scale(1.1); }
+            100% { transform: translateY(-100vh) translateX(0) scale(1); opacity: 0; }
         }
 
         @keyframes floatSphere {
@@ -130,7 +95,6 @@
             66% { transform: translate(-4%, -4%) scale(0.92); }
         }
 
-        /* CONTENEDOR PRINCIPAL (sin cambios) */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -139,7 +103,7 @@
             z-index: 2;
         }
 
-        /* HEADER - COLORES DE TEXTO ACTUALIZADOS */
+        /* HEADER con NUEVAS ANIMACIONES */
         header {
             text-align: center;
             margin-bottom: 6rem;
@@ -157,18 +121,17 @@
             width: 100px;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--color-primario), var(--color-secundario), transparent);
-            animation: lineWidth 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: lineWidth 4s infinite cubic-bezier(0.23, 1, 0.32, 1), waveGlow 3s infinite alternate;
         }
+
+        @keyframes waveGlow { 0% { opacity: 0.3; } 100% { opacity: 1; } }
 
         @keyframes lineWidth {
             0%, 100% { width: 100px; opacity: 0.4; }
-            50% { width: 250px; opacity: 1; }
+            50% { width: 280px; opacity: 1; }
         }
 
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
 
         h1 {
             font-size: clamp(3rem, 8vw, 6rem);
@@ -178,14 +141,11 @@
             background: linear-gradient(135deg, #F0F4FA 0%, #A0AEC0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 1.1;
-            animation: titleGlow 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: titleGlow 4s infinite cubic-bezier(0.23, 1, 0.32, 1), textShift 8s infinite alternate;
         }
 
-        @keyframes titleGlow {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.15); }
-        }
+        @keyframes titleGlow { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.2); } }
+        @keyframes textShift { 0% { letter-spacing: -0.02em; } 100% { letter-spacing: 0.01em; } }
 
         .subtitle {
             font-size: 1.2rem;
@@ -193,16 +153,11 @@
             color: var(--color-texto-secundario);
             max-width: 600px;
             margin: 0 auto 2rem;
-            letter-spacing: 0.3px;
-            animation: subtitlePulse 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: subtitlePulse 4s infinite cubic-bezier(0.23, 1, 0.32, 1), blurBreath 6s infinite alternate;
         }
 
-        @keyframes subtitlePulse {
-            0%, 100% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
-        }
+        @keyframes blurBreath { 0% { text-shadow: 0 0 5px transparent; } 100% { text-shadow: 0 0 15px rgba(154,165,177,0.3); } }
 
-        /* BADGE DE ESPECIALIDAD - NUEVOS COLORES */
         .specialty-badge {
             display: inline-flex;
             gap: 0.8rem;
@@ -212,36 +167,29 @@
             border-radius: 100px;
             backdrop-filter: blur(10px);
             font-size: 0.9rem;
-            font-weight: 400;
             color: var(--color-texto-secundario);
             margin-bottom: 2rem;
             transition: var(--transition-smooth);
+            animation: badgeGlow 5s infinite alternate;
         }
+
+        @keyframes badgeGlow { 0% { border-color: var(--color-borde); } 100% { border-color: var(--color-primario); box-shadow: 0 0 20px rgba(154,165,177,0.2); } }
 
         .specialty-badge:hover {
             border-color: var(--color-primario);
-            transform: scale(1.05);
-            background: rgba(154, 165, 177, 0.1);
+            transform: scale(1.05) rotate(1deg);
+            background: rgba(154, 165, 177, 0.15);
         }
 
-        .specialty-badge span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
+        .specialty-badge span { display: flex; align-items: center; gap: 0.3rem; }
         .specialty-badge i {
             color: var(--color-primario);
             font-style: normal;
-            animation: dotPulse 2.5s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: dotPulse 2.5s infinite cubic-bezier(0.23, 1, 0.32, 1), moveDot 3s infinite;
         }
+        @keyframes moveDot { 0% { transform: translateX(0); } 50% { transform: translateX(3px); } }
 
-        @keyframes dotPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(1.5); }
-        }
-
-        /* DISCORD CARD - NUEVOS GRADIENTES */
+        /* DISCORD CARDS (incluyendo la nueva Info) */
         .discord-card {
             display: inline-flex;
             align-items: center;
@@ -254,46 +202,53 @@
             color: var(--color-texto);
             text-decoration: none;
             transition: var(--transition-smooth);
-            margin: 2rem 0;
+            margin: 0.5rem;
             position: relative;
             overflow: hidden;
+            animation: cardFloat 5s infinite alternate;
         }
+
+        @keyframes cardFloat { 0% { transform: translateY(0); } 100% { transform: translateY(-5px); } }
 
         .discord-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(154, 165, 177, 0.2) 0%, transparent 70%);
             opacity: 0;
-            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-            pointer-events: none;
+            transition: opacity 0.8s;
         }
 
         .discord-card:hover::before {
             opacity: 1;
-            animation: shine 2.5s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: shine 2.5s infinite;
         }
 
-        @keyframes shine {
-            0% { transform: translate(-30%, -30%) rotate(0deg); }
-            100% { transform: translate(30%, 30%) rotate(25deg); }
-        }
+        @keyframes shine { 0% { transform: translate(-30%, -30%) rotate(0deg); } 100% { transform: translate(30%, 30%) rotate(25deg); } }
 
         .discord-card:hover {
             border-color: var(--color-primario);
-            transform: scale(1.05);
-            background: linear-gradient(135deg, rgba(154, 165, 177, 0.2), rgba(45, 55, 72, 0.3));
+            transform: scale(1.08) translateY(-5px);
+            background: linear-gradient(135deg, rgba(154, 165, 177, 0.25), rgba(45, 55, 72, 0.35));
         }
 
-        .discord-icon {
-            font-size: 1.4rem;
-            line-height: 1;
+        /* CONTENEDOR DE BOTONES (ajustado para que el nuevo botón quede debajo) */
+        .button-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0 1rem;
         }
 
-        /* GRID DE VIDEOS - COLORES ACTUALIZADOS */
+        .info-button-container {
+            text-align: center;
+            margin: 0.5rem 0 2rem;
+            animation: fadeUp 1s 0.5s backwards;
+        }
+
+        /* VIDEOS GRID - nuevas animaciones */
         .videos-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -309,9 +264,14 @@
             overflow: hidden;
             transition: var(--transition-smooth);
             opacity: 0;
-            animation: cardAppear 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation: cardAppear 1s cubic-bezier(0.23, 1, 0.32, 1) forwards, floatContinuous 6s infinite alternate;
             animation-fill-mode: forwards;
             position: relative;
+        }
+
+        @keyframes floatContinuous {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
         }
 
         .video-card::after {
@@ -325,27 +285,22 @@
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             opacity: 0;
-            transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: opacity 0.6s;
             pointer-events: none;
         }
 
-        .video-card:hover::after {
-            opacity: 1;
-        }
+        .video-card:hover::after { opacity: 1; }
 
         .video-card:nth-child(1) { animation-delay: 0.3s; }
         .video-card:nth-child(2) { animation-delay: 0.5s; }
         .video-card:nth-child(3) { animation-delay: 0.7s; }
 
-        @keyframes cardAppear {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes cardAppear { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
 
         .video-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-15px) scale(1.02);
             border-color: transparent;
-            box-shadow: 0 40px 50px -20px rgba(154, 165, 177, 0.4);
+            box-shadow: 0 40px 60px -15px rgba(154, 165, 177, 0.5);
         }
 
         .video-wrapper {
@@ -358,26 +313,19 @@
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             border: none;
             opacity: 0.8;
-            transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: opacity 0.6s, transform 0.8s;
         }
 
-        .video-card:hover iframe {
-            opacity: 1;
-            transform: scale(1.06);
-        }
+        .video-card:hover iframe { opacity: 1; transform: scale(1.08); }
 
         .video-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             cursor: pointer;
             z-index: 10;
         }
@@ -391,34 +339,30 @@
         .video-info::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(154, 165, 177, 0.1), transparent);
-            transition: left 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(154, 165, 177, 0.15), transparent);
+            transition: left 0.9s;
         }
 
-        .video-card:hover .video-info::before {
-            left: 100%;
-        }
+        .video-card:hover .video-info::before { left: 100%; }
 
         .video-titulo {
             font-size: 1.2rem;
             font-weight: 500;
             margin-bottom: 0.5rem;
             color: var(--color-texto);
-            letter-spacing: -0.01em;
+            transition: letter-spacing 0.4s;
         }
+        .video-card:hover .video-titulo { letter-spacing: 0.5px; }
 
         .video-descripcion {
             font-size: 0.9rem;
             color: var(--color-texto-secundario);
             font-weight: 300;
-            line-height: 1.6;
         }
 
-        /* SECCIÓN DE PRECIOS - COLORES ACTUALIZADOS */
+        /* PRECIOS con más animaciones */
         .precios {
             margin: 8rem 0;
             padding: 4rem;
@@ -428,47 +372,36 @@
             border-radius: 40px;
             position: relative;
             overflow: hidden;
+            animation: borderPulse 6s infinite alternate;
         }
+
+        @keyframes borderPulse { 0% { border-color: var(--color-borde); } 100% { border-color: var(--color-primario); } }
 
         .precios::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--color-primario), var(--color-secundario), transparent);
-            animation: wave 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: wave 4s infinite;
         }
 
-        @keyframes wave {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
+        @keyframes wave { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 
         .precios h2 {
             font-size: 2.5rem;
             font-weight: 300;
             text-align: center;
             margin-bottom: 1rem;
-            letter-spacing: -0.02em;
             background: linear-gradient(135deg, var(--color-primario), #A0AEC0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: priceTitle 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: priceTitle 4s infinite, shakeGlow 5s infinite;
         }
 
-        @keyframes priceTitle {
-            0%, 100% { letter-spacing: -0.02em; filter: brightness(1); }
-            50% { letter-spacing: 0.03em; filter: brightness(1.2); }
-        }
+        @keyframes shakeGlow { 0% { filter: drop-shadow(0 0 5px var(--color-primario)); } 50% { filter: drop-shadow(0 0 15px #ffffff30); } }
 
-        .precios-sub {
-            text-align: center;
-            color: var(--color-texto-secundario);
-            margin-bottom: 4rem;
-            font-weight: 300;
-        }
+        .precios-sub { text-align: center; color: var(--color-texto-secundario); margin-bottom: 4rem; font-weight: 300; }
 
         .precios-grid {
             display: grid;
@@ -486,12 +419,15 @@
             transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
+            animation: categoryPop 1s backwards, rotateShadow 8s infinite alternate;
         }
+
+        @keyframes rotateShadow { 0% { box-shadow: 0 0 0 0 rgba(154,165,177,0); } 50% { box-shadow: 0 20px 30px -15px rgba(154,165,177,0.3); } }
 
         .precio-categoria:hover {
             border-color: var(--color-primario);
-            transform: translateY(-8px);
-            box-shadow: 0 30px 40px -15px rgba(154, 165, 177, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 50px -15px rgba(154,165,177,0.4);
         }
 
         .precio-categoria h3 {
@@ -499,13 +435,10 @@
             font-weight: 300;
             margin-bottom: 2rem;
             color: var(--color-primario);
-            transition: color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: h3Pulse 3s infinite alternate;
         }
 
-        .precio-categoria:hover h3 {
-            color: #9AA5B1;
-            filter: brightness(1.1);
-        }
+        @keyframes h3Pulse { 0% { opacity: 0.9; } 100% { opacity: 1; transform: scale(1.03); } }
 
         .precio-item {
             display: flex;
@@ -520,65 +453,46 @@
 
         .precio-item::before {
             content: '';
-            position: absolute;
-            left: -100%;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(154, 165, 177, 0.15), transparent);
-            transition: left 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            position: absolute; left: -100%; top: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(154, 165, 177, 0.2), transparent);
+            transition: left 0.8s;
         }
 
-        .precio-item:hover::before {
-            left: 100%;
-        }
+        .precio-item:hover::before { left: 100%; }
+        .precio-item:hover { padding-left: 8px; border-bottom-color: var(--color-primario); }
 
-        .precio-item:last-child {
-            border-bottom: none;
-        }
-
-        .precio-desc {
-            font-weight: 400;
-            color: var(--color-texto);
-        }
-
+        .precio-desc { font-weight: 400; color: var(--color-texto); }
         .precio-valor {
             font-size: 1.4rem;
             font-weight: 300;
             color: var(--color-primario);
-            transition: var(--transition-smooth);
+            transition: 0.3s;
+            animation: valorWobble 5s infinite alternate;
         }
 
-        .precio-item:hover .precio-valor {
-            transform: scale(1.15);
-            color: #9AA5B1;
-            filter: brightness(1.2);
-        }
+        @keyframes valorWobble { 0% { transform: scale(1); } 100% { transform: scale(1.1); color: #b0c0d0; } }
 
-        .precio-roblox {
-            font-size: 0.8rem;
-            color: var(--color-texto-secundario);
-            margin-left: 0.3rem;
-        }
+        .precio-item:hover .precio-valor { transform: scale(1.2); color: #ffffff; }
+
+        .precio-roblox { font-size: 0.8rem; color: var(--color-texto-secundario); }
 
         .precio-nota {
             text-align: center;
             margin-top: 3rem;
             color: var(--color-texto-secundario);
             font-size: 0.9rem;
-            font-weight: 300;
             padding: 1rem;
             border-top: 1px solid var(--color-borde);
-            transition: var(--transition-smooth);
+            transition: 0.5s;
+            animation: notaBreath 4s infinite alternate;
         }
 
-        .precio-nota:hover {
-            color: var(--color-primario);
-            border-top-color: var(--color-primario);
-            transform: scale(1.02);
-        }
+        @keyframes notaBreath { 0% { letter-spacing: 0; } 100% { letter-spacing: 1px; color: var(--color-primario); } }
 
-        /* ESTADÍSTICAS - COLORES ACTUALIZADOS */
+        .precio-nota:hover { color: var(--color-primario); border-top-color: var(--color-primario); transform: scale(1.03); }
+
+        /* STATS con triple animación */
         .stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -594,23 +508,23 @@
             border: 1px solid var(--color-borde);
             border-radius: 30px;
             transition: var(--transition-smooth);
-            animation: statFloat 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: statFloat 4s infinite alternate, statAppear 0.8s backwards, borderColorShift 5s infinite;
             animation-delay: calc(var(--i) * 0.3s);
         }
+
+        @keyframes borderColorShift { 0% { border-color: var(--color-borde); } 50% { border-color: var(--color-primario); } }
 
         .stat-item:nth-child(1) { --i: 0; }
         .stat-item:nth-child(2) { --i: 1; }
         .stat-item:nth-child(3) { --i: 2; }
 
-        @keyframes statFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+        @keyframes statFloat { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
+        @keyframes statAppear { 0% { opacity: 0; transform: scale(0.9); } }
 
         .stat-item:hover {
             border-color: var(--color-primario);
-            transform: translateY(-8px) scale(1.06);
-            box-shadow: 0 30px 40px -15px rgba(154, 165, 177, 0.25);
+            transform: translateY(-15px) scale(1.08);
+            box-shadow: 0 30px 50px -15px rgba(154,165,177,0.3);
         }
 
         .stat-numero {
@@ -618,15 +532,11 @@
             font-weight: 300;
             color: var(--color-primario);
             margin-bottom: 0.5rem;
-            line-height: 1;
-            animation: statEmoji 3s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: statEmoji 3s infinite alternate, rotateSlow 10s linear infinite;
         }
 
-        @keyframes statEmoji {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            25% { transform: rotate(8deg) scale(1.1); }
-            75% { transform: rotate(-8deg) scale(1.1); }
-        }
+        @keyframes rotateSlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes statEmoji { 0% { transform: scale(1); } 100% { transform: scale(1.2) rotate(5deg); } }
 
         .stat-label {
             font-size: 0.9rem;
@@ -634,90 +544,61 @@
             font-weight: 300;
             text-transform: uppercase;
             letter-spacing: 2px;
+            animation: labelFade 3s infinite alternate;
         }
+        @keyframes labelFade { 0% { opacity: 0.6; } 100% { opacity: 1; } }
 
-        /* BOTÓN FLOTANTE - NUEVO COLOR */
+        /* BOTÓN FLOTANTE (mejorado) */
         .float-discord {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
+            bottom: 2rem; right: 2rem;
+            width: 60px; height: 60px;
             background: rgba(17, 20, 23, 0.8);
             backdrop-filter: blur(10px);
             border: 1px solid var(--color-borde);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             color: var(--color-texto);
             text-decoration: none;
             font-size: 1.6rem;
             transition: var(--transition-smooth);
             z-index: 100;
             opacity: 0;
-            animation: fadeIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) 2s forwards, floatButton 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
+            animation: fadeIn 1.2s 2s forwards, floatButton 4s infinite, rotatePulse 7s infinite;
         }
 
-        @keyframes floatButton {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.12); }
-        }
+        @keyframes rotatePulse { 0% { box-shadow: 0 0 0 0 var(--color-primario); } 50% { box-shadow: 0 0 20px 5px var(--color-primario); } }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
+        @keyframes floatButton { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
 
         .float-discord:hover {
             border-color: var(--color-primario);
-            transform: scale(1.15) rotate(360deg);
+            transform: scale(1.2) rotate(720deg);
             background: var(--color-primario);
-            animation: none;
         }
 
-        /* RESPONSIVE (sin cambios) */
+        /* RESPONSIVE */
         @media (max-width: 968px) {
-            .videos-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .precios-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
+            .videos-grid { grid-template-columns: repeat(2, 1fr); }
+            .precios-grid { grid-template-columns: 1fr; }
         }
-
         @media (max-width: 668px) {
-            .videos-grid {
-                grid-template-columns: 1fr;
-            }
-            .stats {
-                grid-template-columns: 1fr;
-            }
-            .container {
-                padding: 2rem 1rem;
-            }
-            h1 {
-                font-size: 3rem;
-            }
-            .precios {
-                padding: 2rem;
-            }
+            .videos-grid { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr; }
+            .container { padding: 2rem 1rem; }
+            h1 { font-size: 3rem; }
+            .precios { padding: 2rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Fondo animado sutil (colores actualizados en CSS) -->
     <div class="background"></div>
     <div class="gradient-sphere"></div>
     <div class="gradient-sphere-2"></div>
-
-    <!-- Partículas generadas por JS (se actualizarán con nueva paleta) -->
     <div id="particles-container"></div>
 
-    <!-- Contenido principal (sin cambios en HTML) -->
     <div class="container">
-        <!-- Header -->
         <header>
             <h1>Relighted</h1>
             <div class="specialty-badge">
@@ -728,48 +609,40 @@
             <div class="subtitle">
                 Relighted, a animator at Roblox Studio, using blender to deliver quality and efficiency to my clients.
                 Enter the discord server to contact me.
-                
             </div>
             
-            <!-- Discord card principal -->
-            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin:2rem 0;">
+            <!-- Botones Discord y Animations (fila) -->
+            <div class="button-row">
+                <a href="https://discord.gg/x33ykcPqSY" target="_blank" class="discord-card">
+                    <span>Discord</span>
+                    <span style="font-size: 1rem; opacity: 0.6;">→</span>
+                </a>
+                <a href="/animations" class="discord-card">
+                    <span>Animations</span>
+                    <span style="font-size: 1rem; opacity: 0.6;">→</span>
+                </a>
+            </div>
 
-    <a href="https://discord.gg/x33ykcPqSY" target="_blank" class="discord-card">
-        <span>Discord</span>
-        <span style="font-size: 1rem; opacity: 0.6;">→</span>
-    </a>
+            <!-- NUEVO BOTÓN INFO (debajo, centrado) -->
+            <div class="info-button-container">
+                <a href="/information" class="discord-card">
+                    <span>Info</span>
+                    <span style="font-size: 1rem; opacity: 0.6;">→</span>
+                </a>
+            </div>
 
-    <a href="/animations" class="discord-card">
-        <span>Animations</span>
-        <span style="font-size: 1rem; opacity: 0.6;">→</span>
-    </a>
-
-</div>
-
-        <div style="text-align:center; margin:4rem 0 2rem;">
-    <h2 style="
-        font-size:2.2rem;
-        font-weight:300;
-        letter-spacing:-0.02em;
-        background: linear-gradient(135deg, var(--color-primario), #A0AEC0);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    ">
-        Featured Work
-    </h2>
-    <p style="
-        color: var(--color-texto-secundario);
-        font-weight:300;
-        margin-top:0.5rem;
-        letter-spacing:1px;
-    ">
-        Selected animations.
-    </p>
-</div>
+            <div style="text-align:center; margin:4rem 0 2rem;">
+                <h2 style="font-size:2.2rem; font-weight:300; background: linear-gradient(135deg, var(--color-primario), #A0AEC0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: titleGlow 4s infinite;">
+                    Featured Work
+                </h2>
+                <p style="color: var(--color-texto-secundario); font-weight:300; margin-top:0.5rem; animation: subtitlePulse 3s infinite;">
+                    Selected animations.
+                </p>
+            </div>
+        </header>
         
-        <!-- Portafolio de videos -->
+        <!-- Portafolio de videos (sin cambios estructurales) -->
         <div class="videos-grid">
-            <!-- Video 1 -->
             <div class="video-card">
                 <div class="video-wrapper">
                     <iframe src="https://www.youtube.com/embed/kR0Cv6524mM?modestbranding=1&rel=0&showinfo=0" allowfullscreen></iframe>
@@ -780,8 +653,6 @@
                     <p class="video-descripcion">Instantly kill it..</p>
                 </div>
             </div>
-
-            <!-- Video 2 -->
             <div class="video-card">
                 <div class="video-wrapper">
                     <iframe src="https://www.youtube.com/embed/TB9BlAUvUa8?modestbranding=1&rel=0&showinfo=0" allowfullscreen></iframe>
@@ -792,8 +663,6 @@
                     <p class="video-descripcion">A new invention here and now...</p>
                 </div>
             </div>
-
-            <!-- Video 3 -->
             <div class="video-card">
                 <div class="video-wrapper">
                     <iframe src="https://www.youtube.com/embed/3zpqruFkSgU?modestbranding=1&rel=0&showinfo=0" allowfullscreen></iframe>
@@ -806,13 +675,12 @@
             </div>
         </div>
 
-        <!-- Sección de precios -->
+        <!-- Sección de precios (con nuevas animaciones) -->
         <div class="precios">
             <h2>Prices</h2>
             <div class="precios-sub"></div>
             
             <div class="precios-grid">
-                <!-- Rig Animation -->
                 <div class="precio-categoria">
                     <h3>Rig Animation</h3>
                     <div class="precio-item">
@@ -824,8 +692,6 @@
                         <span class="precio-valor">625<span class="precio-roblox">R$</span></span>
                     </div>
                 </div>
-
-                <!-- Cutscene -->
                 <div class="precio-categoria">
                     <h3>Cutscene</h3>
                     <div class="precio-item">
@@ -844,7 +710,7 @@
             </div>
         </div>
 
-        <!-- Stats -->
+        <!-- Stats con animaciones extra -->
         <div class="stats">
             <div class="stat-item">
                 <div class="stat-numero">⭐</div>
@@ -861,9 +727,10 @@
         </div>
     </div>
 
-    <!-- Script para efectos (solo se actualizan colores de partículas) -->
+    <!-- Botón flotante Discord (sin cambios) -->
+    <a href="https://discord.gg/x33ykcPqSY" target="_blank" class="float-discord" title="Discord">💬</a>
+
     <script>
-        // FORZAR SCROLL AL INICIO DE LA PÁGINA (sin cambios)
         window.onload = function() {
             window.scrollTo(0, 0);
             if ('scrollRestoration' in history) {
@@ -871,46 +738,38 @@
             }
         };
 
-        // Smooth scroll behavior (sin cambios)
+        // Smooth scroll para anclas (si hubiera)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start',
-                        inline: 'nearest'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
 
-        // Intersection Observer (sin cambios)
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        // Intersection Observer para efectos al aparecer (ya existente, mejorado)
+        const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.style.transform = 'translateY(0) scale(1)';
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.precio-categoria, .stat-item').forEach(el => {
+        document.querySelectorAll('.precio-categoria, .stat-item, .video-card').forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
+            el.style.transform = 'translateY(30px) scale(0.95)';
             el.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
             observer.observe(el);
         });
 
-        // Generar partículas flotantes con NUEVA PALETA
+        // Partículas flotantes (colores grises)
         const particlesContainer = document.getElementById('particles-container');
-        const numParticles = 40;
+        const numParticles = 50; // +10 partículas para más dinamismo
 
         for (let i = 0; i < numParticles; i++) {
             const particle = document.createElement('div');
@@ -919,21 +778,20 @@
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
             
-            const size = Math.random() * 4 + 1;
+            const size = Math.random() * 5 + 1;
             particle.style.width = size + 'px';
             particle.style.height = size + 'px';
             
             particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (Math.random() * 15 + 12) + 's';
+            particle.style.animationDuration = (Math.random() * 18 + 12) + 's';
             
-            // Nuevos colores: grises
             const colors = [
-                'rgba(154, 165, 177',  // gris claro
-                'rgba(45, 55, 72',      // gris azulado oscuro
-                'rgba(160, 174, 192'    // gris medio (texto secundario)
+                'rgba(154, 165, 177', 
+                'rgba(45, 55, 72',     
+                'rgba(160, 174, 192'   
             ];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            particle.style.background = randomColor + ', ' + (Math.random() * 0.3 + 0.2) + ')';
+            particle.style.background = randomColor + ', ' + (Math.random() * 0.4 + 0.2) + ')';
             
             particlesContainer.appendChild(particle);
         }
