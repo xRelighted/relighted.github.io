@@ -106,6 +106,7 @@ body{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:1.5rem;
+  margin-bottom:3rem;
 }
 
 .link-card{
@@ -123,6 +124,7 @@ body{
 .link-card:hover{
   transform:translateY(-10px);
   box-shadow:0 30px 60px -20px rgba(0,0,0,.8);
+  border-color:rgba(154,165,177,.4);
 }
 
 .link-card h3{
@@ -135,7 +137,6 @@ body{
   color:var(--muted);
 }
 
-/* Glow on hover */
 .link-card::after{
   content:'';
   position:absolute;
@@ -152,12 +153,54 @@ body{
   to{transform:translateX(100%)}
 }
 
-/* Footer */
-.footer{
-  text-align:center;
-  margin-top:4rem;
-  font-size:.85rem;
-  color:var(--muted);
+/* NAV BUTTONS */
+.nav-buttons{
+  display:flex;
+  justify-content:center;
+  gap:1.5rem;
+  margin-bottom:3rem;
+}
+
+.nav-btn{
+  padding:.9rem 2rem;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);
+  text-decoration:none;
+  color:var(--text);
+  font-weight:500;
+  transition:.4s var(--ease);
+  background:linear-gradient(145deg,#111417,#0d0f12);
+}
+
+.nav-btn:hover{
+  transform:translateY(-4px);
+  box-shadow:0 15px 40px -10px rgba(154,165,177,.4);
+  border-color:rgba(154,165,177,.6);
+}
+
+/* SECRET BUTTON */
+.secret{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:var(--panel);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  color:var(--text);
+  font-weight:600;
+  border:1px solid rgba(255,255,255,.08);
+  transition:.4s var(--ease);
+}
+
+.secret:hover{
+  transform:scale(1.15);
+  box-shadow:0 0 25px rgba(154,165,177,.5);
+  border-color:rgba(154,165,177,.6);
 }
 </style>
 </head>
@@ -178,7 +221,8 @@ body{
     <p>
       I'm Relighted, a Roblox Studio animator focused on delivering high quality cinematic animations.
       I work mainly with Blender and specialize in dynamic action scenes, cutscenes and character motion.
-      My goal is to create immersive moments that elevate your project, my main languages ​​are Spanish and English, I'm a student from Paraguay, Asuncion.
+      My goal is to create immersive moments that elevate your project.
+      My main languages are Spanish and English, I'm a student from Paraguay, Asuncion.
     </p>
   </div>
 
@@ -201,10 +245,14 @@ body{
 
   </div>
 
-  <div class="footer">
+  <div class="nav-buttons">
+    <a href="/" class="nav-btn">Home</a>
+    <a href="/animations" class="nav-btn">Animations</a>
   </div>
 
 </div>
+
+<a href="/secret" class="secret">?</a>
 
 </body>
 </html>
