@@ -1,75 +1,332 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Information</title>
-<link rel="icon" href="/favicon.jpg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Relighted Animator</title>
+<link rel="icon" type="image/jpeg" href="/favicon.jpg">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-body{
-font-family:Inter;
-background:#0A0C0F;
-color:#F0F4FA;
-margin:0;
+:root{
+--color-fondo:#0A0C0F;
+--color-texto:#F0F4FA;
+--color-primario:#9AA5B1;
+--color-secundario:#2D3748;
+--color-acento:#9AA5B1;
+--color-gris:#111417;
+--color-borde:#2A3439;
+--color-texto-secundario:#A0AEC0;
+--transition-smooth:all .6s cubic-bezier(.23,1,.32,1);
 }
 
-.container{
-max-width:900px;
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:Inter,sans-serif;
+background:var(--color-fondo);
+color:var(--color-texto);
+overflow-x:hidden;
+opacity:0;
+animation:fade 1s forwards;
+}
+
+@keyframes fade{
+to{opacity:1;}
+}
+
+/* BACKGROUND */
+
+.background{
+position:fixed;
+inset:0;
+z-index:-3;
+}
+
+.gradient-sphere{
+position:fixed;
+width:80vw;
+height:80vw;
+top:-20vw;
+right:-20vw;
+background:radial-gradient(circle,rgba(154,165,177,.08),transparent);
+border-radius:50%;
+filter:blur(60px);
+animation:floatSphere 30s infinite;
+}
+
+.gradient-sphere-2{
+position:fixed;
+width:80vw;
+height:80vw;
+bottom:-20vw;
+left:-20vw;
+background:radial-gradient(circle,rgba(45,55,72,.15),transparent);
+border-radius:50%;
+filter:blur(60px);
+animation:floatSphere 25s infinite reverse;
+}
+
+@keyframes floatSphere{
+0%,100%{transform:translate(0,0)}
+50%{transform:translate(40px,40px)}
+}
+
+/* HERO */
+
+.hero{
+max-width:1400px;
 margin:auto;
-padding:4rem 1.5rem;
-text-align:center;
+padding:120px 40px 40px;
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:60px;
+align-items:center;
+}
+
+.hero-left{
+animation:fadeUp 1s;
+}
+
+.hero-right{
+display:flex;
+justify-content:center;
+}
+
+.hero-image{
+width:340px;
+border-radius:30px;
+border:1px solid var(--color-borde);
+padding:10px;
+background:rgba(17,20,23,.5);
+backdrop-filter:blur(10px);
+animation:floatImage 6s infinite alternate;
+transition:var(--transition-smooth);
+}
+
+.hero-image img{
+width:100%;
+border-radius:20px;
+}
+
+.hero-image:hover{
+transform:scale(1.05);
+border-color:var(--color-primario);
+box-shadow:0 40px 60px -10px rgba(154,165,177,.4);
+}
+
+@keyframes floatImage{
+0%{transform:translateY(0)}
+100%{transform:translateY(-15px)}
 }
 
 h1{
+font-size:clamp(3rem,6vw,5rem);
 font-weight:300;
-margin-bottom:1rem;
+margin-bottom:20px;
+background:linear-gradient(135deg,#F0F4FA,#A0AEC0);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-.about{
-margin-top:2rem;
-background:#111417;
-border:1px solid #2A3439;
-border-radius:16px;
-padding:2rem;
-color:#A0AEC0;
+.subtitle{
+max-width:500px;
+color:var(--color-texto-secundario);
+margin-top:15px;
 }
 
-.links{
-margin-top:3rem;
+.specialty-badge{
+display:inline-flex;
+gap:15px;
+margin:20px 0;
+padding:8px 18px;
+border-radius:100px;
+border:1px solid var(--color-borde);
+background:rgba(17,20,23,.5);
+font-size:14px;
+}
+
+.button-row{
 display:flex;
-justify-content:center;
-gap:1rem;
+gap:12px;
+margin-top:25px;
 flex-wrap:wrap;
 }
 
-.links a{
-padding:.7rem 1.6rem;
-background:#111417;
-border:1px solid #2A3439;
-border-radius:999px;
+.discord-card{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:10px 22px;
+border-radius:100px;
+border:1px solid var(--color-borde);
+background:rgba(17,20,23,.6);
 text-decoration:none;
-color:#F0F4FA;
-transition:.4s;
+color:var(--color-texto);
+transition:var(--transition-smooth);
 }
 
-.links a:hover{
-transform:translateY(-5px);
-border-color:#9AA5B1;
+.discord-card:hover{
+border-color:var(--color-primario);
+transform:translateY(-4px);
+background:rgba(154,165,177,.15);
 }
 
-.nav{
-margin-top:3rem;
+/* FEATURED */
+
+.section-title{
+text-align:center;
+margin:80px 0 20px;
+font-size:2rem;
+font-weight:300;
+background:linear-gradient(135deg,var(--color-primario),#A0AEC0);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-.nav a{
-margin:.3rem;
-padding:.6rem 1.4rem;
-border-radius:999px;
-background:#111417;
-border:1px solid #2A3439;
+.videos-grid{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+padding:20px;
+}
+
+.video-card{
+background:rgba(17,20,23,.6);
+border-radius:20px;
+border:1px solid var(--color-borde);
+overflow:hidden;
+transition:var(--transition-smooth);
+}
+
+.video-card:hover{
+transform:translateY(-10px);
+border-color:var(--color-primario);
+box-shadow:0 30px 60px -20px rgba(154,165,177,.4);
+}
+
+.video-wrapper{
+position:relative;
+padding-bottom:56%;
+}
+
+.video-wrapper iframe{
+position:absolute;
+width:100%;
+height:100%;
+border:none;
+}
+
+.video-info{
+padding:18px;
+}
+
+.video-titulo{
+font-size:1.1rem;
+margin-bottom:6px;
+}
+
+.video-descripcion{
+font-size:.9rem;
+color:var(--color-texto-secundario);
+}
+
+/* STATS */
+
+.stats{
+max-width:1000px;
+margin:80px auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+text-align:center;
+}
+
+.stat-item{
+padding:25px;
+border-radius:20px;
+border:1px solid var(--color-borde);
+background:rgba(17,20,23,.5);
+transition:var(--transition-smooth);
+}
+
+.stat-item:hover{
+transform:translateY(-10px);
+border-color:var(--color-primario);
+}
+
+.stat-numero{
+font-size:2.5rem;
+margin-bottom:10px;
+}
+
+.stat-label{
+color:var(--color-texto-secundario);
+font-size:.9rem;
+letter-spacing:2px;
+}
+
+/* FLOAT BUTTON */
+
+.float-discord{
+position:fixed;
+bottom:30px;
+right:30px;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(17,20,23,.8);
+border:1px solid var(--color-borde);
 text-decoration:none;
-color:#F0F4FA;
+font-size:24px;
+color:white;
+transition:var(--transition-smooth);
+}
+
+.float-discord:hover{
+background:var(--color-primario);
+transform:scale(1.1);
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.hero{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+.hero-left{
+order:2;
+}
+
+.hero-right{
+order:1;
+margin-bottom:40px;
+}
+
+.videos-grid{
+grid-template-columns:1fr;
+}
+
+.stats{
+grid-template-columns:1fr;
+}
+
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1;transform:translateY(0)}
 }
 
 </style>
@@ -77,33 +334,113 @@ color:#F0F4FA;
 
 <body>
 
-<div class="container">
+<div class="background"></div>
+<div class="gradient-sphere"></div>
+<div class="gradient-sphere-2"></div>
 
-<h1>Information</h1>
+<!-- HERO -->
 
-<div class="about">
+<section class="hero">
 
-I’m Relighted, a Roblox Studio animator focused on cinematic animation and action scenes.
-I mainly use Blender and Roblox Studio to create dynamic animation sequences.
+<div class="hero-left">
+
+<h1>Relighted</h1>
+
+<div class="specialty-badge">
+<span>● Roblox Studio</span>
+<span>● 1+ Year Experience</span>
+<span>● Blender</span>
+</div>
+
+<p class="subtitle">
+Relighted, a animator at Roblox Studio, using blender to deliver quality and efficiency to my clients.
+Enter the discord server to contact me.
+</p>
+
+<div class="button-row">
+
+<a href="https://discord.gg/x33ykcPqSY" target="_blank" class="discord-card">
+Discord
+</a>
+
+<a href="/animations" class="discord-card">
+Animations
+</a>
+
+<a href="/information" class="discord-card">
+Info
+</a>
 
 </div>
 
-<div class="links">
-
-<a href="https://youtube.com/@xRelighted" target="_blank">YouTube</a>
-<a href="https://www.roblox.com/users/1696329236/profile" target="_blank">Roblox</a>
-<a href="https://discord.gg/x33ykcPqSY" target="_blank">Discord</a>
-
 </div>
 
-<div class="nav">
+<div class="hero-right">
 
-<a href="/">Home</a>
-<a href="/animations">Animations</a>
-
+<div class="hero-image">
+<img src="https://i.imgur.com/pvvtE36.png">
 </div>
 
 </div>
+
+</section>
+
+<h2 class="section-title">Featured Work</h2>
+
+<div class="videos-grid">
+
+<div class="video-card">
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/kR0Cv6524mM"></iframe>
+</div>
+<div class="video-info">
+<div class="video-titulo">Nagi Goal vs U20</div>
+<div class="video-descripcion">Instantly kill it..</div>
+</div>
+</div>
+
+<div class="video-card">
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/TB9BlAUvUa8"></iframe>
+</div>
+<div class="video-info">
+<div class="video-titulo">Two Gun Volley</div>
+<div class="video-descripcion">A new invention here and now...</div>
+</div>
+</div>
+
+<div class="video-card">
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/3zpqruFkSgU"></iframe>
+</div>
+<div class="video-info">
+<div class="video-titulo">Half-Baked</div>
+<div class="video-descripcion">Huh?! Itoshi Sae?..</div>
+</div>
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat-item">
+<div class="stat-numero">⭐</div>
+<div class="stat-label">Efficiency</div>
+</div>
+
+<div class="stat-item">
+<div class="stat-numero">🔝</div>
+<div class="stat-label">Quality</div>
+</div>
+
+<div class="stat-item">
+<div class="stat-numero">💨</div>
+<div class="stat-label">Fast</div>
+</div>
+
+</div>
+
+<a href="https://discord.gg/x33ykcPqSY" target="_blank" class="float-discord">💬</a>
 
 </body>
 </html>
