@@ -145,6 +145,11 @@ box-shadow:0 35px 60px -20px rgba(154,165,177,.35);
 </style>
 </head>
 <body>
+<!-- Asegurar que la página siempre inicie arriba del todo -->
+<script>
+  window.history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+</script>
 
 <main class="page">
 
@@ -250,6 +255,25 @@ if(animations.length===0){
 grid.innerHTML='<p style="color:var(--color-texto-secundario)">No animations yet.</p>';
 }
 
+</script>
+
+<!-- Efecto de resplandor que sigue al cursor (igual que en el index principal) -->
+<script>
+  const glow = document.createElement("div");
+  glow.style.position = "fixed";
+  glow.style.width = "300px";
+  glow.style.height = "300px";
+  glow.style.pointerEvents = "none";
+  glow.style.borderRadius = "50%";
+  glow.style.background = "radial-gradient(circle, rgba(154,165,177,.15), transparent 70%)";
+  glow.style.transform = "translate(-50%,-50%)";
+  glow.style.zIndex = "-1";
+  document.body.appendChild(glow);
+
+  document.addEventListener("mousemove", e => {
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
+  });
 </script>
 
 </body>
