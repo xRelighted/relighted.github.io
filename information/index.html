@@ -206,6 +206,11 @@ body{
 </head>
 
 <body>
+<!-- Asegurar que la página siempre inicie arriba del todo -->
+<script>
+  window.history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+</script>
 
 <div class="bg"></div>
 
@@ -253,6 +258,25 @@ body{
 </div>
 
 <a href="/secret" class="secret">?</a>
+
+<!-- Efecto de resplandor que sigue al cursor (igual que en el index principal) -->
+<script>
+  const glow = document.createElement("div");
+  glow.style.position = "fixed";
+  glow.style.width = "300px";
+  glow.style.height = "300px";
+  glow.style.pointerEvents = "none";
+  glow.style.borderRadius = "50%";
+  glow.style.background = "radial-gradient(circle, rgba(154,165,177,.15), transparent 70%)";
+  glow.style.transform = "translate(-50%,-50%)";
+  glow.style.zIndex = "-1";
+  document.body.appendChild(glow);
+
+  document.addEventListener("mousemove", e => {
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
+  });
+</script>
 
 </body>
 </html>
